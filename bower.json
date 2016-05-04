@@ -1,0 +1,10 @@
+{
+  "name": "seng3150",
+  "version": "1.0.0",
+  "main": "app.js",
+  "private": true,
+  "ignore": [],
+  "dependencies": {
+    "angular": "^1.5.5"
+  }
+}

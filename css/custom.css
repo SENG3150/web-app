@@ -1,0 +1,59 @@
+/* Generic custom styles here */
+
+.content {
+    margin-top: 70px;
+}
+
+.dt-buttons {
+    float: right;
+}
+
+.dt-buttons .btn {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.input-daterange input[type="text"],
+.input-datetimepicker input[type="text"] {
+    text-align: center;
+}
+
+.datetimepicker-dropdown-menu {
+    top: unset;
+    left: unset;
+}
+
+.highchart {
+    width: 100%;
+}
+
+.table-middle.table > tbody > tr > td,
+.table > tbody.table-middle > tr > td,
+.table > tbody > tr.table-middle > td,
+.table > tbody > tr > td.table-middle,
+.table-middle.table > thead > tr > th,
+.table > thead.table-middle > tr > th,
+.table > thead > tr.table-middle > th,
+.table > thead > tr > th.table-middle {
+    vertical-align: middle;
+}
+
+/* lg - larger desktops */
+@media (min-width: 1200px) {
+}
+
+/* md - horizontal tablets, smaller desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* sm - vertical tablets */
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* xs - mobile phones */
+@media (max-width: 768px) {
+
+}

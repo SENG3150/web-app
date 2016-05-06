@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app="joy-global">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title page-title>Joy Global</title>
+
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/dist/app.css">
+
+    <base href="/">
+</head>
+<body class="{{$state.current.data.specialClass}}">
+<div ui-view></div>
+
+<script src="/dist/core.js"></script>
+<script src="/dist/app.js" defer></script>
+<script src="/dist/templates.js" defer></script>
+</body>
+</html>

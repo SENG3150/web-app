@@ -149,4 +149,4 @@ gulp.task('env-production', function () {
 		.pipe(gulp.dest(config.destination));
 });
 
-gulp.task('default', ['template-cache', 'concat-core', 'concat-app', 'concat-css', 'env-production']);
+gulp.task('default', ['template-cache', 'concat-core', 'env-production', 'concat-app', 'concat-css']);

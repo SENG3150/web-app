@@ -16,6 +16,7 @@ angular
 
 		$scope.login = function () {
 			if ($scope.validate() == true) {
+				toastr.info('Attempting to login.');
 				var credentials = {
 					username: $scope.username,
 					password: $scope.password,
@@ -50,7 +51,7 @@ angular
 		};
 
 		$scope.validate = function () {
-			if ($scope.username == '') {
+			if ($scope.username == '' || $scope.username == null) {
 				toastr.clear();
 				toastr.error('You must provide your Username.', 'Error');
 

@@ -18,9 +18,9 @@ The application includes [Gulp](http://gulpjs.com) and a gulpfile which will min
 # Logging In
 You can use the following credentials to login successfully.
 
-| Type                 | Username      | Password      |
-|----------------------|---------------|---------------|
-| Administrator        | administrator | administrator |
-| Domain Expert        | domainexpert  | domainexpert  |
-| Technician           | technician    | technician    |
-| Temporary Technician | temp          | technician    |
+|                      | Type          | Username      | Password      |
+|----------------------|---------------|---------------|---------------|
+| Administrator        | administrator | administrator | administrator |
+| Domain Expert        | domainexpert  | domainexpert  | domainexpert  |
+| Technician           | technician    | technician    | technician    |
+| Temporary Technician | technician    | temp          | technician    |

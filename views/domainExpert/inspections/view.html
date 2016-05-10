@@ -1,3 +1,66 @@
 <h1>Inspection</h1>
 
+<table class="table">
+    <thead>
+    <tr>
+        <th>Time Created</th>
+        <th>Time Scheduled</th>
+        <th>Time Stared</th>
+        <th>Time Completed</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td ng-if="inspection.timeCreated != null">
+            {{ moment(inspection.timeCreated).format("dddd, MMMM Do YYYY, h:mm:ss a") }}
+        </td>
+        <td ng-if="inspection.timeCreated == null">
+            Not Created
+        </td>
+
+        <td ng-if="inspection.timeScheduled != null">
+            {{ moment(inspection.timeScheduled).format("dddd, MMMM Do YYYY, h:mm:ss a") }}
+        </td>
+        <td ng-if="inspection.timeScheduled == null">
+            No Schedule
+        </td>
+
+        <td ng-if="inspection.timeStarted != null">
+            {{ moment(inspection.timeStarted).format("dddd, MMMM Do YYYY, h:mm:ss a") }}
+        </td>
+        <td ng-if="inspection.timeStarted == null">
+            Not Started
+        </td>
+
+        <td ng-if="inspection.timeCompleted != null">
+            {{ moment(inspection.timeCompleted).format("dddd, MMMM Do YYYY, h:mm:ss a") }}
+        </td>
+        <td ng-if="inspection.timeCompleted == null">
+            Not Completed
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>Major Assemblies</h3>
+
+<div ng-repeat="majorAssembly in inspection.majorAssemblies">
+    <h3>{{majorAssembly.id}}</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Comment</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="subAssembly in majorAssembly.subAssemblies">
+            <td>{{subAssembly.id}}</td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 <pre>{{ inspection | json }}</pre>

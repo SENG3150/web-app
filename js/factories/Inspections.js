@@ -1,5 +1,5 @@
 angular
 	.module('joy-global')
-	.factory('Inspections', ['Restangular', function (Restangular) {
-		return Restangular.service('inspections');
+	.factory('Inspections', ['APIService', function (APIService) {
+		return APIService.service('inspections');
 	}]);

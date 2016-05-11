@@ -42,25 +42,51 @@
     </tbody>
 </table>
 
-<h3>Major Assemblies</h3>
-
-<div ng-repeat="majorAssembly in inspection.majorAssemblies">
-    <h3>{{majorAssembly.id}}</h3>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Comment</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="subAssembly in majorAssembly.subAssemblies">
-            <td>{{subAssembly.id}}</td>
-            <td></td>
-            <td></td>
-        </tr>
-        </tbody>
-    </table>
+<h1>Inspection Comments</h1>
+<div class="panel panel-success" ng-repeat="comment in inspection.comments">
+    <div class="panel-heading">
+        By: {{comment.author.name}}
+        <div class="panel-title pull-right">
+            Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY, h:mm:ss a")}}
+        </div>
+    </div>
+    <div class="panel-body">{{comment.text}}</div>
 </div>
-<pre>{{ inspection | json }}</pre>
+
+<h1>Major Assemblies</h1>
+
+<div class="panel panel-primary" ng-repeat="majorAssembly in inspection.majorAssemblies">
+    <div class="panel-heading">{{majorAssembly.majorAssembly.name}}</div>
+    <div class="panel-body">
+
+        <div class="panel panel-success" ng-repeat="comment in majorAssembly.comments">
+            <div class="panel-heading">
+                By: {{comment.author.name}}
+                <div class="panel-title pull-right">
+                    Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY, h:mm:ss a")}}
+                </div>
+            </div>
+            <div class="panel-body">{{comment.text}}</div>
+        </div>
+
+        <div class="panel panel-info" ng-repeat="subAssembly in majorAssembly.subAssemblies">
+            <div class="panel-heading">{{subAssembly.subAssembly.name}}</div>
+            <div class="panel-body">
+
+                <div class="panel panel-success" ng-repeat="comment in subAssembly.comments">
+                    <div class="panel-heading">
+                        By: {{comment.author.name}}
+                        <div class="panel-title pull-right">
+                            Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY, h:mm:ss a")}}
+                        </div>
+                    </div>
+                    <div class="panel-body">{{comment.text}}</div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<pre> {{inspection | json }}</pre>

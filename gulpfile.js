@@ -154,16 +154,16 @@ gulp.task('env-production', function () {
 		.pipe(gulp.dest(config.destination));
 });
 
+gulp.task('watcher', function() {
+	gulp.watch(templateCacheConfig.source, ['template-cache']);
+	gulp.watch(concatCoreConfig.source, ['concat-core']);
+	gulp.watch(concatAppConfig.source, ['concat-app']);
+	gulp.watch(concatCSSConfig.source, ['concat-css']);
+});
+
 function onError(err) {
 	console.log(err);
 	this.emit('end');
 }
 
-
-gulp.task('default', ['template-cache', 'concat-core', 'env-production', 'concat-app', 'concat-css']);
-
-gulp.watch(templateCacheConfig.source, ['template-cache']);
-gulp.watch(concatCoreConfig.source, ['concat-core']);
-gulp.watch(concatAppConfig.source, ['concat-app']);
-gulp.watch(concatCSSConfig.source, ['concat-css']);
-
+gulp.task('default', ['template-cache', 'concat-core', 'env-production', 'concat-app', 'concat-css', 'watcher']);

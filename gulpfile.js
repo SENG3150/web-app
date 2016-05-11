@@ -1,3 +1,4 @@
+var Promise = require('es6-promise').Promise;
 var gulp = require('gulp');
 var templateCache = require('gulp-angular-templatecache');
 var concat = require('gulp-concat');

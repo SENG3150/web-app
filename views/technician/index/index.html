@@ -1,9 +1,29 @@
 <ul class="nav nav-tabs">
     <li role="presentation" class="active"><a href="#">Machine List</a></li>
     <li role="presentation"><a href="#">Inspections</a></li>
-
 </ul>
-<h1>Select Machine</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Machine ID</th>
+        <th>Machine Name</th>
+        <th>Model</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="machine in machines">
+        <td>{{ machine.id }}</td>
+        <td>{{machine.name}}</td>
+        <td> {{machine.model.name}}</td>
+        <td>
+            <a ui-sref="technician-machines-view({ id: machine.id })" class="btn btn-primary btn-block">View</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<!--<h1>Select Machine</h1>
     <select class="form-control" ng-model="machine"
                 ng-options="model.name for model in machines"></select>
 <hr/>
@@ -33,4 +53,7 @@
 </div>
 
 </div>
-<!--<pre>{{ machine | json }}</pre>-->
+<pre>{{ machine | json }}</pre>-->
+
+
+

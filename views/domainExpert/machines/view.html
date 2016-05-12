@@ -1,10 +1,11 @@
 <ul class="nav nav-tabs">
-    <li role="presentation" class="active"><a href="#">Machine List</a></li>
-    <li role="presentation"><a href="#">Inspections</a></li>
+    <li role="presentation" class="active"><a ui-sref="domainExpert-machines-index">Machine List</a></li>
+    <li role="presentation"><a ui-sref="domainExpert-inspections-index">Inspections</a></li>
 </ul>
 
 <div class="panel panel-default">
     <table class="table">
+        <hr/>
         <thead>
         <th>Machine Name</th>
         <th>Model Name</th>
@@ -16,13 +17,13 @@
         </tr>
         </tbody>
     </table>
-
+    <h3>Assemblies</h3>
     <div ng-app id="ng-app" class="panel panel-default" ng-repeat="majorAssembly in machine.model.majorAssemblies">
         <div class="panel-heading"><a href="#" ng-model="collapsed" ng-click="collapsed=!collapsed">{{majorAssembly.name}}</a>
         </div>
 
         <div ng-show="collapsed" class="panel-body">
-            <table>
+            <table class="table">
                 <thead>
                 <th>Sub Assembly ID</th>
                 <th>Sub Assembly Name</th>
@@ -41,3 +42,5 @@
         </div>
     </div>
 </div>
+
+<pre>{{machine | json}}</pre>

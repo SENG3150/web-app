@@ -1,13 +1,11 @@
 {
   "private": true,
-  "scripts": {
-    "postinstall": "node node_modules/bower/bin/bower install"
-  },
   "engines": {
     "node": "x.x.x"
   },
   "dependencies": {
     "bower": "^1.7.9",
+    "es6-promise": "^3.1.2",
     "gulp": "~3.9.1",
     "gulp-angular-templatecache": "~1.8.0",
     "gulp-concat": "~2.6.0",

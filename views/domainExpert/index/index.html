@@ -1,26 +1,2 @@
-
-<a ui-sref="domainExpert-inspections" class="btn btn-primary btn-block">Inspections</a>
-<a ui-sref="domainExpert-machines" class="btn btn-primary btn-block">Machines</a>
-
-<h1>Inspections</h1>
-
-<table class="table">
-    <thead>
-    <tr>
-        <th>Inspection ID</th>
-        <th>Time</th>
-        <th>View</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="inspection in inspections">
-        <td>{{ inspection.id }}</td>
-        <td>{{ moment(inspection.timeScheduled).format("dddd, MMMM Do YYYY, h:mm:ss a") }}</td>
-        <td>
-            <a ui-sref="domainExpert-inspections-view({ id: inspection.id })" class="btn btn-primary btn-block">View</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<pre>{{ inspections | json }}</pre>
+<a ui-sref="domainExpert-inspections-index" class="btn btn-primary btn-block">Inspections</a>
+<a ui-sref="domainExpert-machines-index" class="btn btn-primary btn-block">Machines</a>

@@ -3,47 +3,41 @@
     <li role="presentation"><a href="#">Inspections</a></li>
 </ul>
 
-
-<div class="panel panel-default" >
-
-<table class="table">
-    <thead>
+<div class="panel panel-default">
+    <table class="table">
+        <thead>
         <th>Machine Name</th>
         <th>Model Name</th>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         <tr>
             <td>{{machine.name}}</td>
             <td>{{machine.model.name}}</td>
         </tr>
-     </tbody>
-</table>
+        </tbody>
+    </table>
 
+    <div ng-app id="ng-app" class="panel panel-default" ng-repeat="majorAssembly in machine.model.majorAssemblies">
+        <div class="panel-heading"><a href="#" ng-model="collapsed" ng-click="collapsed=!collapsed">{{majorAssembly.name}}</a>
+        </div>
 
-
-
-<div ng-app id="ng-app" class="panel panel-default" ng-repeat="majorAssembly in machine.model.majorAssemblies">
-     <div class="panel-heading"><a href="#" ng-model="collapsed" ng-click="collapsed=!collapsed">{{majorAssembly.name}}</a></div>
-
-    <div ng-show="collapsed" class="panel-body">
-        <table>
-            <thead>
+        <div ng-show="collapsed" class="panel-body">
+            <table>
+                <thead>
                 <th>Sub Assembly ID</th>
                 <th>Sub Assembly Name</th>
                 <th>Last Inspection</th>
                 <th>Next Inspection</th>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 <tr ng-repeat="subAssembly in majorAssembly.subAssemblies">
                     <td>{{subAssembly.id}}</td>
                     <td>{{subAssembly.name}}</td>
                     <td>Coming Soon</td>
                     <td>Coming Soon</td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
-
-</div>
-
 </div>

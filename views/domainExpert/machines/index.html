@@ -1,0 +1,59 @@
+<ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="#">Machine List</a></li>
+    <li role="presentation"><a href="#">Inspections</a></li>
+</ul>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Machine ID</th>
+        <th>Machine Name</th>
+        <th>Model</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="machine in machines">
+        <td>{{ machine.id }}</td>
+        <td>{{machine.name}}</td>
+        <td> {{machine.model.name}}</td>
+        <td>
+            <a ui-sref="domainExpert-machines-view({ id: machine.id })" class="btn btn-primary btn-block">View</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<!--<h1>Select Machine</h1>
+    <select class="form-control" ng-model="machine"
+                ng-options="model.name for model in machines"></select>
+<hr/>
+<div class="panel panel-default" >
+
+<table class="table">
+    <thead>
+        <th>Machine Name</th>
+        <th>Model Name</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{machine.name}}</td>
+            <td>{{machine.model.name}}</td>
+        </tr>
+     </tbody>
+</table>
+
+
+
+
+<div ng-app id="ng-app" class="panel panel-default" ng-repeat="majorAssembly in machine.model.majorAssemblies">
+     <div class="panel-heading"><a href="#" ng-model="collapsed" ng-click="collapsed=!collapsed">{{majorAssembly.name}}</a></div>
+
+    <div ng-show="collapsed" class="panel-body" ng-repeat="subAssembly in majorAssembly.subAssemblies" >{{subAssembly.name}}</div>
+
+</div>
+
+</div>
+<pre>{{ machine | json }}</pre>-->
+
+
+

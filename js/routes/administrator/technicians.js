@@ -1,0 +1,38 @@
+angular
+	.module('joy-global')
+	.config(['$stateProvider', function ($stateProvider) {
+		$stateProvider
+			.state('administrator-technicians-index', {
+				parent: 'administrator',
+				url: '/technicians',
+				templateUrl: 'views/administrator/technicians/index.html',
+				controller: 'AdministratorTechniciansControllerIndex',
+				resolve: {
+					loggedIn: ['AuthService', function (AuthService) {
+						return AuthService.checkPermissions(true);
+					}]
+				}
+			})
+			.state('administrator-technicians-create', {
+				parent: 'administrator',
+				url: '/technicians/create',
+				templateUrl: 'views/administrator/technicians/create.html',
+				controller: 'AdministratorTechniciansControllerCreate',
+				resolve: {
+					loggedIn: ['AuthService', function (AuthService) {
+						return AuthService.checkPermissions(true);
+					}]
+				}
+			})
+			.state('administrator-technicians-view', {
+				parent: 'administrator',
+				url: '/technicians/:id',
+				templateUrl: 'views/administrator/technicians/view.html',
+				controller: 'AdministratorTechniciansControllerView',
+				resolve: {
+					loggedIn: ['AuthService', function (AuthService) {
+						return AuthService.checkPermissions(true);
+					}]
+				}
+			});
+	}]);

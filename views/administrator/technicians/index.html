@@ -1,1 +1,26 @@
-Technicians Index
+<table class="table">
+    <thead>
+    <tr>
+        <th>Technician ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Temporary</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="technician in technicians">
+        <td>{{ technician.id }}</td>
+        <td>{{ technician.name }}</td>
+        <td>{{ technician.email }}</td>
+        <td><span ng-if="technician.temporary == true">Yes</span>
+            <span ng-if="technician.temporary == false">No</span></td>
+        <td>
+            <a ui-sref="administrator-technicians-view({ id: technician.id })"
+               class="btn btn-primary btn-block">View</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<pre>{{ technicians | json }}</pre>

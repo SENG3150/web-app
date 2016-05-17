@@ -1,1 +1,23 @@
 Domain Experts Index
+<table class="table">
+    <thead>
+        <tr>
+            <th>Domain Expert ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>View</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="domainExpert in domainExperts">
+            <td>{{ domainExpert.id }}</td>
+            <td>{{ domainExpert.name }}</td>
+            <td>{{ domainExpert.email }}</td>
+            <td>
+                <a ui-sref="administrator-domainExperts-view({ id: domainExpert.id })" class="btn btn-primary btn-block">View</a>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+
+<pre>{{ domainExperts | json }}</pre>

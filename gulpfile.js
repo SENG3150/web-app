@@ -168,3 +168,5 @@ function onError(err) {
 }
 
 gulp.task('default', ['template-cache', 'concat-core', 'env-production', 'concat-app', 'concat-css', 'watcher']);
+gulp.task('development', ['template-cache', 'concat-core', 'env-development', 'concat-app', 'concat-css', 'watcher']);
+gulp.task('deployment', ['template-cache', 'concat-core', 'env-production', 'concat-app', 'concat-css']);

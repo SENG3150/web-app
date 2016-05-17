@@ -5,6 +5,8 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var cssnano = require('gulp-cssnano');
 var ngConstant = require('gulp-ng-constant');
+var less = require('gulp-less');
+var rename = require('gulp-rename');
 
 var templateCacheConfig = {
 	source: [
@@ -119,6 +121,27 @@ gulp.task('concat-css', function () {
 		.pipe(gulp.dest(config.destination));
 });
 
+var themeConfig = {
+	source: [
+		'theme/less/style.less'
+	],
+	watch: [
+		'theme/less/*.less'
+	],
+	destination: 'dist/',
+	output: 'theme.css'
+};
+
+gulp.task('build-theme', function () {
+	var config = themeConfig;
+
+	return gulp.src(config.source)
+		.pipe(less())
+		.pipe(cssnano())
+		.pipe(rename(config.output))
+		.pipe(gulp.dest(config.destination));
+});
+
 gulp.task('env-development', function () {
 	var config = {
 		space: '  ',
@@ -160,6 +183,7 @@ gulp.task('watcher', function() {
 	gulp.watch(concatCoreConfig.source, ['concat-core']);
 	gulp.watch(concatAppConfig.source, ['concat-app']);
 	gulp.watch(concatCSSConfig.source, ['concat-css']);
+	gulp.watch(themeConfig.watch, ['build-theme']);
 });
 
 function onError(err) {
@@ -167,6 +191,6 @@ function onError(err) {
 	this.emit('end');
 }
 
-gulp.task('default', ['template-cache', 'concat-core', 'env-production', 'concat-app', 'concat-css', 'watcher']);
-gulp.task('development', ['template-cache', 'concat-core', 'env-development', 'concat-app', 'concat-css', 'watcher']);
-gulp.task('deployment', ['template-cache', 'concat-core', 'env-production', 'concat-app', 'concat-css']);
+gulp.task('default', ['template-cache', 'concat-core', 'env-production', 'concat-app', 'concat-css', 'build-theme', 'watcher']);
+gulp.task('development', ['template-cache', 'concat-core', 'env-development', 'concat-app', 'concat-css', 'build-theme', 'watcher']);
+gulp.task('deployment', ['template-cache', 'concat-core', 'env-production', 'concat-app', 'concat-css', 'build-theme']);

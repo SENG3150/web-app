@@ -70,6 +70,24 @@ gulp.task('concat-core', function () {
 		.pipe(gulp.dest(config.destination));
 });
 
+var concatPluginsConfig = {
+	source: [
+		// Inspinia
+		'js/plugins/inspinia/*.js'
+	],
+	destination: 'dist/',
+	output: 'plugins.js'
+};
+
+gulp.task('concat-plugins', function () {
+	var config = concatPluginsConfig;
+
+	return gulp.src(config.source)
+		.pipe(concat(config.output))
+		.pipe(uglify())
+		.pipe(gulp.dest(config.destination));
+});
+
 var concatAppConfig = {
 	source: [
 		'js/app.js',
@@ -191,6 +209,6 @@ function onError(err) {
 	this.emit('end');
 }
 
-gulp.task('default', ['template-cache', 'concat-core', 'env-production', 'concat-app', 'concat-css', 'build-theme', 'watcher']);
-gulp.task('development', ['template-cache', 'concat-core', 'env-development', 'concat-app', 'concat-css', 'build-theme', 'watcher']);
-gulp.task('deployment', ['template-cache', 'concat-core', 'env-production', 'concat-app', 'concat-css', 'build-theme']);
+gulp.task('default', ['template-cache', 'concat-core', 'env-production', 'concat-app', 'concat-plugins', 'concat-css', 'build-theme', 'watcher']);
+gulp.task('development', ['template-cache', 'concat-core', 'env-development', 'concat-app', 'concat-plugins', 'concat-css', 'build-theme', 'watcher']);
+gulp.task('deployment', ['template-cache', 'concat-core', 'env-production', 'concat-app', 'concat-plugins', 'concat-css', 'build-theme']);

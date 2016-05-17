@@ -1,13 +1,40 @@
-<ul class="nav navbar-nav">
-    <li class="active">
-        <a ui-sref="index">Home</a>
-    </li>
-</ul>
-<ul class="nav navbar-nav navbar-right">
-    <li>
-        <p class="navbar-text">Signed in as {{ user.primary.name }}</p>
-    </li>
-    <li>
-        <a ui-sref="auth.logout">Log Out</a>
-    </li>
-</ul>
+<li class="nav-header">
+    <div class="profile-element text-center text-white">
+        <img alt="Joy Global Logo" class="img-responsive center-block logo-img"
+             src="/img/logo.png">
+
+        <div class="block m-t">
+            <strong class="font-bold">
+                {{ user.primary.name }}
+            </strong>
+        </div>
+    </div>
+    <div class="logo-element">
+        JG
+    </div>
+</li>
+
+<li ui-sref-active="active">
+    <a ui-sref="domainExpert-index">
+        <i class="fa fa-fw fa-th-large"></i>
+        <span class="nav-label">
+            Home
+        </span>
+    </a>
+</li>
+<li ui-sref-active="active">
+    <a ui-sref="domainExpert-inspections-index">
+        <i class="fa fa-fw fa-wrench"></i>
+        <span class="nav-label">
+            Inspections
+        </span>
+    </a>
+</li>
+<li ui-sref-active="active">
+    <a ui-sref="domainExpert-machines-index">
+        <i class="fa fa-fw fa-car"></i>
+        <span class="nav-label">
+            Machines
+        </span>
+    </a>
+</li>

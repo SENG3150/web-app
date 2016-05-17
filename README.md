@@ -13,7 +13,7 @@ Install [NodeJS](https://nodejs.org/en/) and then run the following commands in 
 	npm install -g gulp-cli
 
 # Dependencies
-After cloning the repository go into the directory and run this command in the terminal:
+After cloning the repository go into the directory and run the following commands in the terminal:
 	
 	npm install
 	bower install

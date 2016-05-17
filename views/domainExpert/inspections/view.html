@@ -58,37 +58,55 @@
 </div>
 
 <h1>Major Assemblies</h1>
-<div ng-app id="ng-app" class="panel panel-info" ng-repeat="majorAssembly in inspection.majorAssemblies">
-    <div class="panel-heading"><a href="#" ng-model="collapsed" ng-click="collapsed=!collapsed">{{majorAssembly.majorAssembly.name}}</a>
+
+<!-- major assembly panel -->
+<div ng-app id="ng-app" class="panel panel-primary" ng-repeat="majorAssembly in inspection.majorAssemblies">
+    <div class="panel-heading">
+        <a href="#" ng-model="collapsed" style="color:white" ng-click="collapsed=!collapsed">
+            {{majorAssembly.majorAssembly.name}}
+        </a>
     </div>
 
     <div ng-show="collapsed" class="panel-body">
 
-        <div class="panel panel-success" ng-repeat="comment in majorAssembly.comments">
+        <!-- major assembly comment -->
+        <div ng-app id="ng-majorComment" class="panel panel-success" ng-repeat="comment in majorAssembly.comments">
             <div class="panel-heading">
-                By: {{comment.author.name}}
-                <div class="panel-title pull-right">
-                    Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY, h:mm:ss a")}}
-                </div>
+                <a href="#" ng-model="collapsed" class="text-success" ng-click="collapsedComment=!collapsedComment">
+                    Comment by: {{comment.author.name}}
+                    <div class="panel-title pull-right">
+                        Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY, h:mm:ss a")}}
+                    </div>
+                </a>
             </div>
-            <div class="panel-body">{{comment.text}}</div>
+            <div ng-show="collapsedComment" class="panel-body">{{comment.text}}</div>
         </div>
 
-        <div class="panel panel-info" ng-repeat="subAssembly in majorAssembly.subAssemblies">
-            <div class="panel-heading">{{subAssembly.subAssembly.name}}</div>
-            <div class="panel-body">
 
-                <div class="panel panel-success" ng-repeat="comment in subAssembly.comments">
+        <!-- sub assembly panel -->
+        <div ng-app id="ng-subAssemly" class="panel panel-info" ng-repeat="subAssembly in majorAssembly.subAssemblies">
+            <div class="panel-heading">
+                <a href="#" ng-model="collapsed" ng-click="collapsedSubAssembly=!collapsedSubAssembly">
+                    {{subAssembly.subAssembly.name}}
+                </a>
+            </div>
+
+            <!-- sub assembly comment -->
+            <div ng-show="collapsedSubAssembly" class="panel-body">
+                <div ng-app id="ng-subComment" class="panel panel-success" ng-repeat="comment in subAssembly.comments">
                     <div class="panel-heading">
-                        By: {{comment.author.name}}
-                        <div class="panel-title pull-right">
-                            Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY, h:mm:ss a")}}
-                        </div>
+                        <a href="#" ng-model="collapsed" class="text-success" ng-click="collapsedComment=!collapsedComment">
+                            Comment by: {{comment.author.name}}
+                            <div class="panel-title pull-right">
+                                Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY, h:mm:ss a")}}
+                            </div>
+                        </a>
                     </div>
-                    <div class="panel-body">{{comment.text}}</div>
+                    <div ng-show="collapsedComment" class="panel-body">{{comment.text}}</div>
                 </div>
 
             </div>
+
         </div>
 
     </div>

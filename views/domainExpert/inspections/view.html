@@ -58,10 +58,11 @@
 </div>
 
 <h1>Major Assemblies</h1>
+<div ng-app id="ng-app" class="panel panel-info" ng-repeat="majorAssembly in inspection.majorAssemblies">
+    <div class="panel-heading"><a href="#" ng-model="collapsed" ng-click="collapsed=!collapsed">{{majorAssembly.majorAssembly.name}}</a>
+    </div>
 
-<div class="panel panel-primary" ng-repeat="majorAssembly in inspection.majorAssemblies">
-    <div class="panel-heading">{{majorAssembly.majorAssembly.name}}</div>
-    <div class="panel-body">
+    <div ng-show="collapsed" class="panel-body">
 
         <div class="panel panel-success" ng-repeat="comment in majorAssembly.comments">
             <div class="panel-heading">
@@ -92,3 +93,5 @@
 
     </div>
 </div>
+
+<pre>{{ inspection | json }}</pre>

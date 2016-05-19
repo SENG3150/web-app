@@ -57,7 +57,7 @@
     <div class="panel-body">{{comment.text}}</div>
 </div>
 
-<h1>Major Assemblies</h1>
+<h1>Inspection Results</h1>
 
 <!-- major assembly panel -->
 <div ng-app id="ng-app" class="panel panel-primary" ng-repeat="majorAssembly in inspection.majorAssemblies">
@@ -72,7 +72,8 @@
         <!-- major assembly comment -->
         <div ng-app id="ng-majorComment" class="panel panel-success" ng-repeat="comment in majorAssembly.comments">
             <div class="panel-heading">
-                <a href="#" ng-model="collapsed" class="text-success" style="color:white" ng-click="collapsedComment=!collapsedComment">
+                <a href="#" ng-model="collapsed" class="text-success" style="color:white"
+                   ng-click="collapsedComment=!collapsedComment">
                     Comment by: {{comment.author.name}}
                     <div class="panel-title pull-right">
                         Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY, h:mm:ss a")}}
@@ -89,19 +90,220 @@
         <!-- sub assembly panel -->
         <div ng-app id="ng-subAssemly" class="panel panel-info" ng-repeat="subAssembly in majorAssembly.subAssemblies">
             <div class="panel-heading">
-                <a href="#" ng-model="collapsed" style="color:white" ng-click="collapsedSubAssembly=!collapsedSubAssembly">
+                <a href="#" ng-model="collapsed" style="color:white"
+                   ng-click="collapsedSubAssembly=!collapsedSubAssembly">
                     {{subAssembly.subAssembly.name}}
                 </a>
             </div>
 
-            <!-- sub assembly comment -->
+
             <div ng-show="collapsedSubAssembly" class="panel-body">
+                <!-- Machine General Test -->
+                <div ng-if="subAssembly.machineGeneralTest != null">
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">Machine General Test</div>
+                        <div class="panel-body">
+                            <table class="table">
+                                <thead>
+                                <th>Test Type</th>
+                                <th> Doc Link</th>
+                                </thead>
+                                <tbody>
+                                <td>{{subAssembly.machineGeneralTest.testType}}</td>
+                                <td>{{subAssembly.machineGeneralTest.docLink}}</td>
+                                </tbody>
+                            </table>
+                            <hr/>
+                            <h3>Action Item</h3>
+                            <!--Action Item-->
+                            <table class="table">
+                                <thead>
+                                <th>Status</th>
+                                <th>Issue</th>
+                                <th>Action</th>
+                                <th>Technician</th>
+                                <th>Time Actioned</th>
+                                </thead>
+                                <tbody>
+                                <td>{{subAssembly.machineGeneralTest.actionItem.status}}</td>
+                                <td>{{subAssembly.machineGeneralTest.actionItem.issue}}</td>
+                                <td>{{subAssembly.machineGeneralTest.actionItem.action}}</td>
+                                <td>{{subAssembly.machineGeneralTest.actionItem.technician.name}}</td>
+                                <td>{{moment(subAssembly.machineGeneralTest.actionItem.timeActioned).format("dddd, MMMM
+                                    Do YYYY, h:mm:ss a")}}
+                                </td>
+                                </tbody>
+                            </table>
+                            <div ng-app id="ng-subComment" class="panel panel-success"
+                                 ng-repeat="comment in subAssembly.machineGeneralTest.comments">
+                                <div class="panel-heading">
+                                    <a href="#" ng-model="collapsed" style="color:white" class="text-success"
+                                       ng-click="collapsedComment=!collapsedComment">
+                                        Comment by: {{comment.author.name}}
+                                        <div class="panel-title pull-right">
+                                            Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY,
+                                            h:mm:ss a")}}
+                                        </div>
+                                    </a>
+                                </div>
+                                <div ng-show="collapsedComment" class="panel-body">{{comment.text}}</div>
+                            </div>
+
+                            <!--Add a comment Function-->
+                            <div add-comment></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Oil Test -->
+                <div ng-if="subAssembly.oilTest != null">
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">Oil Test</div>
+                        <div class="panel-body">
+                            <table class="table">
+                                <thead>
+                                <th>Lead</th>
+                                <th>Copper</th>
+                                <th>Tin</th>
+                                <th>Iron</th>
+                                <th>pq90</th>
+                                <th>Silicon</th>
+                                <th>Sodium</th>
+                                <th>Aluminium</th>
+                                <th>Water</th>
+                                <th>Viscosity</th>
+                                </thead>
+                                <tbody>
+                                <td>{{subAssembly.oilTest.lead}}</td>
+                                <td>{{subAssembly.oilTest.copper}}</td>
+                                <td>{{subAssembly.oilTest.tin}}</td>
+                                <td>{{subAssembly.oilTest.iron}}</td>
+                                <td>{{subAssembly.oilTest.pq90}}</td>
+                                <td>{{subAssembly.oilTest.silicon}}</td>
+                                <td>{{subAssembly.oilTest.sodium}}</td>
+                                <td>{{subAssembly.oilTest.aluminium}}</td>
+                                <td>{{subAssembly.oilTest.water}}</td>
+                                <td>{{subAssembly.oilTest.viscosity}}</td>
+                                </tbody>
+                            </table>
+                            <!--Oil Test Action Item-->
+                            <hr/>
+                            <h3>Action Item</h3>
+                            <table class="table">
+                                <thead>
+                                <th>Status</th>
+                                <th>Issue</th>
+                                <th>Action</th>
+                                <th>Technician</th>
+                                <th>Time Actioned</th>
+                                </thead>
+                                <tbody>
+                                <td>{{subAssembly.oilTest.actionItem.status}}</td>
+                                <td>{{subAssembly.oilTest.actionItem.issue}}</td>
+                                <td>{{subAssembly.oilTest.actionItem.action}}</td>
+                                <td>{{subAssembly.oilTest.actionItem.technician.name}}</td>
+                                <td>{{moment(subAssembly.oilTest.actionItem.timeActioned).format("dddd, MMMM Do YYYY,
+                                    h:mm:ss a")}}
+                                </td>
+                                </tbody>
+                            </table>
+                            <div ng-app id="ng-subComment" class="panel panel-success"
+                                 ng-repeat="comment in subAssembly.oilTest.comments">
+                                <div class="panel-heading">
+                                    <a href="#" ng-model="collapsed" style="color:white" class="text-success"
+                                       ng-click="collapsedComment=!collapsedComment">
+                                        Comment by: {{comment.author.name}}
+                                        <div class="panel-title pull-right">
+                                            Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY,
+                                            h:mm:ss a")}}
+                                        </div>
+                                    </a>
+                                </div>
+                                <div ng-show="collapsedComment" class="panel-body">{{comment.text}}</div>
+                            </div>
+
+                            <!--Add a comment Function-->
+                            <div add-comment></div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- Wear Test -->
+                <div ng-if="subAssembly.wearTest != null">
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">Wear Test</div>
+                        <div class="panel-body">
+                            <table class="table">
+                                <thead>
+                                <th>Description</th>
+                                <th>New</th>
+                                <th>Limit</th>
+                                <th>Life Lower</th>
+                                <th>Life Upper</th>
+                                <th>Time Tested</th>
+                                </thead>
+                                <tbody>
+                                <td>{{subAssembly.wearTest.description}}</td>
+                                <td>{{subAssembly.wearTest.new}}</td>
+                                <td>{{subAssembly.wearTest.limit}}</td>
+                                <td>{{subAssembly.wearTest.lifeLower}}</td>
+                                <td>{{subAssembly.wearTest.lifeUpper}}</td>
+                                <td>{{moment(subAssembly.wearTest.timeStart).format("dddd, MMMM Do YYYY, h:mm:ss a")}}
+                                </td>
+                                </tbody>
+                            </table>
+                            <h3/>
+                            <!-- Action Item-->
+                            <h3>Action Item</h3>
+                            <table class="table">
+                                <thead>
+                                <th>Status</th>
+                                <th>Issue</th>
+                                <th>Action</th>
+                                <th>Technician</th>
+                                <th>Time Actioned</th>
+                                </thead>
+                                <tbody>
+                                <td>{{subAssembly.wearTest.actionItem.status}}</td>
+                                <td>{{subAssembly.wearTest.actionItem.issue}}</td>
+                                <td>{{subAssembly.wearTest.actionItem.action}}</td>
+                                <td>{{subAssembly.wearTest.actionItem.technician.name}}</td>
+                                <td>{{moment(subAssembly.wearTest.actionItem.timeActioned).format("dddd, MMMM Do YYYY,
+                                    h:mm:ss a")}}
+                                </td>
+                                </tbody>
+                            </table>
+                            <div ng-app id="ng-subComment" class="panel panel-success"
+                                 ng-repeat="comment in subAssembly.wearTest.comments">
+                                <div class="panel-heading">
+                                    <a href="#" ng-model="collapsed" style="color:white" class="text-success"
+                                       ng-click="collapsedComment=!collapsedComment">
+                                        Comment by: {{comment.author.name}}
+                                        <div class="panel-title pull-right">
+                                            Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY,
+                                            h:mm:ss a")}}
+                                        </div>
+                                    </a>
+                                </div>
+                                <div ng-show="collapsedComment" class="panel-body">{{comment.text}}</div>
+                            </div>
+
+                            <!--Add a comment Function-->
+                            <div add-comment></div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Sub Assembly Comments -->
                 <div ng-app id="ng-subComment" class="panel panel-success" ng-repeat="comment in subAssembly.comments">
                     <div class="panel-heading">
-                        <a href="#" ng-model="collapsed" style="color:white" class="text-success" ng-click="collapsedComment=!collapsedComment">
+                        <a href="#" ng-model="collapsed" style="color:white" class="text-success"
+                           ng-click="collapsedComment=!collapsedComment">
                             Comment by: {{comment.author.name}}
                             <div class="panel-title pull-right">
-                                Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY, h:mm:ss a")}}
+                                Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY, h:mm:ss
+                                a")}}
                             </div>
                         </a>
                     </div>

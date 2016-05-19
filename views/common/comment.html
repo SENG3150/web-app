@@ -1,0 +1,18 @@
+<div ng-app id="ng-addMajorComment" class="panel panel-primary">
+    <div class="panel-heading" >
+        <a href="#" ng-model="collapsed" style="color:white" ng-click="collapsedAddComment=!collapsedAddComment">
+            Add Comment
+        </a>
+    </div>
+    <div ng-show="collapsedAddComment" class="panel-body">
+        <form ng-submit="submitComment()">
+            <div class="form-group">
+                <input type="text" class="form-control input-lg" name="comment" ng-model="commentData.text" placeholder="">
+            </div>
+
+            <div class="form-group text-right">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

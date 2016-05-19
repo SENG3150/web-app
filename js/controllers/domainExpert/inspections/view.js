@@ -1,6 +1,6 @@
 angular
 	.module('joy-global')
-	.controller('DomainExpertInspectionsControllerView', ['$scope', 'Inspections', 'moment', '$stateParams', 'LayoutService', 'toastr', function ($scope, Inspections, moment, $stateParams, LayoutService, toastr) {
+	.controller('DomainExpertInspectionsControllerView', ['$scope', 'Inspections', 'moment', '$stateParams', 'LayoutService', 'toastr', 'Comments', function ($scope, Inspections, moment, $stateParams, LayoutService, toastr, Comments) {
 		$scope.inspectionId = $stateParams.id;
 
 		LayoutService.reset();
@@ -26,6 +26,14 @@ angular
 		}).$object;
 		
 		$scope.moment = moment;
+
+		$scope.commentData = {};
+		$scope.submitComment = function() {
+			console.log($scope.commentData);
+			// save the comment. pass in comment data from the form
+			// use the function we created in our service
+			Comments.save($scope.commentData);
+		};
 
 		$scope.save = function() {
 			toastr.info('Save not currently available.');

@@ -72,7 +72,7 @@
         <!-- major assembly comment -->
         <div ng-app id="ng-majorComment" class="panel panel-success" ng-repeat="comment in majorAssembly.comments">
             <div class="panel-heading">
-                <a href="#" ng-model="collapsed" class="text-success" ng-click="collapsedComment=!collapsedComment">
+                <a href="#" ng-model="collapsed" class="text-success" style="color:white" ng-click="collapsedComment=!collapsedComment">
                     Comment by: {{comment.author.name}}
                     <div class="panel-title pull-right">
                         Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY, h:mm:ss a")}}
@@ -82,11 +82,14 @@
             <div ng-show="collapsedComment" class="panel-body">{{comment.text}}</div>
         </div>
 
+        <!--Add a comment Function-->
+        <div add-comment></div>
+
 
         <!-- sub assembly panel -->
         <div ng-app id="ng-subAssemly" class="panel panel-info" ng-repeat="subAssembly in majorAssembly.subAssemblies">
             <div class="panel-heading">
-                <a href="#" ng-model="collapsed" ng-click="collapsedSubAssembly=!collapsedSubAssembly">
+                <a href="#" ng-model="collapsed" style="color:white" ng-click="collapsedSubAssembly=!collapsedSubAssembly">
                     {{subAssembly.subAssembly.name}}
                 </a>
             </div>
@@ -95,7 +98,7 @@
             <div ng-show="collapsedSubAssembly" class="panel-body">
                 <div ng-app id="ng-subComment" class="panel panel-success" ng-repeat="comment in subAssembly.comments">
                     <div class="panel-heading">
-                        <a href="#" ng-model="collapsed" class="text-success" ng-click="collapsedComment=!collapsedComment">
+                        <a href="#" ng-model="collapsed" style="color:white" class="text-success" ng-click="collapsedComment=!collapsedComment">
                             Comment by: {{comment.author.name}}
                             <div class="panel-title pull-right">
                                 Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY, h:mm:ss a")}}
@@ -104,6 +107,9 @@
                     </div>
                     <div ng-show="collapsedComment" class="panel-body">{{comment.text}}</div>
                 </div>
+
+                <!--Add a comment Function-->
+                <div add-comment></div>
 
             </div>
 

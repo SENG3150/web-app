@@ -1,1 +1,26 @@
 Administrators Create
+
+<div >
+    <form ng-submit="submitUser()">
+
+        <div class="form-group">
+            <label for="first">First Name</label>
+            <input type="text" class="form-control" id="first" ng-model="newUserData.firstName" placeholder="">
+        </div>
+        <div class="form-group">
+            <label for="last">Last Name</label>
+            <input type="text" class="form-control" id="last" ng-model="newUserData.lastName" placeholder="">
+        </div>
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="text" class="form-control" id="email" ng-model="newUserData.email" placeholder="">
+        </div>
+
+        <div class="form-group text-right">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+
+    </form>
+</div>
+
+<pre>{{ administrators | json }}</pre>

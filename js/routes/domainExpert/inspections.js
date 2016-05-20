@@ -41,6 +41,9 @@ angular
 				templateUrl: 'views/domainExpert/inspections/report.html',
 				controller: 'DomainExpertInspectionsControllerReport',
 				resolve: {
+					loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
+						return $ocLazyLoad.load(['highcharts'])
+					}],
 					loggedIn: ['AuthService', function (AuthService) {
 						return AuthService.checkPermissions(true);
 					}]

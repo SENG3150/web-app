@@ -3,5 +3,6 @@
 /node_modules
 /js/ngConstants.js
 /dist/*
+/fonts/*
 Thumbs.db
 npm-debug.log

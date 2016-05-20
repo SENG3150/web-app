@@ -8,6 +8,9 @@ angular
 				templateUrl: 'views/domainExpert/inspections/index.html',
 				controller: 'DomainExpertInspectionsControllerIndex',
 				resolve: {
+					loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
+						return $ocLazyLoad.load(['dataTables'])
+					}],
 					loggedIn: ['AuthService', function (AuthService) {
 						return AuthService.checkPermissions(true);
 					}]

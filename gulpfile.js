@@ -139,6 +139,22 @@ gulp.task('concat-css', function () {
 		.pipe(gulp.dest(config.destination));
 });
 
+var copyAssetsConfig = {
+	fonts: {
+		source: [
+			'bower_components/bootstrap/dist/fonts/*'
+		],
+		destination: 'fonts/'
+	}
+};
+
+gulp.task('copy-fonts', function () {
+	var config = copyAssetsConfig.fonts;
+
+	return gulp.src(config.source)
+		.pipe(gulp.dest(config.destination));
+});
+
 var themeConfig = {
 	source: [
 		'theme/less/style.less'
@@ -209,6 +225,6 @@ function onError(err) {
 	this.emit('end');
 }
 
-gulp.task('default', ['template-cache', 'concat-core', 'env-production', 'concat-app', 'concat-plugins', 'concat-css', 'build-theme', 'watcher']);
-gulp.task('development', ['template-cache', 'concat-core', 'env-development', 'concat-app', 'concat-plugins', 'concat-css', 'build-theme', 'watcher']);
-gulp.task('deployment', ['template-cache', 'concat-core', 'env-production', 'concat-app', 'concat-plugins', 'concat-css', 'build-theme']);
+gulp.task('default', ['template-cache', 'concat-core', 'env-production', 'concat-app', 'concat-plugins', 'concat-css', 'copy-fonts', 'build-theme', 'watcher']);
+gulp.task('development', ['template-cache', 'concat-core', 'env-development', 'concat-app', 'concat-plugins', 'concat-css', 'copy-fonts', 'build-theme', 'watcher']);
+gulp.task('deployment', ['template-cache', 'concat-core', 'env-production', 'concat-app', 'concat-plugins', 'concat-css', 'copy-fonts', 'build-theme']);

@@ -1,1 +1,45 @@
 Technicians Create
+
+<form ng-submit="submitUser()" class="form-horizontal">
+
+    <div class="form-group">
+        <label for="firstname" class="col-sm-2 control-label">First Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="" id="firstname" ng-model="newUserData.firstname">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="lastname" class="col-sm-2 control-label">Last Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="" id="lastname" ng-model="newUserData.lastname">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="email" class="col-sm-2 control-label">Email</label>
+        <div class="col-sm-10" class="col-sm-2 control-label">
+            <input type="email" class="form-control" placeholder="" id="email" ng-model="newUserData.email">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="password" class="col-sm-2 control-label">Password</label>
+        <div class="col-sm-10">
+            <input type="password" class="form-control" placeholder="" id="password" ng-model="newUserData.password">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="temporary" class="col-sm-2 control-label">Temporary</label>
+        <div class="col-sm-1">
+            <input type="checkbox" class="form-control" id="temporary" ng-model="newUserData.temporary">
+        </div>
+    </div>
+
+    <div class="form-group text-right">
+        <button type="submit" class="btn btn-primary">
+            Submit
+        </button>
+    </div>
+</form>

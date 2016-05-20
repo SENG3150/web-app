@@ -1,5 +1,5 @@
 angular
-	.module('joy-global')
+.module('joy-global')
 	.controller('TechnicianIndexControllerIndex', ['$scope', function ($scope) {
-
+		
 	}]);

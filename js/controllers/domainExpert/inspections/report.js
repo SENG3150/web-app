@@ -70,19 +70,19 @@ angular
 							{
 								name: "Sodium (Na)",
 								data: [
-									[$scope.inspection.timeCompleted, oilTest.sodium]
+									[$scope.inspection.timeCompleted, parseInt(oilTest.sodium)]
 								]
 							},
 							{
 								name: "Silicon (Si)",
 								data: [
-									[$scope.inspection.timeCompleted, oilTest.silicon]
+									[$scope.inspection.timeCompleted, parseInt(oilTest.silicon)]
 								]
 							},
 							{
 								name: "aluminium (Al)",
 								data: [
-									[$scope.inspection.timeCompleted, oilTest.aluminium]
+									[$scope.inspection.timeCompleted, parseInt(oilTest.aluminium)]
 								]
 							}
 						];
@@ -91,13 +91,13 @@ angular
 							{
 								name: "Iron (Fe)",
 								data: [
-									[$scope.inspection.timeCompleted, oilTest.iron]
+									[$scope.inspection.timeCompleted, parseInt(oilTest.iron)]
 								]
 							},
 							{
 								name: "PQ90",
 								data: [
-									[$scope.inspection.timeCompleted, oilTest.pq90]
+									[$scope.inspection.timeCompleted, parseInt(oilTest.pq90)]
 								]
 							}
 						];
@@ -106,19 +106,19 @@ angular
 							{
 								name: "Lead (Pb)",
 								data: [
-									[$scope.inspection.timeCompleted, oilTest.lead]
+									[$scope.inspection.timeCompleted, parseInt(oilTest.lead)]
 								]
 							},
 							{
 								name: "Copper (Cu)",
 								data: [
-									[$scope.inspection.timeCompleted, oilTest.copper]
+									[$scope.inspection.timeCompleted, parseInt(oilTest.copper)]
 								]
 							},
 							{
 								name: "Tin (Sn)",
 								data: [
-									[$scope.inspection.timeCompleted, oilTest.tin]
+									[$scope.inspection.timeCompleted, parseInt(oilTest.tin)]
 								]
 							}
 						];
@@ -127,7 +127,7 @@ angular
 							{
 								name: "Water",
 								data: [
-									[$scope.inspection.timeCompleted, oilTest.water]
+									[$scope.inspection.timeCompleted, parseInt(oilTest.water)]
 								]
 							}
 						];

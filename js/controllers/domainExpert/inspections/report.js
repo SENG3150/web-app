@@ -32,12 +32,17 @@ angular
 				xAxis: {
 					type: 'datetime',
 					dateTimeLabelFormats: { // don't display the dummy year
+						millisecond: '%e. %b',
+						second: '%e. %b',
+						minute: '%e. %b',
+						hour: '%e. %b',
+						day: '%e. %b',
+						week: '%e. %b',
 						month: '%e. %b',
-						year: '%b'
+						year: '%e. %b'
 					}
 				},
 				yAxis: {
-					min: 0
 				},
 				tooltip: {
 					shared: true
@@ -56,6 +61,8 @@ angular
 		}
 
 		baseInspections.then(function(inspection) {
+			var currentDate = moment($scope.inspection.timeCompleted).valueOf();
+
 			for (var majorAssemblyID in inspection.majorAssemblies) {
 				var majorAssembly = inspection.majorAssemblies[majorAssemblyID];
 
@@ -70,19 +77,19 @@ angular
 							{
 								name: "Sodium (Na)",
 								data: [
-									[$scope.inspection.timeCompleted, parseInt(oilTest.sodium)]
+									[currentDate, parseInt(oilTest.sodium)]
 								]
 							},
 							{
 								name: "Silicon (Si)",
 								data: [
-									[$scope.inspection.timeCompleted, parseInt(oilTest.silicon)]
+									[currentDate, parseInt(oilTest.silicon)]
 								]
 							},
 							{
 								name: "aluminium (Al)",
 								data: [
-									[$scope.inspection.timeCompleted, parseInt(oilTest.aluminium)]
+									[currentDate, parseInt(oilTest.aluminium)]
 								]
 							}
 						];
@@ -91,13 +98,13 @@ angular
 							{
 								name: "Iron (Fe)",
 								data: [
-									[$scope.inspection.timeCompleted, parseInt(oilTest.iron)]
+									[currentDate, parseInt(oilTest.iron)]
 								]
 							},
 							{
 								name: "PQ90",
 								data: [
-									[$scope.inspection.timeCompleted, parseInt(oilTest.pq90)]
+									[currentDate, parseInt(oilTest.pq90)]
 								]
 							}
 						];
@@ -106,19 +113,19 @@ angular
 							{
 								name: "Lead (Pb)",
 								data: [
-									[$scope.inspection.timeCompleted, parseInt(oilTest.lead)]
+									[currentDate, parseInt(oilTest.lead)]
 								]
 							},
 							{
 								name: "Copper (Cu)",
 								data: [
-									[$scope.inspection.timeCompleted, parseInt(oilTest.copper)]
+									[currentDate, parseInt(oilTest.copper)]
 								]
 							},
 							{
 								name: "Tin (Sn)",
 								data: [
-									[$scope.inspection.timeCompleted, parseInt(oilTest.tin)]
+									[currentDate, parseInt(oilTest.tin)]
 								]
 							}
 						];
@@ -127,7 +134,7 @@ angular
 							{
 								name: "Water",
 								data: [
-									[$scope.inspection.timeCompleted, parseInt(oilTest.water)]
+									[currentDate, parseInt(oilTest.water)]
 								]
 							}
 						];
@@ -136,7 +143,7 @@ angular
 							{
 								name: "Viscosity (460)",
 								data: [
-									[$scope.inspection.timeCompleted, oilTest.viscosity]
+									[currentDate, oilTest.viscosity]
 								]
 							}
 						];

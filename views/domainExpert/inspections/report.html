@@ -7,7 +7,11 @@
             </a>
         </div>
     </div>
-    <div class="ibox-content">
-        <div class="highchart" id="chart1" config="chartConfig"></div>
+
+    <!--loop through all graphs that are for oilTestGraphs-->
+    <div class="ibox-content" ng-repeat="graph in oilTestGraphs">
+        <div class="highchart" id="oilChart" config="graph"></div>
     </div>
 </div>
+
+<pre>{{ inspection | json }}</pre>

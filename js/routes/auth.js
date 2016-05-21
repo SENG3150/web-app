@@ -5,7 +5,10 @@ angular
 			.state('auth', {
 				abstract: true,
 				url: '/auth',
-				templateUrl: 'views/layouts/plain.html'
+				templateUrl: 'views/layouts/plain.html',
+				data: {
+					specialClass: 'gray-bg'
+				}
 			})
 			.state('auth.login', {
 				parent: 'auth',

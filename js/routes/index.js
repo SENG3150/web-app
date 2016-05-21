@@ -36,16 +36,6 @@ angular
 						return AuthService.checkPermissions(true);
 					}]
 				}
-			})
-			.state('technician', {
-				abstract: true,
-				url: '/technician',
-				templateUrl: 'views/layouts/default.html',
-				resolve: {
-					loggedIn: ['AuthService', function (AuthService) {
-						return AuthService.checkPermissions(true);
-					}]
-				}
 			});
 	}])
 	.run(['$rootScope', '$state', '$auth', '$window', function ($rootScope, $state, $auth, $window) {

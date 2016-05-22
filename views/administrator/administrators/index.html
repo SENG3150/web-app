@@ -1,24 +1,22 @@
-<table class="table">
-    <thead>
-    <tr>
-        <th>Admin ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>View</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="administrator in administrators">
-        <td>{{ administrator.id }}</td>
-        <td>{{ administrator.name }}</td>
-        <td>{{ administrator.email }}</td>
-        <td>
-            <a ui-sref="administrator-administrators-view({ id: administrator.id })" class="btn btn-primary btn-block">View</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<a ui-sref="administrator-administrators-create" class="btn btn-primary btn-block">New Administrator</a>
-
-<pre>{{ administrators | json }}</pre>
+<div class="ibox">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Admin ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="administrator in administrators">
+                <td>{{ administrator.id }}</td>
+                <td>{{ administrator.name }}</td>
+                <td>{{ administrator.email }}</td>
+                <td>
+                    <a ui-sref="administrator-administrators-view({ id: administrator.id })" class="btn btn-primary btn-block">View</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

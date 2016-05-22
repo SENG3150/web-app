@@ -1,8 +1,13 @@
 angular
 	.module('joy-global')
-	.controller('AdministratorAdministratorsControllerCreate', ['$scope', 'toastr', function ($scope, toastr) {
+	.controller('AdministratorAdministratorsControllerCreate', ['$scope', 'toastr', 'LayoutService', function ($scope, toastr, LayoutService) {
 		$scope.newUserData = {};
 
+		LayoutService.reset();
+		LayoutService.setTitle(['Create New Administrator']);
+		LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-check"></i> Save</button>');
+		
+		
 		$scope.submitUser = function() {
 			if($scope.validate() == true) {
 				console.log($scope.newUserData);
@@ -36,4 +41,6 @@ angular
 			}
 			return true;
 		}
+
+		LayoutService.getPageHeader().onClicked($scope.submitUser);
 	}]);

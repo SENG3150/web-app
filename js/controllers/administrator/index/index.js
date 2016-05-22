@@ -1,5 +1,5 @@
 angular
 	.module('joy-global')
-	.controller('AdministratorIndexControllerIndex', ['$scope', function ($scope) {
-
+	.controller('AdministratorIndexControllerIndex', ['$scope', 'LayoutService', function ($scope, LayoutService) {
+		LayoutService.reset();
 	}]);

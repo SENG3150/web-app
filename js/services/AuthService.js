@@ -25,7 +25,7 @@ angular
 						deferred.notify();
 
 						$http
-							.get(ENV.apiEndpoint + 'me')
+							.get(ENV.apiEndpoint + 'auth/me')
 							.success(function (user) {
 								self.setUser(user);
 

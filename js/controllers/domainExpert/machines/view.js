@@ -7,7 +7,7 @@ angular
 		$scope.machine = Machines.one($scope.machineId).get({include: 'model.majorAssemblies.subAssemblies'}).$object;
 
 		LayoutService.reset();
-		LayoutService.setTitle(['Machine ' + $scope.machineId,'Machines']);
+		LayoutService.setTitle(['Machine ' + $scope.machineId, 'Machines']);
 		LayoutService.getPageHeader().setBreadcrumbs([
 			{
 				route: 'domainExpert-index',

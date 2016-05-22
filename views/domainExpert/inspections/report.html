@@ -1,6 +1,6 @@
 <div class="ibox">
     <div class="ibox-title">
-        <h5>Inspections</h5>
+        <h5>Action Items</h5>
         <div class="ibox-tools" ibox-tools>
             <a class="collapse-link">
                 <i class="fa fa-chevron-up"></i>
@@ -8,93 +8,77 @@
         </div>
     </div>
     <div class="ibox-content">
-        <!--loop through all Action Items-->
-        <h1>Action Items</h1>
+        <div class="panel panel-default" ng-repeat="majorAssembly in inspection.majorAssemblies">
+            <div class="panel-heading">{{majorAssembly.majorAssembly.name}}</div>
 
-        <div class="ibox">
-            <div class="ibox-title">
-                <h5>Inspections</h5>
-                <div class="ibox-tools" ibox-tools>
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="ibox-content">
-                <div class="panel panel-primary" ng-repeat="majorAssembly in inspection.majorAssemblies">
-                    <h2>{{majorAssembly.majorAssembly.name}}</h2>
-                    <table class="table" ng-repeat="subAssembly in majorAssembly.subAssemblies">
-                        <thead>
-                        <tr>
-                            <th>{{subAssembly.subAssembly.name}}</th>
-                            <th>Status</th>
-                            <th>Issue</th>
-                            <th>Action</th>
-                            <th>Technician</th>
-                            <th>Time Actioned</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+            <table class="table" ng-repeat="subAssembly in majorAssembly.subAssemblies">
+                <thead>
+                <tr>
+                    <th style="width: 15%;">{{subAssembly.subAssembly.name}}</th>
+                    <th style="width: 15%;">Status</th>
+                    <th style="width: 15%;">Issue</th>
+                    <th style="width: 15%;">Action</th>
+                    <th style="width: 20%;">Technician</th>
+                    <th style="width: 20%;">Time Actioned</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-if="subAssembly.machineGeneralTest != null">
+                    <td>Machine General</td>
+                    <td>{{subAssembly.machineGeneralTest.actionItem.status}}</td>
+                    <td>{{subAssembly.machineGeneralTest.actionItem.issue}}</td>
+                    <td>{{subAssembly.machineGeneralTest.actionItem.action}}</td>
+                    <td>{{subAssembly.machineGeneralTest.actionItem.technician.name}}</td>
+                    <td>
+                        {{
+                            moment(subAssembly.machineGeneralTest.actionItem.timeActioned)
+                            .format("dddd, MMMM Do YYYY, h:mm:ss a")
+                        }}
+                    </td>
+                </tr>
+                <tr ng-if="subAssembly.oilTest != null">
+                    <td>Oil Test</td>
+                    <td>{{subAssembly.oilTest.actionItem.status}}</td>
+                    <td>{{subAssembly.oilTest.actionItem.issue}}</td>
+                    <td>{{subAssembly.oilTest.actionItem.action}}</td>
+                    <td>{{subAssembly.oilTest.actionItem.technician.name}}</td>
+                    <td>
+                        {{
+                            moment(subAssembly.oilTest.actionItem.timeActioned)
+                            .format("dddd, MMMM Do YYYY, h:mm:ss a")
+                        }}
+                    </td>
+                </tr>
+                <tr ng-if="subAssembly.wearTest != null">
 
-                            <tr ng-if="subAssembly.machineGeneralTest != null">
-
-                                    <td>Machine General</td>
-                                    <td>{{subAssembly.machineGeneralTest.actionItem.status}}</td>
-                                    <td>{{subAssembly.machineGeneralTest.actionItem.issue}}</td>
-                                    <td>{{subAssembly.machineGeneralTest.actionItem.action}}</td>
-                                    <td>{{subAssembly.machineGeneralTest.actionItem.technician.name}}</td>
-                                    <td>{{moment(subAssembly.machineGeneralTest.actionItem.timeActioned).format("dddd, MMMM Do YYYY,
-                                        h:mm:ss a")}}
-                                    </td>
-
-                            </tr>
-                            <tr ng-if="subAssembly.oilTest != null">
-
-                                    <td>Oil Test</td>
-                                    <td>{{subAssembly.oilTest.actionItem.status}}</td>
-                                    <td>{{subAssembly.oilTest.actionItem.issue}}</td>
-                                    <td>{{subAssembly.oilTest.actionItem.action}}</td>
-                                    <td>{{subAssembly.oilTest.actionItem.technician.name}}</td>
-                                    <td>{{moment(subAssembly.oilTest.actionItem.timeActioned).format("dddd, MMMM Do YYYY, h:mm:ss
-                                        a")}}
-                                    </td>
-
-                            </tr>
-                            <tr ng-if="subAssembly.wearTest != null">
-
-                                    <td>Wear Test</td>
-                                    <td>{{subAssembly.wearTest.actionItem.status}}</td>
-                                    <td>{{subAssembly.wearTest.actionItem.issue}}</td>
-                                    <td>{{subAssembly.wearTest.actionItem.action}}</td>
-                                    <td>{{subAssembly.wearTest.actionItem.technician.name}}</td>
-                                    <td>{{moment(subAssembly.wearTest.actionItem.timeActioned).format("dddd, MMMM Do YYYY, h:mm:ss
-                                        a")}}
-                                    </td>
-
-                            </tr>
-
-                        </tbody>
-
-                    </table>
-                </div>
-            </div>
+                    <td>Wear Test</td>
+                    <td>{{subAssembly.wearTest.actionItem.status}}</td>
+                    <td>{{subAssembly.wearTest.actionItem.issue}}</td>
+                    <td>{{subAssembly.wearTest.actionItem.action}}</td>
+                    <td>{{subAssembly.wearTest.actionItem.technician.name}}</td>
+                    <td>
+                        {{
+                            moment(subAssembly.wearTest.actionItem.timeActioned)
+                            .format("dddd, MMMM Do YYYY, h:mm:ss a")
+                        }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-
-        <div class="ibox">
-            <div class="ibox-title">
-                <h5>Graph</h5>
-                <div class="ibox-tools" ibox-tools>
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!--loop through all graphs that are for oilTestGraphs-->
-            <div class="ibox-content" ng-repeat="graph in oilTestGraphs">
-                <div class="highchart" id="oilChart" config="graph"></div>
-            </div>
+    </div>
+</div>
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>Graphs</h5>
+        <div class="ibox-tools" ibox-tools>
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
         </div>
+    </div>
+    <div class="ibox-content" ng-repeat="graph in oilTestGraphs">
+        <div class="highchart" id="oilChart" config="graph"></div>
     </div>
 </div>
 <pre>{{ inspection | json }}</pre>

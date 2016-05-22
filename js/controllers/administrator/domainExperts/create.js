@@ -6,7 +6,21 @@ angular
 		LayoutService.reset();
 		LayoutService.setTitle(['Create New Domain Expert']);
 		LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-check"></i> Save</button>');
-
+		LayoutService.getPageHeader().setBreadcrumbs([
+			{
+				route: 'administrator-index',
+				displayName: 'Home'
+			},
+			{
+				route: 'administrator-domainExperts-index',
+				displayName: 'Domain Experts'
+			},
+			{
+				route: 'administrator-domainExperts-create',
+				displayName: 'Create'
+			}
+		]);
+		
 		$scope.submitUser = function() {
 			if($scope.validate() == true) {
 				console.log($scope.newUserData);

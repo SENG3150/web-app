@@ -5,6 +5,16 @@ angular
 		LayoutService.reset();
 		LayoutService.setTitle(['Administrators']);
 		LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> New Administrator</button>');
+		LayoutService.getPageHeader().setBreadcrumbs([
+			{
+				route: 'administrator-index',
+				displayName: 'Home'
+			},
+			{
+				route: 'administrator-administrators-index',
+				displayName: 'Administrators'
+			}
+		]);
 
 		$scope.administrators = Administrators.getList().$object;
 

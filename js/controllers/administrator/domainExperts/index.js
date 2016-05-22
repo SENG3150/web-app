@@ -5,6 +5,16 @@ angular
 		LayoutService.reset();
 		LayoutService.setTitle(['Domain Experts']);
 		LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> New Domain Expert</button>');
+		LayoutService.getPageHeader().setBreadcrumbs([
+			{
+				route: 'administrator-index',
+				displayName: 'Home'
+			},
+			{
+				route: 'administrator-domainExperts-index',
+				displayName: 'Domain Experts'
+			}
+		]);
 
 		$scope.domainExperts = DomainExperts.getList().$object;
 

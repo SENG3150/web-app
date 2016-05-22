@@ -1,31 +1,34 @@
 <div class="ibox">
-    <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a ui-sref="domainExpert-machines-index">Machine List</a></li>
-        <li role="presentation" ><a ui-sref="domainExpert-inspections-index">Inspections</a></li>
-        <li role="presentation"><a ui-sref="#">Report</a></li>
-    </ul>
-
-    <h1>Machine Index</h1>
+    <div class="ibox-title">
+        <h5>Machines</h5>
+        <div class="ibox-tools" ibox-tools>
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content">
         <input ng-model="query" class="form-control" id="machineSearch" placeholder="Search Machines">
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Machine ID</th>
-            <th>Machine Name</th>
-            <th>Model</th>
-            <th>View</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="machine in machines | filter:query">
-            <td>{{ machine.id }}</td>
-            <td>{{machine.name}}</td>
-            <td>{{machine.model.name}}</td>
-            <td>
-                <a ui-sref="domainExpert-machines-view({ id: machine.id })" class="btn btn-primary btn-block">View</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Machine ID</th>
+                <th>Machine Name</th>
+                <th>Model</th>
+                <th>View</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="machine in machines | filter:query">
+                <td>{{ machine.id }}</td>
+                <td>{{machine.name}}</td>
+                <td>{{machine.model.name}}</td>
+                <td>
+                    <a ui-sref="domainExpert-machines-view({ id: machine.id })" class="btn btn-primary btn-block">View</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

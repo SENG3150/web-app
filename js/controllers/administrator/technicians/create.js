@@ -7,6 +7,20 @@ angular
 		LayoutService.reset();
 		LayoutService.setTitle(['Create New Technician']);
 		LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-check"></i> Save</button>');
+		LayoutService.getPageHeader().setBreadcrumbs([
+			{
+				route: 'administrator-index',
+				displayName: 'Home'
+			},
+			{
+				route: 'administrator-technicians-index',
+				displayName: 'Technicians'
+			},
+			{
+				route: 'administrator-technicians-create',
+				displayName: 'Create'
+			}
+		]);
 
 		$scope.submitUser = function() {
 			if($scope.validate() == true) {

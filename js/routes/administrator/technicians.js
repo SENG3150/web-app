@@ -30,6 +30,9 @@ angular
 				templateUrl: 'views/administrator/technicians/view.html',
 				controller: 'AdministratorTechniciansControllerView',
 				resolve: {
+					loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
+						return $ocLazyLoad.load(['dateTimePicker'])
+					}],
 					loggedIn: ['AuthService', function (AuthService) {
 						return AuthService.checkPermissions(true);
 					}]

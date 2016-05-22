@@ -59,6 +59,8 @@
     <div class="panel-body">{{comment.text}}</div>
 </div>
 
+<div add-comment location="inspection" location-id="{{inspection.id}}"></div>
+
 <h1>Inspection Results</h1>
 
 <!-- major assembly panel -->
@@ -86,7 +88,7 @@
         </div>
 
         <!--Add a comment Function-->
-        <div add-comment></div>
+        <div add-comment location="majorAssembly" location-id="{{majorAssembly.id}}"></div>
 
 
         <!-- sub assembly panel -->
@@ -152,7 +154,7 @@
                             </div>
 
                             <!--Add a comment Function-->
-                            <div add-comment></div>
+                            <div add-comment location="machineGeneralTest" location-id="{{subAssembly.machineGeneralTest.id}}"></div>
                         </div>
                     </div>
                 </div>
@@ -224,7 +226,7 @@
                             </div>
 
                             <!--Add a comment Function-->
-                            <div add-comment></div>
+                            <div add-comment location="oilTest" location-id="{{subAssembly.oilTest.id}}"></div>
                         </div>
 
                     </div>
@@ -291,7 +293,7 @@
                             </div>
 
                             <!--Add a comment Function-->
-                            <div add-comment></div>
+                            <div add-comment location="wearTest" location-id="{{subAssembly.wearTest.id}}"></div>
 
 
                         </div>
@@ -313,7 +315,7 @@
                 </div>
 
                 <!--Add a comment Function-->
-                <div add-comment></div>
+                <div add-comment location="subAssembly" sub="{{subAssembly.id}}"></div>
 
             </div>
 

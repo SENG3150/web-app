@@ -24,36 +24,40 @@ angular
 		$scope.submitUser = function() {
 			if($scope.validate() == true) {
 				console.log($scope.newUserData);
-			};
+			}
 		};
 
 		$scope.validate = function() {
-			if($scope.newUserData.firstname == "" || $scope.newUserData.firstname == null) {
+			if ($scope.newUserData.firstname == '' || $scope.newUserData.firstname == null) {
 				toastr.clear();
-				toastr.error("Enter First name");
+				toastr.error('Enter first name');
 
 				return false;
 			}
-			if($scope.newUserData.lastname == "" || $scope.newUserData.lastname == null) {
+
+			if ($scope.newUserData.lastname == '' || $scope.newUserData.lastname == null) {
 				toastr.clear();
-				toastr.error("Enter Last name");
+				toastr.error('Enter last name');
 
 				return false;
 			}
-			if($scope.newUserData.email == "" || $scope.newUserData.email == null) {
+
+			if ($scope.newUserData.email == '' || $scope.newUserData.email == null) {
 				toastr.clear();
-				toastr.error("Enter a valid email address");
+				toastr.error('Enter a valid email address');
 
 				return false;
 			}
-			if($scope.newUserData.password == "" || $scope.newUserData.password == null) {
+
+			if ($scope.newUserData.password == '' || $scope.newUserData.password == null) {
 				toastr.clear();
-				toastr.error("Enter a password");
+				toastr.error('Enter a password');
 
 				return false;
 			}
+
 			return true;
-		}
+		};
 
 		LayoutService.getPageHeader().onClicked($scope.submitUser);
 	}]);

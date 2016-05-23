@@ -8,6 +8,9 @@ angular
 				templateUrl: 'views/administrator/administrators/index.html',
 				controller: 'AdministratorAdministratorsControllerIndex',
 				resolve: {
+					loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
+						return $ocLazyLoad.load(['dataTables'])
+					}],
 					loggedIn: ['AuthService', function (AuthService) {
 						return AuthService.checkPermissions(true);
 					}]

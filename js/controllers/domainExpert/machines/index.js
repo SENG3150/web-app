@@ -1,6 +1,8 @@
 angular
 	.module('joy-global')
-	.controller('DomainExpertMachinesControllerIndex', ['$scope', 'Inspections', 'Machines', 'LayoutService', function ($scope, Inspections, Machines, LayoutService) {
+	.controller('DomainExpertMachinesControllerIndex', ['$scope', 'Machines', 'LayoutService', 'DataTablesService', function ($scope, Machines, LayoutService, DataTablesService) {
+		$scope.loading = true;
+
 		LayoutService.reset();
 		LayoutService.setTitle(['Machines']);
 		LayoutService.getPageHeader().setBreadcrumbs([
@@ -14,6 +16,10 @@ angular
 			}
 		]);
 
-		$scope.inspections = Inspections.getList({include: 'machine'}).$object;
-		$scope.machines = Machines.getList({include: 'model.majorAssemblies.subAssemblies'}).$object;
+		Machines.getList({include: 'model.majorAssemblies.subAssemblies'}).then(function (data) {
+			$scope.loading = false;
+			$scope.machines = data;
+		});
+
+		$scope.dtOptions = DataTablesService.prepare('Machines');
 	}]);

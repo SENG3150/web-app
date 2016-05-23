@@ -31,6 +31,6 @@ angular
 					});
 				};
 			}],
-			templateUrl: 'views/common/comment.html'
+			templateUrl: 'views/common/addComment.html'
 		};
 	}]);

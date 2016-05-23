@@ -1,1 +1,112 @@
-Technicians View
+<h2>Technician's Details</h2>
+
+<div>Click to edit details</div>
+
+<div class="form-group">
+    <label for="username" class="col-sm-2 control-label">User Name : </label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="{{technician.username}}" id="username" ng-model="technician.username">
+    </div>
+</div>
+<div class="form-group">
+    <label for="firstName" class="col-sm-2 control-label">First Name : </label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="{{technician.firstName}}" id="firstName" ng-model="technician.firstName">
+    </div>
+</div>
+<div class="form-group">
+    <label for="lastName" class="col-sm-2 control-label">Last Name : </label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="{{technician.lastName}}" id="lastName" ng-model="technician.lastName">
+    </div>
+</div>
+<div class="form-group">
+    <label for="email" class="col-sm-2 control-label">E-mail : </label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="{{technician.email}}" id="email" ng-model="technician.email">
+    </div>
+</div>
+
+<div class="form-group" ng-switch on="technician.temporary">
+    <label for="temporary" class="col-sm-2 control-label">Temporary User : </label>
+    <div ng-switch-when="true" id="temporary" ng-model="technician.temporary">
+        <select class="col-sm-10" >
+            <option value="true" selected>True</option>
+            <option value="false">False</option>
+        </select>
+    </div>
+    <div ng-switch-default ng-model="technician.temporary">
+        <select class="col-sm-10" >
+            <option value="true" >True</option>
+            <option value="false" selected>False</option>
+        </select>
+    </div>
+
+</div>
+
+
+<div class="dropdown" ng-if="technician.temporary == true">
+
+    <div class="dropdown-toggle time-toggle-select" role="button" data-toggle="dropdown">
+        <div class="input-group">
+            <input type="text" class="input-sm form-control" data-ng-model="start"
+                   mo-date-input="DD/MM/YYYY HH:mm">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-calendar"></i>
+            </span>
+        </div>
+    </div>
+    <ul class="dropdown-menu" role="menu">
+        <datetimepicker data-ng-model="start"
+                        data-datetimepicker-config="{ dropdownSelector: '.time-toggle-select', startView:'day', minView:'minute', modelType: 'moment' }"></datetimepicker>
+    </ul>
+</div>
+
+<div class="form-group">
+    ID                      : {{technician.id}}
+</div>
+<div class="form-group">
+    User Name               : {{technician.username}}
+</div>
+<div class="form-group">
+    Name                    : {{technician.name}}
+</div>
+<div class="form-group">
+    First Name              : {{technician.firstName}}
+</div>
+<div class="form-group">
+    Last Name               : {{technician.lastName}}
+</div>
+<div class="form-group">
+    E-mail                  : {{technician.email}}
+</div>
+<div class="form-group">
+    Temporary User          : {{technician.temporary}}
+</div>
+<div class="form-group" ng-if="technician.loginexpiresTime != null">
+    Login expires time                   : {{technician.loginexpiresTime}}
+</div>
+<div class="form-group">
+    Expired                   : {{technician.expired}}
+</div>
+<div class="form-group">
+    Route                   : {{technician.route}}
+</div>
+<div class="form-group" ng-if="technician.reqParams != null">
+    Required Parameters     : {{technician.reqParams}}
+</div>
+<div class="form-group">
+    Rest Angularized        : {{technician.restangularized}}
+</div>
+<div class="form-group">
+    From Server             : {{technician.fromServer}}
+</div>
+<div class="form-group" ng-if="technician.parentResource != null">
+    Parent Resource         : {{technician.parentResource}}
+</div>
+<div class="form-group">
+    Rectangular Collection  : {{technician.restangularCollection}}
+
+</div>
+
+<pre>{{technician | json}}</pre>

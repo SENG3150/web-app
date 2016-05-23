@@ -1,30 +1,54 @@
-<h2>Domain Expert's Details</h2>
-<div>Click to edit details</div>
+<div class="ibox">
+    <div class="ibox-content">
+        <div class="text-center" ng-if="loading == true">
+            <i class="fa fa-spinner fa-spin fa-3x"></i>
+        </div>
 
-<div class="form-group">
-    <label for="username" class="col-sm-2 control-label">User Name : </label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" placeholder="{{domainexpert.username}}" id="username" ng-model="domainexpert.username">
-    </div>
-</div>
-<div class="form-group">
-    <label for="firstName" class="col-sm-2 control-label">First Name : </label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" placeholder="{{domainexpert.firstName}}" id="firstName" ng-model="domainexpert.firstName">
-    </div>
-</div>
-<div class="form-group">
-    <label for="lastName" class="col-sm-2 control-label">Last Name : </label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" placeholder="{{domainexpert.lastName}}" id="lastName" ng-model="domainexpert.lastName">
-    </div>
-</div>
-<div class="form-group">
-    <label for="email" class="col-sm-2 control-label">E-mail : </label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" placeholder="{{domainexpert.email}}" id="email" ng-model="domainexpert.email">
-    </div>
-</div>
+        <div ng-if="loading == false">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="username" class="control-label">User Name</label>
+                        <input type="text" class="form-control" placeholder="Username" id="username"
+                               ng-model="domainexpert.username">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="control-label">E-mail</label>
+                        <input type="email" class="form-control" placeholder="Email" id="email"
+                               ng-model="domainexpert.email">
+                    </div>
+                </div>
+            </div>
 
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="firstName" class="control-label">First Name</label>
+                        <input type="text" class="form-control" placeholder="First Name" id="firstName"
+                               ng-model="domainexpert.firstName">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lastName" class="control-label">Last Name</label>
+                        <input type="text" class="form-control" placeholder="Last Name" id="lastName"
+                               ng-model="domainexpert.lastName">
+                    </div>
+                </div>
+            </div>
 
-<pre>{{domainexpert | json}}</pre>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="password" class="control-label">Password</label>
+                        <input type="password" class="form-control" placeholder="Password" id="password"
+                               ng-model="domainexpert.password">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="confirmPassword" class="control-label">Confirm Password</label>
+                        <input type="password" class="form-control" placeholder="Confirm Password" id="confirmPassword"
+                               ng-model="domainexpert.confirmPassword">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

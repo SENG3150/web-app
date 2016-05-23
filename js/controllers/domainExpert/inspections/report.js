@@ -158,7 +158,11 @@ angular
 				}
 
 				if (subAssembly.wearTests.length > 0) {
+					for (var testID in subAssembly.wearTests) {
+						var wearTest = subAssembly.wearTests[testID];
 
+						
+					}
 				}
 			}
 		});

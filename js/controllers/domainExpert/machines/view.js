@@ -8,6 +8,7 @@ angular
 
 		LayoutService.reset();
 		LayoutService.setTitle(['Machine ' + $scope.machineId, 'Machines']);
+		LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-plus"></i>Schedule Inspection</button>');
 		LayoutService.getPageHeader().setBreadcrumbs([
 			{
 				route: 'domainExpert-index',

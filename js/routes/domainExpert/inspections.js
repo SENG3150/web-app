@@ -18,7 +18,7 @@ angular
 			})
 			.state('domainExpert-inspections-create', {
 				parent: 'domainExpert',
-				url: '/inspections/create',
+				url: '/inspections/create/:id',
 				templateUrl: 'views/domainExpert/inspections/create.html',
 				controller: 'DomainExpertInspectionsControllerCreate',
 				resolve: {

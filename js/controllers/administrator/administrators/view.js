@@ -1,6 +1,6 @@
 angular
 	.module('joy-global')
-	.controller('AdministratorAdministratorsControllerView', ['$scope', 'Administrators', '$stateParams', 'LayoutService', 'moment', function ($scope, Administrators, $stateParams, LayoutService, moment) {
+	.controller('AdministratorAdministratorsControllerView', ['$scope', 'Administrators', '$stateParams', 'LayoutService', function ($scope, Administrators, $stateParams, LayoutService) {
 		$scope.administratorId = $stateParams.id;
 		$scope.loading = true;
 

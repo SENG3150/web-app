@@ -1,63 +1,87 @@
 angular
-	.module('joy-global')
-	.controller('AdministratorAdministratorsControllerCreate', ['$scope', 'toastr', 'LayoutService', function ($scope, toastr, LayoutService) {
-		$scope.newUserData = {};
+    .module('joy-global')
+    .controller('AdministratorAdministratorsControllerCreate', ['$scope', '$state', 'toastr', 'LayoutService', 'Administrators', function ($scope, $state, toastr, LayoutService, Administrators) {
+        $scope.administrator = {
+            username: '',
+            email: '',
+            firstName: '',
+            lastName: '',
+            password: '',
+            confirmPassword: ''
+        };
 
-		LayoutService.reset();
-		LayoutService.setTitle(['Create New Administrator']);
-		LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-check"></i> Save</button>');
-		LayoutService.getPageHeader().setBreadcrumbs([
-			{
-				route: 'administrator-index',
-				displayName: 'Home'
-			},
-			{
-				route: 'administrator-administrators-index',
-				displayName: 'Administrators'
-			},
-			{
-				route: 'administrator-administrators-create',
-				displayName: 'Create'
-			}
-		]);
+        LayoutService.reset();
+        LayoutService.setTitle(['New Administrator', 'Administrators']);
+        LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-check"></i> Save</button>');
+        LayoutService.getPageHeader().setBreadcrumbs([
+            {
+                route: 'administrator-index',
+                displayName: 'Home'
+            },
+            {
+                route: 'administrator-administrators-index',
+                displayName: 'Administrators'
+            },
+            {
+                route: 'administrator-administrators-create',
+                displayName: 'New Administrator'
+            }
+        ]);
 
-		$scope.submitUser = function () {
-			if ($scope.validate() == true) {
-				console.log($scope.newUserData);
-			}
-		};
 
-		$scope.validate = function () {
-			if ($scope.newUserData.firstname == '' || $scope.newUserData.firstname == null) {
-				toastr.clear();
-				toastr.error('Enter first name');
+        $scope.submitUser = function () {
+            if ($scope.validate() == true) {
+                Administrators.post($scope.administrator)
+                    .then(function () {
+                        toastr.clear();
+                        toastr.success('User was created successfully.');
+                        $state.go('administrator-administrators-index');
+                    }, function () {
+                        toastr.clear();
+                        toastr.error('There was an error creating the user.');
+                    });
 
-				return false;
-			}
+            }
+        };
 
-			if ($scope.newUserData.lastname == '' || $scope.newUserData.lastname == null) {
-				toastr.clear();
-				toastr.error('Enter last name');
+        $scope.validate = function () {
+            if ($scope.administrator.firstName == '' || $scope.administrator.firstName == null) {
+                toastr.clear();
+                toastr.error('Enter first name.');
 
-				return false;
-			}
+                return false;
+            }
 
-			if ($scope.newUserData.email == '' || $scope.newUserData.email == null) {
-				toastr.clear();
-				toastr.error('Enter a valid email address');
+            if ($scope.administrator.lastName == '' || $scope.administrator.lastName == null) {
+                toastr.clear();
+                toastr.error('Enter last name.');
 
-				return false;
-			}
+                return false;
+            }
 
-			if ($scope.newUserData.password == '' || $scope.newUserData.password == null) {
-				toastr.clear();
-				toastr.error('Enter a password');
+            if ($scope.administrator.email == '' || $scope.administrator.email == null) {
+                toastr.clear();
+                toastr.error('Enter a valid email address.');
 
-				return false;
-			}
+                return false;
+            }
 
-			return true;
-		};
+            if ($scope.administrator.password == '' || $scope.administrator.password == null) {
+                toastr.clear();
+                toastr.error('Enter a password.');
 
-		LayoutService.getPageHeader().onClicked($scope.submitUser);
-	}]);
+                return false;
+            }
+
+            if ($scope.administrator.password != $scope.administrator.confirmPassword) {
+                toastr.clear();
+                toastr.error('Passwords must match.');
+
+                return false;
+            }
+
+            return true;
+        };
+
+        LayoutService.getPageHeader().onClicked($scope.submitUser);
+    }]);

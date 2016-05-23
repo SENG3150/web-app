@@ -1,27 +1,27 @@
 angular
 	.module('joy-global')
-	.controller('AdministratorDomainExpertsControllerView', ['$scope', 'DomainExperts', '$stateParams', 'LayoutService', 'moment', function ($scope, DomainExperts, $stateParams, LayoutService, moment) {
+	.controller('AdministratorDomainExpertsControllerView', ['$scope', 'DomainExperts', '$stateParams', 'LayoutService', function ($scope, DomainExperts, $stateParams, LayoutService) {
 		$scope.domainExpertsId = $stateParams.id;
 		$scope.loading = true;
 
 		DomainExperts.one($scope.domainExpertsId).get().then(
 			function(data) {
 				$scope.loading = false;
-				$scope.domainexpert = data;
+				$scope.domainExpert = data;
 
-				LayoutService.setTitle([$scope.domainexpert.name, 'DomainExperts']);
+				LayoutService.setTitle([$scope.domainExpert.name, 'DomainExperts']);
 				LayoutService.getPageHeader().setBreadcrumbs([
 					{
 						route: 'administrator-index',
 						displayName: 'Home'
 					},
 					{
-						route: 'administrator-domainexperts-index',
-						displayName: 'DomainExperts'
+						route: 'administrator-domainExperts-index',
+						displayName: 'Domain Experts'
 					},
 					{
-						route: 'administrator-domainexperts-view',
-						displayName: $scope.domainexpert.name
+						route: 'administrator-domainExperts-view',
+						displayName: $scope.domainExpert.name
 					}
 				]);
 			});
@@ -35,12 +35,12 @@ angular
 				displayName: 'Home'
 			},
 			{
-				route: 'administrator-domainexperts-index',
-				displayName: 'DomainExperts'
+				route: 'administrator-domainExperts-index',
+				displayName: 'Domain Experts'
 			},
 			{
-				route: 'administrator-domainexperts-view',
-				displayName: 'DomainExpert'
+				route: 'administrator-domainExperts-view',
+				displayName: 'Domain Expert'
 			}
 		]);
 

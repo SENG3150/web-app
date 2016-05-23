@@ -22,6 +22,9 @@ angular
 				templateUrl: 'views/administrator/technicians/create.html',
 				controller: 'AdministratorTechniciansControllerCreate',
 				resolve: {
+					loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
+						return $ocLazyLoad.load(['dateTimePicker'])
+					}],
 					loggedIn: ['AuthService', function (AuthService) {
 						return AuthService.checkPermissions(true);
 					}]

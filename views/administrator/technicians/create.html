@@ -1,44 +1,82 @@
 <div class="ibox">
-    <div class="ibox-title">
-        <h5>Create Technician</h5>
-    </div>
     <div class="ibox-content">
-        <form ng-submit="submitUser()" class="form-horizontal">
-
-            <div class="form-group">
-                <label for="firstname" class="col-sm-2 control-label">First Name</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="" id="firstname" ng-model="newUserData.firstname">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="username" class="control-label">User Name</label>
+                    <input type="text" class="form-control" placeholder="Username" id="username"
+                           ng-model="technician.username">
+                </div>
+                <div class="col-md-6">
+                    <label for="email" class="control-label">E-mail</label>
+                    <input type="email" class="form-control" placeholder="Email" id="email"
+                           ng-model="technician.email">
                 </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="lastname" class="col-sm-2 control-label">Last Name</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="" id="lastname" ng-model="newUserData.lastname">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="firstName" class="control-label">First Name</label>
+                    <input type="text" class="form-control" placeholder="First Name" id="firstName"
+                           ng-model="technician.firstName">
+                </div>
+                <div class="col-md-6">
+                    <label for="lastName" class="control-label">Last Name</label>
+                    <input type="text" class="form-control" placeholder="Last Name" id="lastName"
+                           ng-model="technician.lastName">
                 </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="email" class="col-sm-2 control-label">Email</label>
-                <div class="col-sm-10" class="col-sm-2 control-label">
-                    <input type="email" class="form-control" placeholder="" id="email" ng-model="newUserData.email">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="password" class="control-label">Password</label>
+                    <input type="password" class="form-control" placeholder="Password" id="password"
+                           ng-model="technician.password">
+                </div>
+                <div class="col-md-6">
+                    <label for="confirmPassword" class="control-label">Confirm Password</label>
+                    <input type="password" class="form-control" placeholder="Confirm Password" id="confirmPassword"
+                           ng-model="technician.confirmPassword">
                 </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="password" class="col-sm-2 control-label">Password</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" placeholder="" id="password" ng-model="newUserData.password">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="temporary" class="control-label">Temporary</label>
+                    <div class="checkbox checkbox-primary checkbox-circle">
+                        <input type="checkbox" checked="checked" autocomplete="off"
+                               ng-model="technician.temporary" id="temporary">
+                        <label for="temporary">
+                            Temporary
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-6" ng-show="technician.temporary == true">
+                    <label for="loginExpiresTime" class="control-label">Login Expiration Time</label>
+                    <div class="dropdown">
+                        <div class="dropdown-toggle time-toggle-select" role="button" data-toggle="dropdown">
+                            <div class="input-group">
+                                <input type="text" class="input-sm form-control"
+                                       data-ng-model="technician.loginExpiresTime"
+                                       mo-date-input="DD/MM/YYYY HH:mm" id="loginExpiresTime">
+                                    <span class="input-group-addon">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </span>
+                            </div>
+                        </div>
+                        <ul class="dropdown-menu" role="menu">
+                            <datetimepicker data-ng-model="technician.loginExpiresTime"
+                                            data-datetimepicker-config="{ dropdownSelector: '.time-toggle-select', startView:'day', minView:'minute', modelType: 'moment' }"></datetimepicker>
+                        </ul>
+                    </div>
                 </div>
             </div>
-
-            <div class="form-group">
-                <label for="temporary" class="col-sm-2 control-label">Temporary</label>
-                <div class="col-sm-1">
-                    <input type="checkbox" class="form-control" id="temporary" ng-model="newUserData.temporary">
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
 </div>

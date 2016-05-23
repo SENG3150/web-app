@@ -1,6 +1,8 @@
 angular
 	.module('joy-global')
-	.controller('AdministratorTechniciansControllerIndex', ['$scope', 'Technicians', 'LayoutService',  '$state',  function ($scope, Technicians, LayoutService, $state) {
+	.controller('AdministratorTechniciansControllerIndex', ['$scope', 'Technicians', 'LayoutService',  '$state', 'DataTablesService',  function ($scope, Technicians, LayoutService, $state, DataTablesService) {
+		$scope.loading = true;
+
 		LayoutService.reset();
 		LayoutService.setTitle(['Technicians']);
 		LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> New Technician</button>');
@@ -15,11 +17,16 @@ angular
 			}
 		]);
 
-		$scope.technicians = Technicians.getList().$object;
+		Technicians.getList().then(function (data) {
+			$scope.loading = false;
+			$scope.technicians = data;
+		});
 
 		$scope.goTo = function() {
 			$state.go('administrator-technicians-create');
 		};
 
 		LayoutService.getPageHeader().onClicked($scope.goTo);
+
+		$scope.dtOptions = DataTablesService.prepare('Technicians');
 	}]);

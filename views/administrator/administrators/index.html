@@ -1,27 +1,32 @@
 <div class="ibox">
-    <div class="ibox-title">
-        <h5>Administrators</h5>
-    </div>
     <div class="ibox-content">
-        <table class="table">
-            <thead>
+        <div class="text-center" ng-if="loading == true">
+            <i class="fa fa-spinner fa-spin fa-3x"></i>
+        </div>
+
+        <div ng-if="loading == false">
+            <table datatable="ng" class="table table-striped table-bordered table-middle" dt-options="dtOptions">
+                <thead>
                 <tr>
-                    <th>Admin ID</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>View</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 <tr ng-repeat="administrator in administrators">
-                    <td>{{ administrator.id }}</td>
                     <td>{{ administrator.name }}</td>
                     <td>{{ administrator.email }}</td>
                     <td>
-                        <a ui-sref="administrator-administrators-view({ id: administrator.id })" class="btn btn-primary btn-block">View</a>
+                        <a ui-sref="administrator-administrators-view({ id: administrator.id })"
+                           class="btn btn-primary btn-block">
+                            <i class="fa fa-fw fa-search"></i>
+                            View / Edit
+                        </a>
                     </td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

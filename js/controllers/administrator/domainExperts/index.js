@@ -1,6 +1,8 @@
 angular
 	.module('joy-global')
-	.controller('AdministratorDomainExpertsControllerIndex', ['$scope', 'DomainExperts', 'LayoutService', '$state', function ($scope, DomainExperts, LayoutService, $state) {
+	.controller('AdministratorDomainExpertsControllerIndex', ['$scope', 'DomainExperts', 'LayoutService', '$state', 'DataTablesService', function ($scope, DomainExperts, LayoutService, $state, DataTablesService) {
+		$scope.loading = true;
+
 		LayoutService.reset();
 		LayoutService.setTitle(['Domain Experts']);
 		LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> New Domain Expert</button>');
@@ -15,11 +17,16 @@ angular
 			}
 		]);
 
-		$scope.domainExperts = DomainExperts.getList().$object;
+		DomainExperts.getList().then(function (data) {
+			$scope.loading = false;
+			$scope.domainExperts = data;
+		});
 
 		$scope.goTo = function() {
 			$state.go('administrator-domainExperts-create');
 		};
 
 		LayoutService.getPageHeader().onClicked($scope.goTo);
+
+		$scope.dtOptions = DataTablesService.prepare('Domain Experts');
 	}]);

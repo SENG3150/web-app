@@ -1,30 +1,40 @@
 <div class="ibox">
-    <div class="ibox-title">
-        <h5>Inspections</h5>
-        <div class="ibox-tools" ibox-tools>
-            <a class="collapse-link">
-                <i class="fa fa-chevron-up"></i>
-            </a>
-        </div>
-    </div>
     <div class="ibox-content">
-        <table datatable="ng" class="table table-striped table-bordered table-middle" dt-options="dtOptions">
-            <thead>
-            <tr>
-                <th>Inspection ID</th>
-                <th>Time</th>
-                <th>View</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="inspection in inspections">
-                <td>{{ inspection.id }}</td>
-                <td>{{ moment(inspection.timeScheduled).format("dddd, MMMM Do YYYY, h:mm:ss a") }}</td>
-                <td>
-                    <a ui-sref="domainExpert-inspections-view({ id: inspection.id })" class="btn btn-primary btn-block">View</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="text-center" ng-if="loading == true">
+            <i class="fa fa-spinner fa-spin fa-3x"></i>
+        </div>
+
+        <div ng-if="loading == false">
+            <table datatable="ng" class="table table-striped table-bordered table-middle" dt-options="dtOptions">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Machine</th>
+                    <th>Model</th>
+                    <th>Technician</th>
+                    <th>Domain Expert</th>
+                    <th>Time</th>
+                    <th>View / Edit</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="inspection in inspections">
+                    <td>{{ inspection.id }}</td>
+                    <td>{{ inspection.machine.name }}</td>
+                    <td>{{ inspection.machine.model.name }}</td>
+                    <td>{{ inspection.technician.name }}</td>
+                    <td>{{ inspection.scheduler.name }}</td>
+                    <td>{{ moment(inspection.timeScheduled).format("HH:mm ddd, MMM Do YYYY") }}</td>
+                    <td>
+                        <a ui-sref="domainExpert-inspections-view({ id: inspection.id })"
+                           class="btn btn-primary btn-block">
+                            <i class="fa fa-fw fa-search"></i>
+                            View / Edit
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

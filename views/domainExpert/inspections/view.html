@@ -1,12 +1,4 @@
 <div class="ibox">
-    <div class="ibox-title">
-        <h5>Machines</h5>
-        <div class="ibox-tools" ibox-tools>
-            <a class="collapse-link">
-                <i class="fa fa-chevron-up"></i>
-            </a>
-        </div>
-    </div>
     <div class="ibox-content">
         <table class="table">
             <thead>
@@ -20,28 +12,28 @@
             <tbody>
             <tr>
                 <td ng-if="inspection.timeCreated != null">
-                    {{ moment(inspection.timeCreated).format("dddd, MMMM Do YYYY, h:mm:ss a") }}
+                    {{ moment(inspection.timeCreated).format("HH:mm ddd, MMM Do YYYY") }}
                 </td>
                 <td ng-if="inspection.timeCreated == null">
                     Not Created
                 </td>
 
                 <td ng-if="inspection.timeScheduled != null">
-                    {{ moment(inspection.timeScheduled).format("dddd, MMMM Do YYYY, h:mm:ss a") }}
+                    {{ moment(inspection.timeScheduled).format("HH:mm ddd, MMM Do YYYY") }}
                 </td>
                 <td ng-if="inspection.timeScheduled == null">
                     No Schedule
                 </td>
 
                 <td ng-if="inspection.timeStarted != null">
-                    {{ moment(inspection.timeStarted).format("dddd, MMMM Do YYYY, h:mm:ss a") }}
+                    {{ moment(inspection.timeStarted).format("HH:mm ddd, MMM Do YYYY") }}
                 </td>
                 <td ng-if="inspection.timeStarted == null">
                     Not Started
                 </td>
 
                 <td ng-if="inspection.timeCompleted != null">
-                    {{ moment(inspection.timeCompleted).format("dddd, MMMM Do YYYY, h:mm:ss a") }}
+                    {{ moment(inspection.timeCompleted).format("HH:mm ddd, MMM Do YYYY") }}
                 </td>
                 <td ng-if="inspection.timeCompleted == null">
                     Not Completed
@@ -53,11 +45,12 @@
         <a ui-sref="domainExpert-inspections-report({ id: inspection.id })" class="btn btn-primary">View Report</a>
 
         <h1>Inspection Comments</h1>
+
         <div class="panel panel-success" ng-repeat="comment in inspection.comments">
             <div class="panel-heading">
                 By: {{comment.author.name}}
                 <div class="panel-title pull-right">
-                    Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY, h:mm:ss a")}}
+                    Time Commented: {{moment(comment.timeCommented).format("HH:mm ddd, MMM Do YYYY")}}
                 </div>
             </div>
             <div class="panel-body">{{comment.text}}</div>
@@ -79,13 +72,14 @@
             <div ng-show="collapsed" class="panel-body">
 
                 <!-- major assembly comment -->
-                <div ng-app id="ng-majorComment" class="panel panel-success" ng-repeat="comment in majorAssembly.comments">
+                <div ng-app id="ng-majorComment" class="panel panel-success"
+                     ng-repeat="comment in majorAssembly.comments">
                     <div class="panel-heading">
                         <a href="#" ng-model="collapsed" class="text-success" style="color:white"
                            ng-click="collapsedComment=!collapsedComment">
                             Comment by: {{comment.author.name}}
                             <div class="panel-title pull-right">
-                                Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY, h:mm:ss a")}}
+                                Time Commented: {{moment(comment.timeCommented).format("HH:mm ddd, MMM Do YYYY")}}
                             </div>
                         </a>
                     </div>
@@ -97,7 +91,8 @@
 
 
                 <!-- sub assembly panel -->
-                <div ng-app id="ng-subAssemly" class="panel panel-info" ng-repeat="subAssembly in majorAssembly.subAssemblies">
+                <div ng-app id="ng-subAssemly" class="panel panel-info"
+                     ng-repeat="subAssembly in majorAssembly.subAssemblies">
                     <div class="panel-heading">
                         <a href="#" ng-model="collapsed" style="color:white"
                            ng-click="collapsedSubAssembly=!collapsedSubAssembly">
@@ -114,12 +109,16 @@
                                 <div class="panel-body">
                                     <table class="table">
                                         <thead>
-                                        <th>Test Type</th>
-                                        <th> Doc Link</th>
+                                        <tr>
+                                            <th>Test Type</th>
+                                            <th> Doc Link</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                        <td>{{subAssembly.machineGeneralTest.testType}}</td>
-                                        <td>{{subAssembly.machineGeneralTest.docLink}}</td>
+                                        <tr>
+                                            <td>{{subAssembly.machineGeneralTest.testType}}</td>
+                                            <td>{{subAssembly.machineGeneralTest.docLink}}</td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                     <hr/>
@@ -127,20 +126,27 @@
                                     <!--Action Item-->
                                     <table class="table">
                                         <thead>
-                                        <th>Status</th>
-                                        <th>Issue</th>
-                                        <th>Action</th>
-                                        <th>Technician</th>
-                                        <th>Time Actioned</th>
+                                        <tr>
+                                            <th>Status</th>
+                                            <th>Issue</th>
+                                            <th>Action</th>
+                                            <th>Technician</th>
+                                            <th>Time Actioned</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                        <td>{{subAssembly.machineGeneralTest.actionItem.status}}</td>
-                                        <td>{{subAssembly.machineGeneralTest.actionItem.issue}}</td>
-                                        <td>{{subAssembly.machineGeneralTest.actionItem.action}}</td>
-                                        <td>{{subAssembly.machineGeneralTest.actionItem.technician.name}}</td>
-                                        <td>{{moment(subAssembly.machineGeneralTest.actionItem.timeActioned).format("dddd, MMMM
-                                            Do YYYY, h:mm:ss a")}}
-                                        </td>
+                                        <tr>
+                                            <td>{{subAssembly.machineGeneralTest.actionItem.status}}</td>
+                                            <td>{{subAssembly.machineGeneralTest.actionItem.issue}}</td>
+                                            <td>{{subAssembly.machineGeneralTest.actionItem.action}}</td>
+                                            <td>{{subAssembly.machineGeneralTest.actionItem.technician.name}}</td>
+                                            <td>
+                                                {{
+                                                moment(subAssembly.machineGeneralTest.actionItem.timeActioned)
+                                                .format("HH:mm ddd, MMM Do YYYY")
+                                                }}
+                                            </td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                     <div ng-app id="ng-subComment" class="panel panel-success"
@@ -150,19 +156,21 @@
                                                ng-click="collapsedComment=!collapsedComment">
                                                 Comment by: {{comment.author.name}}
                                                 <div class="panel-title pull-right">
-                                                    Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY,
-                                                    h:mm:ss a")}}
+                                                    Time Commented:
+                                                    {{
+                                                    moment(comment.timeCommented)
+                                                    .format("HH:mm ddd, MMM Do YYYY")
+                                                    }}
                                                 </div>
                                             </a>
                                         </div>
                                         <div ng-show="collapsedComment" class="panel-body">{{comment.text}}</div>
                                     </div>
-
                                     <!--Add a machine general test comment -->
-                                    <div add-comment location="machineGeneralTest" location-id="{{subAssembly.machineGeneralTest.id}}"></div>
+                                    <div add-comment location="machineGeneralTest"
+                                         location-id="{{subAssembly.machineGeneralTest.id}}"></div>
                                 </div>
                             </div>
-
                         </div>
                         <!-- Oil Test -->
                         <div ng-if="subAssembly.oilTest != null">
@@ -171,28 +179,32 @@
                                 <div class="panel-body">
                                     <table class="table">
                                         <thead>
-                                        <th>Lead</th>
-                                        <th>Copper</th>
-                                        <th>Tin</th>
-                                        <th>Iron</th>
-                                        <th>pq90</th>
-                                        <th>Silicon</th>
-                                        <th>Sodium</th>
-                                        <th>Aluminium</th>
-                                        <th>Water</th>
-                                        <th>Viscosity</th>
+                                        <tr>
+                                            <th>Lead</th>
+                                            <th>Copper</th>
+                                            <th>Tin</th>
+                                            <th>Iron</th>
+                                            <th>pq90</th>
+                                            <th>Silicon</th>
+                                            <th>Sodium</th>
+                                            <th>Aluminium</th>
+                                            <th>Water</th>
+                                            <th>Viscosity</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                        <td>{{subAssembly.oilTest.lead}}</td>
-                                        <td>{{subAssembly.oilTest.copper}}</td>
-                                        <td>{{subAssembly.oilTest.tin}}</td>
-                                        <td>{{subAssembly.oilTest.iron}}</td>
-                                        <td>{{subAssembly.oilTest.pq90}}</td>
-                                        <td>{{subAssembly.oilTest.silicon}}</td>
-                                        <td>{{subAssembly.oilTest.sodium}}</td>
-                                        <td>{{subAssembly.oilTest.aluminium}}</td>
-                                        <td>{{subAssembly.oilTest.water}}</td>
-                                        <td>{{subAssembly.oilTest.viscosity}}</td>
+                                        <tr>
+                                            <td>{{subAssembly.oilTest.lead}}</td>
+                                            <td>{{subAssembly.oilTest.copper}}</td>
+                                            <td>{{subAssembly.oilTest.tin}}</td>
+                                            <td>{{subAssembly.oilTest.iron}}</td>
+                                            <td>{{subAssembly.oilTest.pq90}}</td>
+                                            <td>{{subAssembly.oilTest.silicon}}</td>
+                                            <td>{{subAssembly.oilTest.sodium}}</td>
+                                            <td>{{subAssembly.oilTest.aluminium}}</td>
+                                            <td>{{subAssembly.oilTest.water}}</td>
+                                            <td>{{subAssembly.oilTest.viscosity}}</td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                     <!--Oil Test Action Item-->
@@ -200,20 +212,27 @@
                                     <h3>Action Item</h3>
                                     <table class="table">
                                         <thead>
-                                        <th>Status</th>
-                                        <th>Issue</th>
-                                        <th>Action</th>
-                                        <th>Technician</th>
-                                        <th>Time Actioned</th>
+                                        <tr>
+                                            <th>Status</th>
+                                            <th>Issue</th>
+                                            <th>Action</th>
+                                            <th>Technician</th>
+                                            <th>Time Actioned</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                        <td>{{subAssembly.oilTest.actionItem.status}}</td>
-                                        <td>{{subAssembly.oilTest.actionItem.issue}}</td>
-                                        <td>{{subAssembly.oilTest.actionItem.action}}</td>
-                                        <td>{{subAssembly.oilTest.actionItem.technician.name}}</td>
-                                        <td>{{moment(subAssembly.oilTest.actionItem.timeActioned).format("dddd, MMMM Do YYYY,
-                                            h:mm:ss a")}}
-                                        </td>
+                                        <tr>
+                                            <td>{{subAssembly.oilTest.actionItem.status}}</td>
+                                            <td>{{subAssembly.oilTest.actionItem.issue}}</td>
+                                            <td>{{subAssembly.oilTest.actionItem.action}}</td>
+                                            <td>{{subAssembly.oilTest.actionItem.technician.name}}</td>
+                                            <td>
+                                                {{
+                                                moment(subAssembly.oilTest.actionItem.timeActioned)
+                                                .format("HH:mm ddd, MMM Do YYYY")
+                                                }}
+                                            </td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                     <div ng-app id="ng-subComment" class="panel panel-success"
@@ -223,8 +242,11 @@
                                                ng-click="collapsedComment=!collapsedComment">
                                                 Comment by: {{comment.author.name}}
                                                 <div class="panel-title pull-right">
-                                                    Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY,
-                                                    h:mm:ss a")}}
+                                                    Time Commented:
+                                                    {{
+                                                    moment(comment.timeCommented)
+                                                    .format("HH:mm ddd, MMM Do YYYY")
+                                                    }}
                                                 </div>
                                             </a>
                                         </div>
@@ -234,9 +256,7 @@
                                     <!--Add a oil test comment -->
                                     <div add-comment location="oilTest" location-id="{{subAssembly.oilTest.id}}"></div>
                                 </div>
-
                             </div>
-
                         </div>
                         <!-- Wear Test -->
                         <div ng-if="subAssembly.wearTest != null">
@@ -245,21 +265,29 @@
                                 <div class="panel-body">
                                     <table class="table">
                                         <thead>
-                                        <th>Description</th>
-                                        <th>New</th>
-                                        <th>Limit</th>
-                                        <th>Life Lower</th>
-                                        <th>Life Upper</th>
-                                        <th>Time Tested</th>
+                                        <tr>
+                                            <th>Description</th>
+                                            <th>New</th>
+                                            <th>Limit</th>
+                                            <th>Life Lower</th>
+                                            <th>Life Upper</th>
+                                            <th>Time Tested</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                        <td>{{subAssembly.wearTest.description}}</td>
-                                        <td>{{subAssembly.wearTest.new}}</td>
-                                        <td>{{subAssembly.wearTest.limit}}</td>
-                                        <td>{{subAssembly.wearTest.lifeLower}}</td>
-                                        <td>{{subAssembly.wearTest.lifeUpper}}</td>
-                                        <td>{{moment(subAssembly.wearTest.timeStart).format("dddd, MMMM Do YYYY, h:mm:ss a")}}
-                                        </td>
+                                        <tr>
+                                            <td>{{subAssembly.wearTest.description}}</td>
+                                            <td>{{subAssembly.wearTest.new}}</td>
+                                            <td>{{subAssembly.wearTest.limit}}</td>
+                                            <td>{{subAssembly.wearTest.lifeLower}}</td>
+                                            <td>{{subAssembly.wearTest.lifeUpper}}</td>
+                                            <td>
+                                                {{
+                                                moment(subAssembly.wearTest.timeStart)
+                                                .format("HH:mm ddd, MMM Do YYYY")
+                                                }}
+                                            </td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                     <h3/>
@@ -267,20 +295,27 @@
                                     <h3>Action Item</h3>
                                     <table class="table">
                                         <thead>
-                                        <th>Status</th>
-                                        <th>Issue</th>
-                                        <th>Action</th>
-                                        <th>Technician</th>
-                                        <th>Time Actioned</th>
+                                        <tr>
+                                            <th>Status</th>
+                                            <th>Issue</th>
+                                            <th>Action</th>
+                                            <th>Technician</th>
+                                            <th>Time Actioned</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                        <td>{{subAssembly.wearTest.actionItem.status}}</td>
-                                        <td>{{subAssembly.wearTest.actionItem.issue}}</td>
-                                        <td>{{subAssembly.wearTest.actionItem.action}}</td>
-                                        <td>{{subAssembly.wearTest.actionItem.technician.name}}</td>
-                                        <td>{{moment(subAssembly.wearTest.actionItem.timeActioned).format("dddd, MMMM Do YYYY,
-                                            h:mm:ss a")}}
-                                        </td>
+                                        <tr>
+                                            <td>{{subAssembly.wearTest.actionItem.status}}</td>
+                                            <td>{{subAssembly.wearTest.actionItem.issue}}</td>
+                                            <td>{{subAssembly.wearTest.actionItem.action}}</td>
+                                            <td>{{subAssembly.wearTest.actionItem.technician.name}}</td>
+                                            <td>
+                                                {{
+                                                moment(subAssembly.wearTest.actionItem.timeActioned)
+                                                .format("HH:mm ddd, MMM Do YYYY")
+                                                }}
+                                            </td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                     <div ng-app id="ng-subComment" class="panel panel-success"
@@ -290,8 +325,11 @@
                                                ng-click="collapsedComment=!collapsedComment">
                                                 Comment by: {{comment.author.name}}
                                                 <div class="panel-title pull-right">
-                                                    Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY,
-                                                    h:mm:ss a")}}
+                                                    Time Commented:
+                                                    {{
+                                                    moment(comment.timeCommented)
+                                                    .format("HH:mm ddd, MMM Do YYYY")
+                                                    }}
                                                 </div>
                                             </a>
                                         </div>
@@ -299,20 +337,24 @@
                                     </div>
 
                                     <!--Add a wear test comment -->
-                                    <div add-comment location="wearTest" location-id="{{subAssembly.wearTest.id}}"></div>
-
+                                    <div add-comment location="wearTest"
+                                         location-id="{{subAssembly.wearTest.id}}"></div>
                                 </div>
                             </div>
                         </div>
                         <!-- Sub Assembly Comments -->
-                        <div ng-app id="ng-subComment" class="panel panel-success" ng-repeat="comment in subAssembly.comments">
+                        <div ng-app id="ng-subComment" class="panel panel-success"
+                             ng-repeat="comment in subAssembly.comments">
                             <div class="panel-heading">
                                 <a href="#" ng-model="collapsed" style="color:white" class="text-success"
                                    ng-click="collapsedComment=!collapsedComment">
                                     Comment by: {{comment.author.name}}
                                     <div class="panel-title pull-right">
-                                        Time Commented: {{moment(comment.timeCommented).format("dddd, MMMM Do YYYY, h:mm:ss
-                                        a")}}
+                                        Time Commented:
+                                        {{
+                                        moment(comment.timeCommented)
+                                        .format("HH:mm ddd, MMM Do YYYY")
+                                        }}
                                     </div>
                                 </a>
                             </div>
@@ -321,7 +363,6 @@
 
                         <!--Add a sub assembly comment -->
                         <div add-comment location="subAssembly" location-id="{{subAssembly.id}}"></div>
-
                     </div>
                 </div>
             </div>

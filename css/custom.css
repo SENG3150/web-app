@@ -39,6 +39,10 @@
     vertical-align: middle;
 }
 
+.breadcrumb > li {
+    padding-right: 5px;
+}
+
 /* lg - larger desktops */
 @media (min-width: 1200px) {
 }

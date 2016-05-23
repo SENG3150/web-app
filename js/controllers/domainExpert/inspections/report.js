@@ -161,7 +161,17 @@ angular
 					for (var testID in subAssembly.wearTests) {
 						var wearTest = subAssembly.wearTests[testID];
 
-						
+						//scatter plot: x = SMU, y = (value on wear / replace)
+						//line of best fit between scatter plots
+
+						//grey line:
+						//      Line 1:
+						// 			start: x = smu LOWER    , y = (wear / replace) NEW
+						//			end:   x = (wear / replace) UPPER    , y = (wear / replace) LIMIT
+						//      Line 2:
+						// 			start: x = smu LOWER    , y = (wear / replace) NEW
+						//			end:   x = smu UPPER    , y = (wear / replace) LIMIT
+
 					}
 				}
 			}

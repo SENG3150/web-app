@@ -10,7 +10,7 @@ angular
         LayoutService.setTitle(['Machine ' + $scope.machineId, 'Machines']);
         LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-calendar-plus-o""></i> Schedule Inspection</button>');
         $scope.goTo = function () {
-            $state.go('domainExpert-inspections-create({id:' + 1 + ' })');
+            $state.go('domainExpert-inspections-create({id:' + $scope.machineId + ' })');
         };
 
         LayoutService.getPageHeader().onClicked($scope.goTo);

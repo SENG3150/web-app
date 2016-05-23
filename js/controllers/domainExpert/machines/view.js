@@ -1,6 +1,6 @@
 angular
     .module('joy-global')
-    .controller('DomainExpertMachinesControllerView', ['$scope', 'Inspections', 'Machines', '$stateParams', 'LayoutService', function ($scope, Inspections, Machines, $stateParams, LayoutService) {
+    .controller('DomainExpertMachinesControllerView', ['$scope', '$state', 'Inspections', 'Machines', '$stateParams', 'LayoutService', function ($scope, $state, Inspections, Machines, $stateParams, LayoutService) {
         $scope.inspections = Inspections.getList({include: 'machine'}).$object;
         //$scope.machines = Machines.getList({include: 'model.majorAssemblies.subAssemblies'}).$object;
         $scope.machineId = $stateParams.id;

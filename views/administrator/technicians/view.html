@@ -1,112 +1,88 @@
-<h2>Technician's Details</h2>
+<div class="ibox">
+    <div class="ibox-content">
+        <div class="text-center" ng-if="loading == true">
+            <i class="fa fa-spinner fa-spin fa-3x"></i>
+        </div>
 
-<div>Click to edit details</div>
+        <div ng-if="loading == false">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="username" class="control-label">User Name</label>
+                        <input type="text" class="form-control" placeholder="Username" id="username"
+                               ng-model="technician.username">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="control-label">E-mail</label>
+                        <input type="email" class="form-control" placeholder="Email" id="email"
+                               ng-model="technician.email">
+                    </div>
+                </div>
+            </div>
 
-<div class="form-group">
-    <label for="username" class="col-sm-2 control-label">User Name : </label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" placeholder="{{technician.username}}" id="username" ng-model="technician.username">
-    </div>
-</div>
-<div class="form-group">
-    <label for="firstName" class="col-sm-2 control-label">First Name : </label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" placeholder="{{technician.firstName}}" id="firstName" ng-model="technician.firstName">
-    </div>
-</div>
-<div class="form-group">
-    <label for="lastName" class="col-sm-2 control-label">Last Name : </label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" placeholder="{{technician.lastName}}" id="lastName" ng-model="technician.lastName">
-    </div>
-</div>
-<div class="form-group">
-    <label for="email" class="col-sm-2 control-label">E-mail : </label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" placeholder="{{technician.email}}" id="email" ng-model="technician.email">
-    </div>
-</div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="firstName" class="control-label">First Name</label>
+                        <input type="text" class="form-control" placeholder="First Name" id="firstName"
+                               ng-model="technician.firstName">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lastName" class="control-label">Last Name</label>
+                        <input type="text" class="form-control" placeholder="Last Name" id="lastName"
+                               ng-model="technician.lastName">
+                    </div>
+                </div>
+            </div>
 
-<div class="form-group" ng-switch on="technician.temporary">
-    <label for="temporary" class="col-sm-2 control-label">Temporary User : </label>
-    <div ng-switch-when="true" id="temporary" ng-model="technician.temporary">
-        <select class="col-sm-10" >
-            <option value="true" selected>True</option>
-            <option value="false">False</option>
-        </select>
-    </div>
-    <div ng-switch-default ng-model="technician.temporary">
-        <select class="col-sm-10" >
-            <option value="true" >True</option>
-            <option value="false" selected>False</option>
-        </select>
-    </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="password" class="control-label">Password</label>
+                        <input type="password" class="form-control" placeholder="Password" id="password"
+                               ng-model="technician.password">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="confirmPassword" class="control-label">Confirm Password</label>
+                        <input type="password" class="form-control" placeholder="Confirm Password" id="confirmPassword"
+                               ng-model="technician.confirmPassword">
+                    </div>
+                </div>
+            </div>
 
-</div>
-
-
-<div class="dropdown" ng-if="technician.temporary == true">
-
-    <div class="dropdown-toggle time-toggle-select" role="button" data-toggle="dropdown">
-        <div class="input-group">
-            <input type="text" class="input-sm form-control" data-ng-model="start"
-                   mo-date-input="DD/MM/YYYY HH:mm">
-            <span class="input-group-addon">
-                <i class="glyphicon glyphicon-calendar"></i>
-            </span>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="temporary" class="control-label">Temporary</label>
+                        <div class="checkbox checkbox-primary checkbox-circle">
+                            <input type="checkbox" checked="checked" autocomplete="off"
+                                   ng-model="technician.temporary" id="temporary">
+                            <label for="temporary">
+                                Temporary
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6" ng-show="technician.temporary == true">
+                        <label for="loginExpiresTime" class="control-label">Login Expiration Time</label>
+                        <div class="dropdown">
+                            <div class="dropdown-toggle time-toggle-select" role="button" data-toggle="dropdown">
+                                <div class="input-group">
+                                    <input type="text" class="input-sm form-control"
+                                           data-ng-model="technician.loginExpiresTime"
+                                           mo-date-input="DD/MM/YYYY HH:mm" id="loginExpiresTime">
+                                    <span class="input-group-addon">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <ul class="dropdown-menu" role="menu">
+                                <datetimepicker data-ng-model="technician.loginExpiresTime"
+                                                data-datetimepicker-config="{ dropdownSelector: '.time-toggle-select', startView:'day', minView:'minute', modelType: 'moment' }"></datetimepicker>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <ul class="dropdown-menu" role="menu">
-        <datetimepicker data-ng-model="start"
-                        data-datetimepicker-config="{ dropdownSelector: '.time-toggle-select', startView:'day', minView:'minute', modelType: 'moment' }"></datetimepicker>
-    </ul>
 </div>
-
-<div class="form-group">
-    ID                      : {{technician.id}}
-</div>
-<div class="form-group">
-    User Name               : {{technician.username}}
-</div>
-<div class="form-group">
-    Name                    : {{technician.name}}
-</div>
-<div class="form-group">
-    First Name              : {{technician.firstName}}
-</div>
-<div class="form-group">
-    Last Name               : {{technician.lastName}}
-</div>
-<div class="form-group">
-    E-mail                  : {{technician.email}}
-</div>
-<div class="form-group">
-    Temporary User          : {{technician.temporary}}
-</div>
-<div class="form-group" ng-if="technician.loginexpiresTime != null">
-    Login expires time                   : {{technician.loginexpiresTime}}
-</div>
-<div class="form-group">
-    Expired                   : {{technician.expired}}
-</div>
-<div class="form-group">
-    Route                   : {{technician.route}}
-</div>
-<div class="form-group" ng-if="technician.reqParams != null">
-    Required Parameters     : {{technician.reqParams}}
-</div>
-<div class="form-group">
-    Rest Angularized        : {{technician.restangularized}}
-</div>
-<div class="form-group">
-    From Server             : {{technician.fromServer}}
-</div>
-<div class="form-group" ng-if="technician.parentResource != null">
-    Parent Resource         : {{technician.parentResource}}
-</div>
-<div class="form-group">
-    Rectangular Collection  : {{technician.restangularCollection}}
-
-</div>
-
-<pre>{{technician | json}}</pre>

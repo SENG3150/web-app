@@ -5,7 +5,7 @@ angular
 		$scope.newUserData.temporary = false;
 
 		LayoutService.reset();
-		LayoutService.setTitle(['Create New Technician']);
+		LayoutService.setTitle(['New Technician', 'Technicians']);
 		LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-check"></i> Save</button>');
 		LayoutService.getPageHeader().setBreadcrumbs([
 			{
@@ -18,7 +18,7 @@ angular
 			},
 			{
 				route: 'administrator-technicians-create',
-				displayName: 'Create'
+				displayName: 'New Technician'
 			}
 		]);
 

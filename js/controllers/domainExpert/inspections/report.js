@@ -60,6 +60,51 @@ angular
 			return graphConfig;
 		};
 
+		createWearGraph = function(graphName, regressionLine, scatterPlot, greyLineOne, greyLineTwo) {
+			return {
+				xAxis: {
+				},
+				yAxis: {
+				},
+				title: {
+					text: graphName
+				},
+				legend: {
+					enabled: false
+				},
+				series: [{
+					type: 'line',
+					data: regressionLine,
+					marker: {
+						enabled: false
+					},
+					states: {
+						hover: {
+							lineWidth: 0
+						}
+					},
+					enableMouseTracking: false
+				}, {
+					type: 'scatter',
+					data: scatterPlot,
+					marker: {
+						radius: 4
+					}
+				},{
+					type: 'line',
+					data: greyLineOne,
+					marker: {
+						enabled: false
+					}
+				},{
+					type: 'line',
+					data: greyLineTwo,
+					marker: {
+						enabled: false
+					}
+				}]
+			};
+		}
 
 		baseInspections.one('graphs').get().then(function(historicalData) {
 			//$scope.test = historicalData;
@@ -157,12 +202,21 @@ angular
 					$scope.oilTestGraphs.push(createTimeLineGraph(subAssembly.name, graphFive));
 				}
 
-				if (subAssembly.wearTests.length > 0) {
+
+				//wear graph test
+				if (subAssembly.wearTests.length > 0 && false) {
+					var scatterPlot = [];
+					var regressionLine = [];
+					var firstGreyLine = [];
+					var secondGreyLine = [];
+
 					for (var testID in subAssembly.wearTests) {
 						var wearTest = subAssembly.wearTests[testID];
 
 						//scatter plot: x = SMU, y = (value on wear / replace)
 						//line of best fit between scatter plots
+						scatterPlot.push([wearTest.smu, wearTest.uniqueDetails.wearReplace]);
+						regressionLine.push([wearTest.smu, wearTest.uniqueDetails.wearReplace]);
 
 						//grey line:
 						//      Line 1:
@@ -171,8 +225,16 @@ angular
 						//      Line 2:
 						// 			start: x = smu LOWER    , y = (wear / replace) NEW
 						//			end:   x = smu UPPER    , y = (wear / replace) LIMIT
+						if (testID == subAssembly.wearTests.length - 1) {
+							firstGreyLine.push([wearTest.lower, wearTest.uniqueDetails.wearReplaceNew]); //start
+							firstGreyLine.push((wearTest.uniqueDetails.wearReplaceUpper, wearTest.uniqueDetails.wearReplaceLimit)); //end
 
+							secondGreyLine.push([wearTest.lower, wearTest.uniqueDetails.wearReplaceNew]);
+							secondGreyLine.push([wearTest.upper, wearTest.uniqueDetails.wearReplaceNew]);
+						}
 					}
+
+					$scope.wearTestGraphs.push(createWearGraph(subAssembly.name, regressionLine, scatterPlot, firstGreyLine, secondGreyLine));
 				}
 			}
 		});

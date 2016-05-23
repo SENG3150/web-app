@@ -271,7 +271,9 @@
                                             <th>Limit</th>
                                             <th>Life Lower</th>
                                             <th>Life Upper</th>
+                                            <th>SMU</th>
                                             <th>Time Tested</th>
+                                            <th>Unique Details</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -281,11 +283,15 @@
                                             <td>{{subAssembly.wearTest.limit}}</td>
                                             <td>{{subAssembly.wearTest.lifeLower}}</td>
                                             <td>{{subAssembly.wearTest.lifeUpper}}</td>
+                                            <td>{{subAssembly.wearTest.smu}}</td>
                                             <td>
                                                 {{
                                                 moment(subAssembly.wearTest.timeStart)
                                                 .format("HH:mm ddd, MMM Do YYYY")
                                                 }}
+                                            </td>
+                                            <td>
+                                                <span ng-repeat="(key, value) in subAssembly.wearTest.uniqueDetails">{{key}}: {{value}}<br/></span>
                                             </td>
                                         </tr>
                                         </tbody>

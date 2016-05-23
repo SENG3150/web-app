@@ -2,14 +2,14 @@ angular
 	.module('joy-global')
 	.controller('DomainExpertInspectionsControllerReport', ['$scope', 'Inspections', 'moment', '$stateParams', function ($scope, Inspections, moment, $stateParams) {
 		$scope.inspectionId = $stateParams.id;
-		var baseInspections = Inspections.one($scope.inspectionId).get({
+		var baseInspections = Inspections.one($scope.inspectionId);
+
+		$scope.inspection = baseInspections.get({
 			include: 'majorAssemblies.majorAssembly,majorAssemblies.subAssemblies.subAssembly'
-		});
-		$scope.inspection = baseInspections.$object;
-
+		}).$object;
 		$scope.moment = moment;
-
 		$scope.oilTestGraphs = [];
+		$scope.wearTestGraphs = [];
 
 		Highcharts.setOptions({
 			lang: {
@@ -58,103 +58,107 @@ angular
 			};
 
 			return graphConfig;
-		}
+		};
 
-		baseInspections.then(function(inspection) {
-			var currentDate = moment($scope.inspection.timeCompleted).valueOf();
 
-			for (var majorAssemblyID in inspection.majorAssemblies) {
-				var majorAssembly = inspection.majorAssemblies[majorAssemblyID];
+		baseInspections.one('graphs').get().then(function(historicalData) {
+			//$scope.test = historicalData;
+			for (var subAssemblyID in historicalData.subAssemblies) {
+				var subAssembly = historicalData.subAssemblies[subAssemblyID];
 
-				for (var subAssemblyID in majorAssembly.subAssemblies) {
-					var subAssembly = majorAssembly.subAssemblies[subAssemblyID];
+				if (subAssembly.oilTests.length > 0) {
 
-					//check to see if the assembly has an oil test to be graphed
-					if (subAssembly.oilTest != null) {
-						var oilTest = subAssembly.oilTest;
+					var lead = [];
+					var copper = [];
+					var tin = [];
+					var iron = [];
+					var pq90 = [];
+					var silicon = [];
+					var sodium = [];
+					var aluminium = [];
+					var water = [];
+					var viscosity = [];
 
-						var graphOne = [
-							{
-								name: "Sodium (Na)",
-								data: [
-									[currentDate, parseInt(oilTest.sodium)]
-								]
-							},
-							{
-								name: "Silicon (Si)",
-								data: [
-									[currentDate, parseInt(oilTest.silicon)]
-								]
-							},
-							{
-								name: "aluminium (Al)",
-								data: [
-									[currentDate, parseInt(oilTest.aluminium)]
-								]
-							}
-						];
+					for (var testID in subAssembly.oilTests) {
+						var oilTest = subAssembly.oilTests[testID];
 
-						var graphTwo = [
-							{
-								name: "Iron (Fe)",
-								data: [
-									[currentDate, parseInt(oilTest.iron)]
-								]
-							},
-							{
-								name: "PQ90",
-								data: [
-									[currentDate, parseInt(oilTest.pq90)]
-								]
-							}
-						];
-
-						var graphThree = [
-							{
-								name: "Lead (Pb)",
-								data: [
-									[currentDate, parseInt(oilTest.lead)]
-								]
-							},
-							{
-								name: "Copper (Cu)",
-								data: [
-									[currentDate, parseInt(oilTest.copper)]
-								]
-							},
-							{
-								name: "Tin (Sn)",
-								data: [
-									[currentDate, parseInt(oilTest.tin)]
-								]
-							}
-						];
-
-						var graphFour = [
-							{
-								name: "Water",
-								data: [
-									[currentDate, parseInt(oilTest.water)]
-								]
-							}
-						];
-
-						var graphFive = [
-							{
-								name: "Viscosity (460)",
-								data: [
-									[currentDate, oilTest.viscosity]
-								]
-							}
-						];
-
-						//add the graph configs to oilTestGraphs
-						$scope.oilTestGraphs.push(createTimeLineGraph(subAssembly.subAssembly.name, graphOne));
-						$scope.oilTestGraphs.push(createTimeLineGraph(subAssembly.subAssembly.name, graphTwo));
-						$scope.oilTestGraphs.push(createTimeLineGraph(subAssembly.subAssembly.name, graphThree));
-						$scope.oilTestGraphs.push(createTimeLineGraph(subAssembly.subAssembly.name, graphFour));
-						$scope.oilTestGraphs.push(createTimeLineGraph(subAssembly.subAssembly.name, graphFive));
+						lead.push([oilTest.timeCompleted, parseFloat(oilTest.lead)]);
+						copper.push([oilTest.timeCompleted, parseFloat(oilTest.copper)]);
+						tin.push([oilTest.timeCompleted, parseFloat(oilTest.tin)]);
+						iron.push([oilTest.timeCompleted, parseFloat(oilTest.iron)]);
+						pq90.push([oilTest.timeCompleted, parseFloat(oilTest.pq90)]);
+						silicon.push([oilTest.timeCompleted, parseFloat(oilTest.silicon)]);
+						sodium.push([oilTest.timeCompleted, parseFloat(oilTest.sodium)]);
+						aluminium.push([oilTest.timeCompleted, parseFloat(oilTest.aluminium)]);
+						water.push([oilTest.timeCompleted, parseFloat(oilTest.water)]);
+						viscosity.push([oilTest.timeCompleted, parseFloat(oilTest.viscosity)]);
 					}
+
+
+					var graphOne = [
+						{
+							name: "Sodium (Na)",
+							data: sodium
+						},
+						{
+							name: "Silicon (Si)",
+							data: silicon
+						},
+						{
+							name: "Aluminium (Al)",
+							data: aluminium
+						}
+					];
+
+					var graphTwo = [
+						{
+							name: "Iron (Fe)",
+							data: iron
+						},
+						{
+							name: "PQ90",
+							data: pq90
+						}
+					];
+
+					var graphThree = [
+						{
+							name: "Lead (Pb)",
+							data: lead
+						},
+						{
+							name: "Copper (Cu)",
+							data: copper
+						},
+						{
+							name: "Tin (Sn)",
+							data: tin
+						}
+					];
+
+					var graphFour = [
+						{
+							name: "Water",
+							data: water
+						}
+					];
+
+					var graphFive = [
+						{
+							name: "Viscosity (460)",
+							data: viscosity
+						}
+					];
+
+					$scope.oilTestGraphs.push(createTimeLineGraph(subAssembly.name, graphOne));
+					$scope.oilTestGraphs.push(createTimeLineGraph(subAssembly.name, graphTwo));
+					$scope.oilTestGraphs.push(createTimeLineGraph(subAssembly.name, graphThree));
+					$scope.oilTestGraphs.push(createTimeLineGraph(subAssembly.name, graphFour));
+					$scope.oilTestGraphs.push(createTimeLineGraph(subAssembly.name, graphFive));
+				}
+
+				if (subAssembly.wearTests.length > 0) {
+
 				}
 			}
 		});

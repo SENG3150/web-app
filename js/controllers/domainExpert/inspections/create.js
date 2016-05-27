@@ -15,7 +15,7 @@ angular
 			timeScheduled: moment().add(7, 'days'),
 			machine: $scope.selectedMachine,
 			technician: $scope.selectedTechnician,
-			domainExpert: AuthService.getUser().primary.id,
+			scheduler: AuthService.getUser().primary.id,
 			selectedMajorAssemblies: {},
 			majorAssemblies: []
 		};

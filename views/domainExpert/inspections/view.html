@@ -1,379 +1,291 @@
 <div class="ibox">
+    <div class="ibox-title">
+        <h5>Inspection<span ng-if="loading == true"> (loading...)</span></h5>
+    </div>
     <div class="ibox-content">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Time Created</th>
-                <th>Time Scheduled</th>
-                <th>Time Started</th>
-                <th>Time Completed</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td ng-if="inspection.timeCreated != null">
-                    {{ moment(inspection.timeCreated).format("HH:mm ddd, MMM Do YYYY") }}
-                </td>
-                <td ng-if="inspection.timeCreated == null">
-                    Not Created
-                </td>
-
-                <td ng-if="inspection.timeScheduled != null">
-                    {{ moment(inspection.timeScheduled).format("HH:mm ddd, MMM Do YYYY") }}
-                </td>
-                <td ng-if="inspection.timeScheduled == null">
-                    No Schedule
-                </td>
-
-                <td ng-if="inspection.timeStarted != null">
-                    {{ moment(inspection.timeStarted).format("HH:mm ddd, MMM Do YYYY") }}
-                </td>
-                <td ng-if="inspection.timeStarted == null">
-                    Not Started
-                </td>
-
-                <td ng-if="inspection.timeCompleted != null">
-                    {{ moment(inspection.timeCompleted).format("HH:mm ddd, MMM Do YYYY") }}
-                </td>
-                <td ng-if="inspection.timeCompleted == null">
-                    Not Completed
-                </td>
-            </tr>
-            </tbody>
-        </table>
-
-        <a ui-sref="domainExpert-inspections-report({ id: inspection.id })" class="btn btn-primary">View Report</a>
-
-        <h1>Inspection Comments</h1>
-
-        <div class="panel panel-success" ng-repeat="comment in inspection.comments">
-            <div class="panel-heading">
-                By: {{comment.author.name}}
-                <div class="panel-title pull-right">
-                    Time Commented: {{moment(comment.timeCommented).format("HH:mm ddd, MMM Do YYYY")}}
-                </div>
-            </div>
-            <div class="panel-body">{{comment.text}}</div>
+        <div class="text-center" ng-if="loading == true">
+            <i class="fa fa-spinner fa-spin fa-3x"></i>
         </div>
 
-        <!--add a inspection comment-->
-        <div add-comment location="inspection" location-id="{{inspection.id}}"></div>
+        <div ng-if="loading == false">
+            <table class="table table-bordered table-middle table-transparent">
+                <thead>
+                <tr>
+                    <th>Time Created</th>
+                    <th>Time Scheduled</th>
+                    <th>Time Started</th>
+                    <th>Time Completed</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td ng-if="inspection.timeCreated != null">
+                        {{ moment(inspection.timeCreated).format("HH:mm ddd, MMM Do YYYY") }}
+                    </td>
+                    <td ng-if="inspection.timeCreated == null">
+                        Not Created
+                    </td>
 
-        <h1>Inspection Results</h1>
+                    <td ng-if="inspection.timeScheduled != null">
+                        {{ moment(inspection.timeScheduled).format("HH:mm ddd, MMM Do YYYY") }}
+                    </td>
+                    <td ng-if="inspection.timeScheduled == null">
+                        No Schedule
+                    </td>
 
-        <!-- major assembly panel -->
-        <div ng-app id="ng-app" class="panel panel-primary" ng-repeat="majorAssembly in inspection.majorAssemblies">
-            <div class="panel-heading">
-                <a href="#" ng-model="collapsed" style="color:white" ng-click="collapsed=!collapsed">
-                    {{majorAssembly.majorAssembly.name}}
-                </a>
+                    <td ng-if="inspection.timeStarted != null">
+                        {{ moment(inspection.timeStarted).format("HH:mm ddd, MMM Do YYYY") }}
+                    </td>
+                    <td ng-if="inspection.timeStarted == null">
+                        Not Started
+                    </td>
+
+                    <td ng-if="inspection.timeCompleted != null">
+                        {{ moment(inspection.timeCompleted).format("HH:mm ddd, MMM Do YYYY") }}
+                    </td>
+                    <td ng-if="inspection.timeCompleted == null">
+                        Not Completed
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-md-5">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Tree View<span ng-if="loading == true"> (loading...)</span></h5>
             </div>
-
-            <div ng-show="collapsed" class="panel-body">
-
-                <!-- major assembly comment -->
-                <div ng-app id="ng-majorComment" class="panel panel-success"
-                     ng-repeat="comment in majorAssembly.comments">
-                    <div class="panel-heading">
-                        <a href="#" ng-model="collapsed" class="text-success" style="color:white"
-                           ng-click="collapsedComment=!collapsedComment">
-                            Comment by: {{comment.author.name}}
-                            <div class="panel-title pull-right">
-                                Time Commented: {{moment(comment.timeCommented).format("HH:mm ddd, MMM Do YYYY")}}
-                            </div>
-                        </a>
-                    </div>
-                    <div ng-show="collapsedComment" class="panel-body">{{comment.text}}</div>
+            <div class="ibox-content">
+                <div class="text-center" ng-if="loading == true">
+                    <i class="fa fa-spinner fa-spin fa-3x"></i>
                 </div>
 
-                <!--Add a major assembly comment -->
-                <div add-comment location="majorAssembly" location-id="{{majorAssembly.id}}"></div>
+                <div ng-if="loading == false">
+                    <p><span class="text-navy">Highlighted</span> nodes have a photo or comment.</p>
 
+                    <div js-tree="treeConfig" ng-model="treeData" tree="treeInstance"
+                         tree-events-obj="treeEvents"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8 col-md-7">
+        <div class="ibox" ng-if="type == 'test-machineGeneral' || type == 'test-oil' || type == 'test-wear'">
+            <div class="ibox-title">
+                <h5>Data for {{ title }}<span ng-if="loading == true"> (loading...)</span></h5>
+            </div>
+            <div class="ibox-content">
+                <div class="text-center" ng-if="loading == true">
+                    <i class="fa fa-spinner fa-spin fa-3x"></i>
+                </div>
 
-                <!-- sub assembly panel -->
-                <div ng-app id="ng-subAssemly" class="panel panel-info"
-                     ng-repeat="subAssembly in majorAssembly.subAssemblies">
-                    <div class="panel-heading">
-                        <a href="#" ng-model="collapsed" style="color:white"
-                           ng-click="collapsedSubAssembly=!collapsedSubAssembly">
-                            {{subAssembly.subAssembly.name}}
-                        </a>
+                <div ng-if="loading == false">
+                    <div ng-if="type == 'test-machineGeneral'">
+                        <table class="table table-bordered table-middle table-transparent">
+                            <thead>
+                            <tr>
+                                <th>Test Type</th>
+                                <th>Doc Link</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{ node.testType }}</td>
+                                <td>{{ node.docLink }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
 
+                    <div ng-if="type == 'test-oil'">
+                        <table class="table table-bordered table-middle table-transparent">
+                            <thead>
+                            <tr>
+                                <th>Lead</th>
+                                <th>Copper</th>
+                                <th>Tin</th>
+                                <th>Iron</th>
+                                <th>pq90</th>
+                                <th>Silicon</th>
+                                <th>Sodium</th>
+                                <th>Aluminium</th>
+                                <th>Water</th>
+                                <th>Viscosity</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{ node.lead }}</td>
+                                <td>{{ node.copper }}</td>
+                                <td>{{ node.tin }}</td>
+                                <td>{{ node.iron }}</td>
+                                <td>{{ node.pq90 }}</td>
+                                <td>{{ node.silicon }}</td>
+                                <td>{{ node.sodium }}</td>
+                                <td>{{ node.aluminium }}</td>
+                                <td>{{ node.water }}</td>
+                                <td>{{ node.viscosity }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-                    <div ng-show="collapsedSubAssembly" class="panel-body">
-                        <!-- Machine General Test -->
-                        <div ng-if="subAssembly.machineGeneralTest != null">
-                            <div class="panel panel-warning">
-                                <div class="panel-heading">Machine General Test</div>
-                                <div class="panel-body">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th>Test Type</th>
-                                            <th> Doc Link</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>{{subAssembly.machineGeneralTest.testType}}</td>
-                                            <td>{{subAssembly.machineGeneralTest.docLink}}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <hr/>
-                                    <h3>Action Item</h3>
-                                    <!--Action Item-->
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th>Status</th>
-                                            <th>Issue</th>
-                                            <th>Action</th>
-                                            <th>Technician</th>
-                                            <th>Time Actioned</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>{{subAssembly.machineGeneralTest.actionItem.status}}</td>
-                                            <td>{{subAssembly.machineGeneralTest.actionItem.issue}}</td>
-                                            <td>{{subAssembly.machineGeneralTest.actionItem.action}}</td>
-                                            <td>{{subAssembly.machineGeneralTest.actionItem.technician.name}}</td>
-                                            <td>
-                                                {{
-                                                moment(subAssembly.machineGeneralTest.actionItem.timeActioned)
-                                                .format("HH:mm ddd, MMM Do YYYY")
-                                                }}
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <div ng-app id="ng-subComment" class="panel panel-success"
-                                         ng-repeat="comment in subAssembly.machineGeneralTest.comments">
-                                        <div class="panel-heading">
-                                            <a href="#" ng-model="collapsed" style="color:white" class="text-success"
-                                               ng-click="collapsedComment=!collapsedComment">
-                                                Comment by: {{comment.author.name}}
-                                                <div class="panel-title pull-right">
-                                                    Time Commented:
-                                                    {{
-                                                    moment(comment.timeCommented)
-                                                    .format("HH:mm ddd, MMM Do YYYY")
-                                                    }}
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div ng-show="collapsedComment" class="panel-body">{{comment.text}}</div>
+                    <div ng-if="type == 'test-wear'">
+                        <table class="table table-bordered table-middle table-transparent">
+                            <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>New</th>
+                                <th>Limit</th>
+                                <th>Life Lower</th>
+                                <th>Life Upper</th>
+                                <th>SMU</th>
+                                <th>Time Tested</th>
+                                <th>Unique Details</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{ node.description }}</td>
+                                <td>{{ node.new }}</td>
+                                <td>{{ node.limit }}</td>
+                                <td>{{ node.lifeLower }}</td>
+                                <td>{{ node.lifeUpper }}</td>
+                                <td>{{ node.smu }}</td>
+                                <td>
+                                    {{
+                                    moment(node.timeStart)
+                                    .format("HH:mm ddd, MMM Do YYYY")
+                                    }}
+                                </td>
+                                <td>
+                                    <div ng-repeat="(key, value) in node.uniqueDetails" class="m-b">
+                                        <strong>{{ key }}:</strong>
+                                        {{value}}
                                     </div>
-                                    <!--Add a machine general test comment -->
-                                    <div add-comment location="machineGeneralTest"
-                                         location-id="{{subAssembly.machineGeneralTest.id}}"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Oil Test -->
-                        <div ng-if="subAssembly.oilTest != null">
-                            <div class="panel panel-warning">
-                                <div class="panel-heading">Oil Test</div>
-                                <div class="panel-body">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th>Lead</th>
-                                            <th>Copper</th>
-                                            <th>Tin</th>
-                                            <th>Iron</th>
-                                            <th>pq90</th>
-                                            <th>Silicon</th>
-                                            <th>Sodium</th>
-                                            <th>Aluminium</th>
-                                            <th>Water</th>
-                                            <th>Viscosity</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>{{subAssembly.oilTest.lead}}</td>
-                                            <td>{{subAssembly.oilTest.copper}}</td>
-                                            <td>{{subAssembly.oilTest.tin}}</td>
-                                            <td>{{subAssembly.oilTest.iron}}</td>
-                                            <td>{{subAssembly.oilTest.pq90}}</td>
-                                            <td>{{subAssembly.oilTest.silicon}}</td>
-                                            <td>{{subAssembly.oilTest.sodium}}</td>
-                                            <td>{{subAssembly.oilTest.aluminium}}</td>
-                                            <td>{{subAssembly.oilTest.water}}</td>
-                                            <td>{{subAssembly.oilTest.viscosity}}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <!--Oil Test Action Item-->
-                                    <hr/>
-                                    <h3>Action Item</h3>
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th>Status</th>
-                                            <th>Issue</th>
-                                            <th>Action</th>
-                                            <th>Technician</th>
-                                            <th>Time Actioned</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>{{subAssembly.oilTest.actionItem.status}}</td>
-                                            <td>{{subAssembly.oilTest.actionItem.issue}}</td>
-                                            <td>{{subAssembly.oilTest.actionItem.action}}</td>
-                                            <td>{{subAssembly.oilTest.actionItem.technician.name}}</td>
-                                            <td>
-                                                {{
-                                                moment(subAssembly.oilTest.actionItem.timeActioned)
-                                                .format("HH:mm ddd, MMM Do YYYY")
-                                                }}
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <div ng-app id="ng-subComment" class="panel panel-success"
-                                         ng-repeat="comment in subAssembly.oilTest.comments">
-                                        <div class="panel-heading">
-                                            <a href="#" ng-model="collapsed" style="color:white" class="text-success"
-                                               ng-click="collapsedComment=!collapsedComment">
-                                                Comment by: {{comment.author.name}}
-                                                <div class="panel-title pull-right">
-                                                    Time Commented:
-                                                    {{
-                                                    moment(comment.timeCommented)
-                                                    .format("HH:mm ddd, MMM Do YYYY")
-                                                    }}
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div ng-show="collapsedComment" class="panel-body">{{comment.text}}</div>
-                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ibox" ng-if="type == 'test-machineGeneral' || type == 'test-oil' || type == 'test-wear'">
+            <div class="ibox-title">
+                <h5>Action Item for {{ title }}<span ng-if="loading == true"> (loading...)</span></h5>
+            </div>
+            <div class="ibox-content">
+                <div class="text-center" ng-if="loading == true">
+                    <i class="fa fa-spinner fa-spin fa-3x"></i>
+                </div>
 
-                                    <!--Add a oil test comment -->
-                                    <div add-comment location="oilTest" location-id="{{subAssembly.oilTest.id}}"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Wear Test -->
-                        <div ng-if="subAssembly.wearTest != null">
-                            <div class="panel panel-warning">
-                                <div class="panel-heading">Wear Test</div>
-                                <div class="panel-body">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th>Description</th>
-                                            <th>New</th>
-                                            <th>Limit</th>
-                                            <th>Life Lower</th>
-                                            <th>Life Upper</th>
-                                            <th>SMU</th>
-                                            <th>Time Tested</th>
-                                            <th>Unique Details</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>{{subAssembly.wearTest.description}}</td>
-                                            <td>{{subAssembly.wearTest.new}}</td>
-                                            <td>{{subAssembly.wearTest.limit}}</td>
-                                            <td>{{subAssembly.wearTest.lifeLower}}</td>
-                                            <td>{{subAssembly.wearTest.lifeUpper}}</td>
-                                            <td>{{subAssembly.wearTest.smu}}</td>
-                                            <td>
-                                                {{
-                                                moment(subAssembly.wearTest.timeStart)
-                                                .format("HH:mm ddd, MMM Do YYYY")
-                                                }}
-                                            </td>
-                                            <td>
-                                                <span ng-repeat="(key, value) in subAssembly.wearTest.uniqueDetails">{{key}}: {{value}}<br/></span>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <h3/>
-                                    <!-- Action Item-->
-                                    <h3>Action Item</h3>
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th>Status</th>
-                                            <th>Issue</th>
-                                            <th>Action</th>
-                                            <th>Technician</th>
-                                            <th>Time Actioned</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>{{subAssembly.wearTest.actionItem.status}}</td>
-                                            <td>{{subAssembly.wearTest.actionItem.issue}}</td>
-                                            <td>{{subAssembly.wearTest.actionItem.action}}</td>
-                                            <td>{{subAssembly.wearTest.actionItem.technician.name}}</td>
-                                            <td>
-                                                {{
-                                                moment(subAssembly.wearTest.actionItem.timeActioned)
-                                                .format("HH:mm ddd, MMM Do YYYY")
-                                                }}
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <div ng-app id="ng-subComment" class="panel panel-success"
-                                         ng-repeat="comment in subAssembly.wearTest.comments">
-                                        <div class="panel-heading">
-                                            <a href="#" ng-model="collapsed" style="color:white" class="text-success"
-                                               ng-click="collapsedComment=!collapsedComment">
-                                                Comment by: {{comment.author.name}}
-                                                <div class="panel-title pull-right">
-                                                    Time Commented:
-                                                    {{
-                                                    moment(comment.timeCommented)
-                                                    .format("HH:mm ddd, MMM Do YYYY")
-                                                    }}
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div ng-show="collapsedComment" class="panel-body">{{comment.text}}</div>
-                                    </div>
+                <div ng-if="loading == false">
+                    <table class="table table-bordered table-middle table-transparent">
+                        <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Issue</th>
+                            <th>Action</th>
+                            <th>Time Actioned</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{ node.actionItem.status }}</td>
+                            <td>{{ node.actionItem.issue }}</td>
+                            <td>{{ node.actionItem.action }}</td>
+                            <td>
+                                {{
+                                moment(node.actionItem.timeActioned)
+                                .format("HH:mm ddd, MMM Do YYYY")
+                                }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Comments for {{ title }}<span ng-if="loading == true"> (loading...)</span></h5>
+                <div class="ibox-tools">
+                    <button type="button" class="btn btn-xs btn-primary" ng-click="addComment()">
+                        <i class="fa fa-fw fa-plus"></i>
+                        Add Comment
+                    </button>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="text-center" ng-if="loading == true">
+                    <i class="fa fa-spinner fa-spin fa-3x"></i>
+                </div>
 
-                                    <!--Add a wear test comment -->
-                                    <div add-comment location="wearTest"
-                                         location-id="{{subAssembly.wearTest.id}}"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Sub Assembly Comments -->
-                        <div ng-app id="ng-subComment" class="panel panel-success"
-                             ng-repeat="comment in subAssembly.comments">
-                            <div class="panel-heading">
-                                <a href="#" ng-model="collapsed" style="color:white" class="text-success"
-                                   ng-click="collapsedComment=!collapsedComment">
-                                    Comment by: {{comment.author.name}}
-                                    <div class="panel-title pull-right">
-                                        Time Commented:
-                                        {{
-                                        moment(comment.timeCommented)
-                                        .format("HH:mm ddd, MMM Do YYYY")
-                                        }}
-                                    </div>
-                                </a>
-                            </div>
-                            <div ng-show="collapsedComment" class="panel-body">{{comment.text}}</div>
-                        </div>
+                <div ng-if="loading == false">
+                    <p ng-if="node.comments.length == 0">
+                        There are currently no comments for this node.
+                    </p>
 
-                        <!--Add a sub assembly comment -->
-                        <div add-comment location="subAssembly" location-id="{{subAssembly.id}}"></div>
+                    <div class="row m-b-lg" ng-repeat="comment in node.comments">
+                        <div class="col-md-2">
+                            <img class="center-block img-responsive img-circle" alt="{{ comment.author.name }}"
+                                 title="{{ comment.author.name }}"
+                                 ng-src="https://www.gravatar.com/avatar/{{ comment.author.emailHash }}?s=100&d=mm">
+                        </div>
+                        <div class="col-md-10">
+                            <small>
+                                <strong>{{ comment.author.name }}</strong>
+                                on
+                                <em>
+                                    {{
+                                    moment(comment.timeCommented)
+                                    .format("HH:mm ddd, MMM Do YYYY")
+                                    }}
+                                </em>
+                            </small>
+
+                            <p>{{ comment.text }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Photos for {{ title }}<span ng-if="loading == true"> (loading...)</span></h5>
+                <div class="ibox-tools">
+                    <button type="button" class="btn btn-xs btn-primary" ng-click="addPhoto()">
+                        <i class="fa fa-fw fa-plus"></i>
+                        Add Photo
+                    </button>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="text-center" ng-if="loading == true">
+                    <i class="fa fa-spinner fa-spin fa-3x"></i>
+                </div>
+
+                <div ng-if="loading == false">
+                    <p ng-if="node.photos.length == 0">
+                        There are currently no photos for this node.
+                    </p>
+
+                    <div ng-repeat="photo in node.photos">
+                        <img class="center-block img-responsive img-thumbnail"
+                             ng-src="{{ photo.url }}?token={{ token }}">
+
+                        <small>
+                            <strong>{{ photo.author.name }}</strong>
+                        </small>
+
+                        <p>{{ photo.text }}</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<pre>{{ inspection | json }}</pre>

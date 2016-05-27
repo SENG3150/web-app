@@ -52,6 +52,10 @@
     padding-right: 5px;
 }
 
+.text-highlight {
+    color: #c31f30 !important;
+}
+
 /* lg - larger desktops */
 @media (min-width: 1200px) {
 }

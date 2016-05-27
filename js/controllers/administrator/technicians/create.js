@@ -47,6 +47,13 @@ angular
         };
 
         $scope.validate = function () {
+            if ($scope.technician.username == '' || $scope.technician.username == null) {
+                toastr.clear();
+                toastr.error('Enter user name.');
+
+                return false;
+            }
+            
             if ($scope.technician.firstName == '' || $scope.technician.firstName == null) {
                 toastr.clear();
                 toastr.error('Enter first name.');

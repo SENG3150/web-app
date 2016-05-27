@@ -33,6 +33,9 @@ angular
 				templateUrl: 'views/domainExpert/machines/view.html',
 				controller: 'DomainExpertMachinesControllerView',
 				resolve: {
+					loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
+						return $ocLazyLoad.load(['dataTables'])
+					}],
 					loggedIn: ['AuthService', function (AuthService) {
 						return AuthService.checkPermissions(true);
 					}]

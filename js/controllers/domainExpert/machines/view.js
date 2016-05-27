@@ -1,6 +1,6 @@
 angular
     .module('joy-global')
-    .controller('DomainExpertMachinesControllerView', ['$scope', '$state', 'Inspections', 'Machines', '$stateParams', 'LayoutService', 'moment', 'DataTablesService', function ($scope, $state, Machines, $stateParams, LayoutService, moment, DataTablesService) {
+    .controller('DomainExpertMachinesControllerView', ['$scope', '$state', 'Machines', '$stateParams', 'LayoutService', 'moment', 'DataTablesService', function ($scope, $state, Machines, $stateParams, LayoutService, moment, DataTablesService) {
         $scope.machineId = $stateParams.id;
 	    $scope.loading = true;
 

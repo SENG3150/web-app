@@ -44,6 +44,10 @@
     font-weight: bold;
 }
 
+.table.table-transparent > thead > tr > th {
+    background-color: transparent;
+}
+
 .breadcrumb > li {
     padding-right: 5px;
 }

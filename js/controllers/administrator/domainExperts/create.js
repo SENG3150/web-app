@@ -44,6 +44,13 @@ angular
         };
 
         $scope.validate = function () {
+            if ($scope.domainExpert.username == '' || $scope.domainExpert.username == null) {
+                toastr.clear();
+                toastr.error('Enter user name.');
+
+                return false;
+            }
+            
             if ($scope.domainExpert.firstName == '' || $scope.domainExpert.firstName == null) {
                 toastr.clear();
                 toastr.error('Enter first name.');

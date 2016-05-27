@@ -29,7 +29,6 @@ angular
 				{
 					name: 'dateTimePicker',
 					files: [
-						'/bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css',
 						'/bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js',
 						'/bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js'
 					],

@@ -39,6 +39,11 @@
     vertical-align: middle;
 }
 
+.table-header-row {
+    background-color: #e4e4e4 !important;
+    font-weight: bold;
+}
+
 .breadcrumb > li {
     padding-right: 5px;
 }

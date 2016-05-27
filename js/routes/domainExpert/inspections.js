@@ -18,10 +18,13 @@ angular
 			})
 			.state('domainExpert-inspections-create', {
 				parent: 'domainExpert',
-				url: '/inspections/create/:id',
+				url: '/inspections/create',
 				templateUrl: 'views/domainExpert/inspections/create.html',
 				controller: 'DomainExpertInspectionsControllerCreate',
 				resolve: {
+					loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
+						return $ocLazyLoad.load(['dateTimePicker'])
+					}],
 					loggedIn: ['AuthService', function (AuthService) {
 						return AuthService.checkPermissions(true);
 					}]

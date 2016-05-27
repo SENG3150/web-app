@@ -8,12 +8,7 @@ angular
 
         LayoutService.reset();
         LayoutService.setTitle(['Machine ' + $scope.machineId, 'Machines']);
-        LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-calendar-plus-o""></i> Schedule Inspection</button>');
-        $scope.goTo = function () {
-            $state.go('domainExpert-inspections-create({id:' + $scope.machineId + ' })');
-        };
-
-        LayoutService.getPageHeader().onClicked($scope.goTo);
+        LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-calendar-plus-o"></i> Schedule Inspection</button>');
         LayoutService.getPageHeader().setBreadcrumbs([
             {
                 route: 'domainExpert-index',
@@ -28,4 +23,8 @@ angular
                 displayName: 'Machine ' + $scope.machineId
             }
         ]);
+
+	    LayoutService.getPageHeader().onClicked(function () {
+		    $state.go('domainExpert-inspections-create');
+	    });
     }]);

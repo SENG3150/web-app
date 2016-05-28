@@ -1,3 +1,4 @@
+//set up the different available routes an administrator can take to manage different domain expert users
 angular
 	.module('joy-global')
 	.config(['$stateProvider', function ($stateProvider) {

@@ -1,3 +1,4 @@
+//Controller to show a list of all current administrators in the system
 angular
 	.module('joy-global')
 	.controller('AdministratorTechniciansControllerIndex', ['$scope', 'Technicians', 'LayoutService',  '$state', 'DataTablesService',  function ($scope, Technicians, LayoutService, $state, DataTablesService) {

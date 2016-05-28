@@ -1,3 +1,4 @@
+//Controller for allowing of viewing of all inspections
 angular
 	.module('joy-global')
 	.controller('DomainExpertInspectionsControllerIndex', ['$scope', 'Inspections', 'moment', 'LayoutService', 'DataTablesService', '$state', function ($scope, Inspections, moment, LayoutService, DataTablesService, $state) {

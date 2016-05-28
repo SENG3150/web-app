@@ -1,3 +1,4 @@
+//Controller to allow administrator to view and update a domain experts details.
 angular
 	.module('joy-global')
 	.controller('AdministratorDomainExpertsControllerView', ['$scope', '$state', 'toastr', 'DomainExperts', '$stateParams', 'LayoutService', function ($scope ,$state, toastr, DomainExperts, $stateParams, LayoutService) {

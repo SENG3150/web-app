@@ -1,3 +1,4 @@
+//Controller to allow the viewing of information related to a machine.
 angular
     .module('joy-global')
     .controller('DomainExpertMachinesControllerView', ['$scope', '$state', 'Machines', '$stateParams', 'LayoutService', 'moment', 'DataTablesService', function ($scope, $state, Machines, $stateParams, LayoutService, moment, DataTablesService) {

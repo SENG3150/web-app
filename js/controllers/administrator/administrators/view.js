@@ -1,3 +1,4 @@
+//Controller to allow administrator to view and update an administrators details.
 angular
 	.module('joy-global')
 	.controller('AdministratorAdministratorsControllerView', ['$scope', '$state', 'toastr', 'Administrators', '$stateParams', 'LayoutService', function ($scope, $state, toastr, Administrators, $stateParams, LayoutService) {

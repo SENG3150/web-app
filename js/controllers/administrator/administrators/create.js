@@ -1,3 +1,4 @@
+//Controller to allow the creation of administrators to the system
 angular
     .module('joy-global')
     .controller('AdministratorAdministratorsControllerCreate', ['$scope', '$state', 'toastr', 'LayoutService', 'Administrators', function ($scope, $state, toastr, LayoutService, Administrators) {

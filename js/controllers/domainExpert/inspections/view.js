@@ -1,3 +1,4 @@
+//Controller to allow the viewing of inspection data of a specific inspection as well as the creation and viewing of comments
 angular
 	.module('joy-global')
 	.controller('DomainExpertInspectionsControllerView', ['$scope', 'Inspections', 'moment', '$stateParams', 'LayoutService', 'toastr', '$auth', '$state', 'AuthService', 'Comments', function ($scope, Inspections, moment, $stateParams, LayoutService, toastr, $auth, $state, AuthService, Comments) {

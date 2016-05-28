@@ -1,3 +1,4 @@
+//set up the different available routes a domain expert can take in regards to inspections
 angular
 	.module('joy-global')
 	.config(['$stateProvider', function ($stateProvider) {

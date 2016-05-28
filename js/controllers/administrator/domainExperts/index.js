@@ -1,3 +1,4 @@
+//Controller to show a list of all current domain experts in the system
 angular
 	.module('joy-global')
 	.controller('AdministratorDomainExpertsControllerIndex', ['$scope', 'DomainExperts', 'LayoutService', '$state', 'DataTablesService', function ($scope, DomainExperts, LayoutService, $state, DataTablesService) {

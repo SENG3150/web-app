@@ -1,3 +1,4 @@
+//Controller to allow the creation of technicians to the system
 angular
     .module('joy-global')
     .controller('AdministratorTechniciansControllerCreate', ['$scope', '$state', 'toastr', 'LayoutService', 'Technicians', function ($scope, $state, toastr, LayoutService, Technicians) {

@@ -1,3 +1,4 @@
+//Controller to allow the display and downloading of a report of an inspection.
 angular
 	.module('joy-global')
 	.controller('DomainExpertInspectionsControllerReport', ['$scope', 'Inspections', 'moment', '$stateParams', 'LayoutService', 'DomainExpertInspectionReportService', function ($scope, Inspections, moment, $stateParams, LayoutService, DomainExpertInspectionReportService) {

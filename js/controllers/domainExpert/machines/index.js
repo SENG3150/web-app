@@ -1,3 +1,4 @@
+//Controller to show all machines that are in the system.
 angular
 	.module('joy-global')
 	.controller('DomainExpertMachinesControllerIndex', ['$scope', 'Machines', 'LayoutService', 'DataTablesService', function ($scope, Machines, LayoutService, DataTablesService) {

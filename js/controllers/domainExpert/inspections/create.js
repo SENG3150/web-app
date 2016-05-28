@@ -1,3 +1,4 @@
+//allow for the creation of new Inspections to take place.
 angular
 	.module('joy-global')
 	.controller('DomainExpertInspectionsControllerCreate', ['$scope', 'Inspections', 'Machines', 'Technicians', 'AuthService', '_', 'LayoutService', 'toastr', '$state', function ($scope, Inspections, Machines, Technicians, AuthService, _, LayoutService, toastr, $state) {

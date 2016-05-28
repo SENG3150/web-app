@@ -1,3 +1,4 @@
+//Controller to allow the creation of domain experts to the system
 angular
     .module('joy-global')
     .controller('AdministratorDomainExpertsControllerCreate', ['$scope', '$state', 'toastr', 'LayoutService', 'DomainExperts', function ($scope, $state, toastr, LayoutService, DomainExperts) {

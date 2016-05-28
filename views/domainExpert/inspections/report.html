@@ -1,4 +1,4 @@
-<div class="ibox">
+<div class="ibox" id="printTable" style="background-color: #FFFFFF">
     <div class="ibox-title">
         <h5>Action Items</h5>
         <div class="ibox-tools" ibox-tools>
@@ -7,11 +7,11 @@
             </a>
         </div>
     </div>
-    <div class="ibox-content">
+    <div class="ibox-content" style="background-color: #FFFFFF">
         <div class="panel panel-default" ng-repeat="majorAssembly in inspection.majorAssemblies">
-            <div class="panel-heading">{{majorAssembly.majorAssembly.name}}</div>
+            <div class="panel-heading" id="tableHeader">{{majorAssembly.majorAssembly.name}}</div>
 
-            <table class="table" ng-repeat="subAssembly in majorAssembly.subAssemblies">
+            <table class="table" ng-repeat="subAssembly in majorAssembly.subAssemblies"  style="background-color: #FFFFFF">
                 <thead>
                 <tr>
                     <th style="width: 15%;">{{subAssembly.subAssembly.name}}</th>
@@ -68,7 +68,7 @@
         </div>
     </div>
 </div>
-<div class="ibox">
+<div class="ibox" id="printGraph">
     <div class="ibox-title">
         <h5>Graphs</h5>
         <div class="ibox-tools" ibox-tools>

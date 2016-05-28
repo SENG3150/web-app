@@ -1,8 +1,26 @@
 angular
 	.module('joy-global')
-	.controller('DomainExpertInspectionsControllerReport', ['$scope', 'Inspections', 'moment', '$stateParams', function ($scope, Inspections, moment, $stateParams) {
+	.controller('DomainExpertInspectionsControllerReport', ['$scope', 'Inspections', 'moment', '$stateParams', 'LayoutService', 'toastr', '$window', function ($scope, Inspections, moment, $stateParams, LayoutService, toastr, $window) {
 		$scope.inspectionId = $stateParams.id;
 		var baseInspections = Inspections.one($scope.inspectionId);
+
+		LayoutService.reset();
+		LayoutService.setTitle(['Inspection ' + $scope.inspectionId + ' Report']);
+		LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-check"></i> Save</button>');
+		LayoutService.getPageHeader().setBreadcrumbs([
+			{
+				route: 'domainExpert-index',
+				displayName: 'Home'
+			},
+			{
+				route: 'domainExpert-inspections-index',
+				displayName: 'Inspections'
+			},
+			{
+				route: 'domainExpert-inspections-report',
+				displayName: 'Inspection ' + $scope.inspectionId + ' Report'
+			}
+		]);
 
 		$scope.inspection = baseInspections.get({
 			include: 'majorAssemblies.majorAssembly,majorAssemblies.subAssemblies.subAssembly'
@@ -238,4 +256,32 @@ angular
 				}
 			}
 		});
+
+		$scope.toPdf = function() {
+			var pdf = new jsPDF('p', 'mm', 'a4');
+			var options = {
+				pagesplit: true,
+				background: '#FFFFFF'
+			};
+
+			pdf.addHTML(document.getElementById('printTable'), 0, 0, options, function() {
+				console.log(document.getElementById('printTable'));
+				pdf.save('test.pdf');
+			});
+/*
+			html2canvas(document.getElementById('printGraph'), {
+				allowTaint: true,
+				background: '#FFFFFF',
+				onrendered: function(canvas) {
+					var doc = new jsPDF();
+					var imgData = canvas.toDataURL('image/png');
+					console.log(document.getElementById('printGraph'));
+					doc.addImage(imgData, 'PNG', 10, 10);
+					doc.save("test.pdf");
+				}
+			});
+*/
+		}
+
+		LayoutService.getPageHeader().onClicked($scope.toPdf);
 	}]);

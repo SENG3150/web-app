@@ -25,6 +25,10 @@ To compile the application for development run the following command in the term
 
 	gulp
 
+To compile the application for development with a local API server running, run the following command in the terminal, and keep the terminal open and running while you develop the web-app:
+
+	gulp development
+
 To compile the application for deployment run the following command in the terminal:
 
 	gulp deployment

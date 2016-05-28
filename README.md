@@ -19,9 +19,15 @@ After cloning the repository go into the directory and run the following command
 	bower install
 	
 # Compiling The Application
-The application includes [Gulp](http://gulpjs.com) and a gulpfile which will minimise the stylesheets and javascript to ensure that the application loads quickly for users. To run it just use this command in the terminal, and keep the terminal open and running while you develop the web-app:
+The application includes [Gulp](http://gulpjs.com) and a gulpfile which will minimise the stylesheets and javascript to ensure that the application loads quickly for users.
+
+To compile the application for development run the following command in the terminal, and keep the terminal open and running while you develop the web-app:
 
 	gulp
+
+To compile the application for deployment run the following command in the terminal:
+
+	gulp deployment
 
 # Logging In
 You can use the following credentials to login successfully.
@@ -30,5 +36,3 @@ You can use the following credentials to login successfully.
 |----------------------|---------------|---------------|---------------|
 | Administrator        | administrator | administrator | administrator |
 | Domain Expert        | domainexpert  | domainexpert  | domainexpert  |
-| Technician           | technician    | technician    | technician    |
-| Temporary Technician | technician    | temp          | technician    |

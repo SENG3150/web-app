@@ -37,9 +37,9 @@ You will be prompted for credentials for Bitbucket, which we have used to keep t
     
     A more complete guide that our team used to get the web server (Apache through Wamp) working is as follows:
     
-    - Open Wamp/bin/apache/apache[version]/conf/httpd.conf
-    - Ctrl+F for 'onlineoffline'
-    - Remove the 'Require local' line below it and replace it with:
+    - Open ```Wamp/bin/apache/apache[version]/conf/httpd.conf```
+    - Ctrl+F for ```'onlineoffline'```
+    - Remove the ```'Require local'``` line below it and replace it with:
     
         ```
         Require all granted
@@ -65,7 +65,7 @@ You will be prompted for credentials for Bitbucket, which we have used to keep t
         #</Directory>
         ```
     
-    - Open Wamp/bin/apache/apache[version]/conf/extra/httpd-vhosts.conf
+    - Open ```Wamp/bin/apache/apache[version]/conf/extra/httpd-vhosts.conf```
     - Add this to the end of the file:
     
         ```
@@ -93,7 +93,7 @@ You will be prompted for credentials for Bitbucket, which we have used to keep t
     
     - Left click on WAMP in the notifications tray, go to Apache > Apache modules > Check deflate_module
     - WAMP will restart and should have a green icon
-    - Open C:\Windows\System32\drivers\etc\hosts
+    - Open ```C:\Windows\System32\drivers\etc\hosts```
     - Add this line to the end of the file:
         
         ```

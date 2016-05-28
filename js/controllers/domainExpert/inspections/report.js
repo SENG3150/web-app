@@ -73,7 +73,7 @@ angular
 				angular.forEach(data.subAssemblies, function (subAssembly) {
 					subAssembly.oilTestGraphs = [];
 					subAssembly.wearTestGraphs = [];
-					
+
 					if (subAssembly.oilTests && subAssembly.oilTests.length > 0) {
 						var lead = [];
 						var copper = [];
@@ -168,33 +168,38 @@ angular
 						var secondGreyLine = [];
 
 						angular.forEach(subAssembly.wearTests, function (wearTest, index) {
-							// scatter plot: x = SMU, y = (value on wear / replace)
-							// line of best fit between scatter plots
-							scatterPlot.push([wearTest.smu, wearTest.uniqueDetails['value']]);
-							regressionLine.push([wearTest.smu, wearTest.uniqueDetails['value']]);
+							if (wearTest.uniqueDetails['value'] != null && wearTest.uniqueDetails['new'] != null
+								&& wearTest.uniqueDetails['lifeUpper'] != null && wearTest.uniqueDetails['limit'] != null) {
+								// scatter plot: x = SMU, y = (value on wear / replace)
+								// line of best fit between scatter plots
+								scatterPlot.push([wearTest.smu, wearTest.uniqueDetails['value']]);
+								regressionLine.push([wearTest.smu, wearTest.uniqueDetails['value']]);
 
-							// grey line:
-							//      Line 1:
-							// 			start: x = smu LOWER    , y = (wear / replace) NEW
-							//			end:   x = (wear / replace) UPPER    , y = (wear / replace) LIMIT
-							//      Line 2:
-							// 			start: x = smu LOWER    , y = (wear / replace) NEW
-							//			end:   x = smu UPPER    , y = (wear / replace) LIMIT
-							if (index == subAssembly.wearTests.length - 1) {
-								firstGreyLine.push([wearTest.lifeLower, wearTest.uniqueDetails['new']]); //start
-								firstGreyLine.push([wearTest.uniqueDetails['lifeUpper'], wearTest.uniqueDetails['limit']]); //end
+								// grey line:
+								//      Line 1:
+								// 			start: x = smu LOWER    , y = (wear / replace) NEW
+								//			end:   x = (wear / replace) UPPER    , y = (wear / replace) LIMIT
+								//      Line 2:
+								// 			start: x = smu LOWER    , y = (wear / replace) NEW
+								//			end:   x = smu UPPER    , y = (wear / replace) LIMIT
+								if (index == subAssembly.wearTests.length - 1) {
+									firstGreyLine.push([wearTest.lifeLower, wearTest.uniqueDetails['new']]); //start
+									firstGreyLine.push([wearTest.uniqueDetails['lifeUpper'], wearTest.uniqueDetails['limit']]); //end
 
-								secondGreyLine.push([wearTest.lower, wearTest.uniqueDetails['new']]);
-								secondGreyLine.push([wearTest.upper, wearTest.uniqueDetails['limit']]);
+									secondGreyLine.push([wearTest.lower, wearTest.uniqueDetails['new']]);
+									secondGreyLine.push([wearTest.upper, wearTest.uniqueDetails['limit']]);
+								}
 							}
 						});
 
-						subAssembly.wearTestGraphs = [
-							createWearGraph(subAssembly.name + ' - Wear Test', regressionLine, scatterPlot, firstGreyLine, secondGreyLine)
-						];
+						if (scatterPlot.length != 0 && regressionLine.length != 0 && firstGreyLine.length != 0 && secondGreyLine.length != 0) {
+							subAssembly.wearTestGraphs = [
+								createWearGraph(subAssembly.name + ' - Wear Test', regressionLine, scatterPlot, firstGreyLine, secondGreyLine)
+							];
+						}
 					}
-					
-					if(subAssembly.oilTestGraphs.length > 0 || subAssembly.wearTestGraphs.length > 0) {
+
+					if (subAssembly.oilTestGraphs.length > 0 || subAssembly.wearTestGraphs.length > 0) {
 						$scope.subAssemblies.push(subAssembly);
 					}
 				});

@@ -234,8 +234,8 @@ angular
 
 						//scatter plot: x = SMU, y = (value on wear / replace)
 						//line of best fit between scatter plots
-						scatterPlot.push([wearTest.smu, wearTest.uniqueDetails.wearReplace]);
-						regressionLine.push([wearTest.smu, wearTest.uniqueDetails.wearReplace]);
+						scatterPlot.push([wearTest.smu, wearTest.uniqueDetails['value']]);
+						regressionLine.push([wearTest.smu, wearTest.uniqueDetails['value']]);
 
 						//grey line:
 						//      Line 1:
@@ -245,11 +245,11 @@ angular
 						// 			start: x = smu LOWER    , y = (wear / replace) NEW
 						//			end:   x = smu UPPER    , y = (wear / replace) LIMIT
 						if (testID == subAssembly.wearTests.length - 1) {
-							firstGreyLine.push([wearTest.lower, wearTest.uniqueDetails.wearReplaceNew]); //start
-							firstGreyLine.push((wearTest.uniqueDetails.wearReplaceUpper, wearTest.uniqueDetails.wearReplaceLimit)); //end
+							firstGreyLine.push([wearTest.lifeLower, wearTest.uniqueDetails['new']]); //start
+							firstGreyLine.push((wearTest.uniqueDetails['lifeUpper'], wearTest.uniqueDetails['limit'])); //end
 
-							secondGreyLine.push([wearTest.lower, wearTest.uniqueDetails.wearReplaceNew]);
-							secondGreyLine.push([wearTest.upper, wearTest.uniqueDetails.wearReplaceNew]);
+							secondGreyLine.push([wearTest.lower, wearTest.uniqueDetails['new']]);
+							secondGreyLine.push([wearTest.upper, wearTest.uniqueDetails['limit']]);
 						}
 					}
 

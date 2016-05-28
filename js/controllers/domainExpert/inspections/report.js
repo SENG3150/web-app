@@ -144,17 +144,18 @@ angular
 
 					for (var testID in subAssembly.oilTests) {
 						var oilTest = subAssembly.oilTests[testID];
+						var date = moment(oilTest.timeCompleted).valueOf();
 
-						lead.push([oilTest.timeCompleted, parseFloat(oilTest.lead)]);
-						copper.push([oilTest.timeCompleted, parseFloat(oilTest.copper)]);
-						tin.push([oilTest.timeCompleted, parseFloat(oilTest.tin)]);
-						iron.push([oilTest.timeCompleted, parseFloat(oilTest.iron)]);
-						pq90.push([oilTest.timeCompleted, parseFloat(oilTest.pq90)]);
-						silicon.push([oilTest.timeCompleted, parseFloat(oilTest.silicon)]);
-						sodium.push([oilTest.timeCompleted, parseFloat(oilTest.sodium)]);
-						aluminium.push([oilTest.timeCompleted, parseFloat(oilTest.aluminium)]);
-						water.push([oilTest.timeCompleted, parseFloat(oilTest.water)]);
-						viscosity.push([oilTest.timeCompleted, parseFloat(oilTest.viscosity)]);
+						lead.push([date, parseFloat(oilTest.lead)]);
+						copper.push([date, parseFloat(oilTest.copper)]);
+						tin.push([date, parseFloat(oilTest.tin)]);
+						iron.push([date, parseFloat(oilTest.iron)]);
+						pq90.push([date, parseFloat(oilTest.pq90)]);
+						silicon.push([date, parseFloat(oilTest.silicon)]);
+						sodium.push([date, parseFloat(oilTest.sodium)]);
+						aluminium.push([date, parseFloat(oilTest.aluminium)]);
+						water.push([date, parseFloat(oilTest.water)]);
+						viscosity.push([date, parseFloat(oilTest.viscosity)]);
 					}
 
 

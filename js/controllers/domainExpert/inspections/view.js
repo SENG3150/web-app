@@ -14,7 +14,7 @@ angular
 
 		LayoutService.reset();
 		LayoutService.setTitle(['Inspection ' + $scope.inspectionId, 'Inspections']);
-		LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-download"></i> Download Report</button>');
+		LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-bar-chart"></i> View Report</button>');
 		LayoutService.getPageHeader().setBreadcrumbs([
 			{
 				route: 'domainExpert-index',

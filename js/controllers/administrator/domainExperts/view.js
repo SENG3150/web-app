@@ -83,15 +83,6 @@ angular
 				return false;
 			}
 
-			if ($scope.domainExpert.password != $scope.domainExpert.confirmPassword) {
-				if ($scope.domainExpert.password != $scope.domainExpert.confirmPassword) {
-					toastr.clear();
-					toastr.error('Passwords must match.');
-
-					return false;
-				}
-			}
-
 			return true;
 		};
 

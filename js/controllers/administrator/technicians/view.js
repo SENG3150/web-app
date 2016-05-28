@@ -83,15 +83,6 @@ angular
 				return false;
 			}
 
-			if ($scope.technician.password != $scope.technician.confirmPassword) {
-				if ($scope.technician.password != $scope.technician.confirmPassword) {
-					toastr.clear();
-					toastr.error('Passwords must match.');
-
-					return false;
-				}
-			}	
-
 			if ($scope.technician.temporary == true) {
 				if ($scope.technician.loginExpiresTime == '' || $scope.technician.loginExpiresTime == null) {
 					toastr.clear();
@@ -102,10 +93,6 @@ angular
 			}
 
 			return true;
-		};
-
-		$scope.save = function() {
-			console.log('Update this code to save it.');
 		};
 
 		$scope.save = function () {

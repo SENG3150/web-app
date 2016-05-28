@@ -83,15 +83,6 @@ angular
 				return false;
 			}
 
-			if ($scope.administrator.password != $scope.administrator.confirmPassword) {
-				if ($scope.administrator.password != $scope.administrator.confirmPassword) {
-					toastr.clear();
-					toastr.error('Passwords must match.');
-
-					return false;
-				}
-			}
-
 			return true;
 		};
 

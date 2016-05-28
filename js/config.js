@@ -38,6 +38,7 @@ angular
 					name: 'highcharts',
 					files: [
 						'/bower_components/highcharts/highcharts.js',
+						'/bower_components/highcharts/modules/exporting.js',
 						'/bower_components/highcharts-ng/dist/highcharts-ng.min.js'
 					],
 					serie: true

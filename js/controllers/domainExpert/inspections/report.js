@@ -1,6 +1,6 @@
 angular
 	.module('joy-global')
-	.controller('DomainExpertInspectionsControllerReport', ['$scope', 'Inspections', 'moment', '$stateParams', 'LayoutService', function ($scope, Inspections, moment, $stateParams, LayoutService) {
+	.controller('DomainExpertInspectionsControllerReport', ['$scope', 'Inspections', 'moment', '$stateParams', 'LayoutService', 'DomainExpertInspectionReportService', function ($scope, Inspections, moment, $stateParams, LayoutService, DomainExpertInspectionReportService) {
 		$scope.inspectionId = $stateParams.id;
 		$scope.loading = true;
 		$scope.loadingGraphs = true;
@@ -9,7 +9,6 @@ angular
 		var baseInspections = Inspections.one($scope.inspectionId);
 
 		$scope.moment = moment;
-		$scope.subAssemblies = [];
 
 		LayoutService.reset();
 		LayoutService.setTitle([
@@ -41,19 +40,156 @@ angular
 			include: 'majorAssemblies.majorAssembly,majorAssemblies.subAssemblies.subAssembly'
 		}).then(
 			function (data) {
-				$scope.loadingInspection = false;
-
 				$scope.inspection = data;
 
-				$scope.checkLoading();
+				baseInspections.one('graphs').get().then(
+					function (data) {
+						$scope.loading = false;
+
+						angular.forEach(data.subAssemblies, function (subAssembly) {
+							subAssembly.oilTestGraphs = [];
+							subAssembly.wearTestGraphs = [];
+
+							if (subAssembly.oilTests && subAssembly.oilTests.length > 0) {
+								var lead = [];
+								var copper = [];
+								var tin = [];
+								var iron = [];
+								var pq90 = [];
+								var silicon = [];
+								var sodium = [];
+								var aluminium = [];
+								var water = [];
+								var viscosity = [];
+
+								angular.forEach(subAssembly.oilTests, function (oilTest) {
+									var date = moment(oilTest.timeCompleted).valueOf();
+
+									lead.push([date, parseFloat(oilTest.lead)]);
+									copper.push([date, parseFloat(oilTest.copper)]);
+									tin.push([date, parseFloat(oilTest.tin)]);
+									iron.push([date, parseFloat(oilTest.iron)]);
+									pq90.push([date, parseFloat(oilTest.pq90)]);
+									silicon.push([date, parseFloat(oilTest.silicon)]);
+									sodium.push([date, parseFloat(oilTest.sodium)]);
+									aluminium.push([date, parseFloat(oilTest.aluminium)]);
+									water.push([date, parseFloat(oilTest.water)]);
+									viscosity.push([date, parseFloat(oilTest.viscosity)]);
+								});
+
+								var graphOne = [
+									{
+										name: "Sodium (Na)",
+										data: sodium
+									},
+									{
+										name: "Silicon (Si)",
+										data: silicon
+									},
+									{
+										name: "Aluminium (Al)",
+										data: aluminium
+									},
+									{
+										name: "Lead (Pb)",
+										data: lead
+									},
+									{
+										name: "Copper (Cu)",
+										data: copper
+									},
+									{
+										name: "Tin (Sn)",
+										data: tin
+									}
+								];
+
+								var graphTwo = [
+									{
+										name: "Iron (Fe)",
+										data: iron
+									},
+									{
+										name: "PQ90",
+										data: pq90
+									}
+								];
+
+								var graphThree = [
+									{
+										name: "Water",
+										data: water
+									}
+								];
+
+								var graphFour = [
+									{
+										name: "Viscosity (460)",
+										data: viscosity
+									}
+								];
+
+								subAssembly.oilTestGraphs = [
+									createTimeLineGraph(subAssembly.name + ' - Oil Test', graphOne),
+									createTimeLineGraph(subAssembly.name + ' - Oil Test', graphTwo),
+									createTimeLineGraph(subAssembly.name + ' - Oil Test', graphThree),
+									createTimeLineGraph(subAssembly.name + ' - Oil Test', graphFour)
+								];
+							}
+
+							if (subAssembly.wearTests && subAssembly.wearTests.length > 0) {
+								var scatterPlot = [];
+								var regressionLine = [];
+								var firstGreyLine = [];
+								var secondGreyLine = [];
+
+								angular.forEach(subAssembly.wearTests, function (wearTest, index) {
+									if (wearTest.uniqueDetails['value'] != null && wearTest.uniqueDetails['new'] != null
+										&& wearTest.uniqueDetails['lifeUpper'] != null && wearTest.uniqueDetails['limit'] != null) {
+										// scatter plot: x = SMU, y = (value on wear / replace)
+										// line of best fit between scatter plots
+										scatterPlot.push([wearTest.smu, wearTest.uniqueDetails['value']]);
+										regressionLine.push([wearTest.smu, wearTest.uniqueDetails['value']]);
+
+										// grey line:
+										//      Line 1:
+										// 			start: x = smu LOWER    , y = (wear / replace) NEW
+										//			end:   x = (wear / replace) UPPER    , y = (wear / replace) LIMIT
+										//      Line 2:
+										// 			start: x = smu LOWER    , y = (wear / replace) NEW
+										//			end:   x = smu UPPER    , y = (wear / replace) LIMIT
+										if (index == subAssembly.wearTests.length - 1) {
+											firstGreyLine.push([wearTest.lifeLower, wearTest.uniqueDetails['new']]); //start
+											firstGreyLine.push([wearTest.uniqueDetails['lifeUpper'], wearTest.uniqueDetails['limit']]); //end
+
+											secondGreyLine.push([wearTest.lower, wearTest.uniqueDetails['new']]);
+											secondGreyLine.push([wearTest.upper, wearTest.uniqueDetails['limit']]);
+										}
+									}
+								});
+
+								if (scatterPlot.length != 0 && regressionLine.length != 0 && firstGreyLine.length != 0 && secondGreyLine.length != 0) {
+									subAssembly.wearTestGraphs = [
+										createWearGraph(subAssembly.name + ' - Wear Test', regressionLine, scatterPlot, firstGreyLine, secondGreyLine)
+									];
+								}
+							}
+
+							if (subAssembly.oilTestGraphs.length > 0 || subAssembly.wearTestGraphs.length > 0) {
+								angular.forEach($scope.inspection.majorAssemblies, function (inspectionMajorAssembly) {
+									angular.forEach(inspectionMajorAssembly.subAssemblies, function (inspectionSubAssembly) {
+										if (inspectionSubAssembly.id == subAssembly.id) {
+											inspectionSubAssembly.oilTestGraphs = subAssembly.oilTestGraphs;
+											inspectionSubAssembly.wearTestGraphs = subAssembly.wearTestGraphs;
+										}
+									});
+								});
+							}
+						});
+					}
+				);
 			}
 		);
-
-		$scope.checkLoading = function () {
-			if ($scope.loadingGraphs == false && $scope.loadingInspection == false) {
-				$scope.loading = false;
-			}
-		};
 
 		Highcharts.setOptions({
 			lang: {
@@ -66,150 +202,21 @@ angular
 			}
 		});
 
-		baseInspections.one('graphs').get().then(
-			function (data) {
-				$scope.loadingGraphs = false;
-
-				angular.forEach(data.subAssemblies, function (subAssembly) {
-					subAssembly.oilTestGraphs = [];
-					subAssembly.wearTestGraphs = [];
-
-					if (subAssembly.oilTests && subAssembly.oilTests.length > 0) {
-						var lead = [];
-						var copper = [];
-						var tin = [];
-						var iron = [];
-						var pq90 = [];
-						var silicon = [];
-						var sodium = [];
-						var aluminium = [];
-						var water = [];
-						var viscosity = [];
-
-						angular.forEach(subAssembly.oilTests, function (oilTest) {
-							var date = moment(oilTest.timeCompleted).valueOf();
-
-							lead.push([date, parseFloat(oilTest.lead)]);
-							copper.push([date, parseFloat(oilTest.copper)]);
-							tin.push([date, parseFloat(oilTest.tin)]);
-							iron.push([date, parseFloat(oilTest.iron)]);
-							pq90.push([date, parseFloat(oilTest.pq90)]);
-							silicon.push([date, parseFloat(oilTest.silicon)]);
-							sodium.push([date, parseFloat(oilTest.sodium)]);
-							aluminium.push([date, parseFloat(oilTest.aluminium)]);
-							water.push([date, parseFloat(oilTest.water)]);
-							viscosity.push([date, parseFloat(oilTest.viscosity)]);
-						});
-
-						var graphOne = [
-							{
-								name: "Sodium (Na)",
-								data: sodium
-							},
-							{
-								name: "Silicon (Si)",
-								data: silicon
-							},
-							{
-								name: "Aluminium (Al)",
-								data: aluminium
-							},
-							{
-								name: "Lead (Pb)",
-								data: lead
-							},
-							{
-								name: "Copper (Cu)",
-								data: copper
-							},
-							{
-								name: "Tin (Sn)",
-								data: tin
-							}
-						];
-
-						var graphTwo = [
-							{
-								name: "Iron (Fe)",
-								data: iron
-							},
-							{
-								name: "PQ90",
-								data: pq90
-							}
-						];
-
-						var graphThree = [
-							{
-								name: "Water",
-								data: water
-							}
-						];
-
-						var graphFour = [
-							{
-								name: "Viscosity (460)",
-								data: viscosity
-							}
-						];
-
-						subAssembly.oilTestGraphs = [
-							createTimeLineGraph(subAssembly.name + ' - Oil Test', graphOne),
-							createTimeLineGraph(subAssembly.name + ' - Oil Test', graphTwo),
-							createTimeLineGraph(subAssembly.name + ' - Oil Test', graphThree),
-							createTimeLineGraph(subAssembly.name + ' - Oil Test', graphFour)
-						];
-					}
-
-					if (subAssembly.wearTests && subAssembly.wearTests.length > 0) {
-						var scatterPlot = [];
-						var regressionLine = [];
-						var firstGreyLine = [];
-						var secondGreyLine = [];
-
-						angular.forEach(subAssembly.wearTests, function (wearTest, index) {
-							if (wearTest.uniqueDetails['value'] != null && wearTest.uniqueDetails['new'] != null
-								&& wearTest.uniqueDetails['lifeUpper'] != null && wearTest.uniqueDetails['limit'] != null) {
-								// scatter plot: x = SMU, y = (value on wear / replace)
-								// line of best fit between scatter plots
-								scatterPlot.push([wearTest.smu, wearTest.uniqueDetails['value']]);
-								regressionLine.push([wearTest.smu, wearTest.uniqueDetails['value']]);
-
-								// grey line:
-								//      Line 1:
-								// 			start: x = smu LOWER    , y = (wear / replace) NEW
-								//			end:   x = (wear / replace) UPPER    , y = (wear / replace) LIMIT
-								//      Line 2:
-								// 			start: x = smu LOWER    , y = (wear / replace) NEW
-								//			end:   x = smu UPPER    , y = (wear / replace) LIMIT
-								if (index == subAssembly.wearTests.length - 1) {
-									firstGreyLine.push([wearTest.lifeLower, wearTest.uniqueDetails['new']]); //start
-									firstGreyLine.push([wearTest.uniqueDetails['lifeUpper'], wearTest.uniqueDetails['limit']]); //end
-
-									secondGreyLine.push([wearTest.lower, wearTest.uniqueDetails['new']]);
-									secondGreyLine.push([wearTest.upper, wearTest.uniqueDetails['limit']]);
-								}
-							}
-						});
-
-						if (scatterPlot.length != 0 && regressionLine.length != 0 && firstGreyLine.length != 0 && secondGreyLine.length != 0) {
-							subAssembly.wearTestGraphs = [
-								createWearGraph(subAssembly.name + ' - Wear Test', regressionLine, scatterPlot, firstGreyLine, secondGreyLine)
-							];
-						}
-					}
-
-					if (subAssembly.oilTestGraphs.length > 0 || subAssembly.wearTestGraphs.length > 0) {
-						$scope.subAssemblies.push(subAssembly);
-					}
-				});
-
-				$scope.checkLoading();
-			}
-		);
-
 		var createTimeLineGraph = function (graphTitle, traces) {
 			return {
+				exporting: {
+					chartOptions: { // specific options for the exported image
+						plotOptions: {
+							series: {
+								dataLabels: {
+									enabled: true
+								}
+							}
+						}
+					},
+					scale: 3,
+					fallbackToExportServer: false
+				},
 				chart: {
 					type: 'spline'
 				},
@@ -246,6 +253,19 @@ angular
 
 		var createWearGraph = function (graphName, regressionLine, scatterPlot, greyLineOne, greyLineTwo) {
 			return {
+				exporting: {
+					chartOptions: { // specific options for the exported image
+						plotOptions: {
+							series: {
+								dataLabels: {
+									enabled: true
+								}
+							}
+						}
+					},
+					scale: 3,
+					fallbackToExportServer: false
+				},
 				xAxis: {},
 				yAxis: {},
 				title: {
@@ -289,7 +309,84 @@ angular
 		};
 
 		$scope.download = function () {
+			var request = {
+				majorAssemblies: []
+			};
 
+			// https://gist.github.com/philfreo/0a4d899de4257e08a000
+			angular.forEach($scope.inspection.majorAssemblies, function (majorAssembly) {
+				var requestMajorAssembly = {
+					name: majorAssembly.majorAssembly.name,
+					subAssemblies: []
+				};
+
+				angular.forEach(majorAssembly.subAssemblies, function (subAssembly) {
+					var requestSubAssembly = {
+						name: subAssembly.subAssembly.name,
+						actionItems: [],
+						graphs: []
+					};
+
+					var actionItem = {};
+
+					if (subAssembly.machineGeneralTest != null && subAssembly.machineGeneralTest.actionItem != null) {
+						actionItem = subAssembly.machineGeneralTest.actionItem;
+
+						requestSubAssembly.actionItems.push({
+							test: 'Machine General',
+							status: actionItem.status,
+							issue: actionItem.status,
+							action: actionItem.status,
+							technician: actionItem.technician.name,
+							timeActioned: moment(actionItem.timeActioned).format('HH:mm ddd, MMM Do YYYY')
+						});
+					}
+
+					if (subAssembly.oilTest != null && subAssembly.oilTest.actionItem != null) {
+						actionItem = subAssembly.oilTest.actionItem;
+
+						requestSubAssembly.actionItems.push({
+							test: 'Oil',
+							status: actionItem.status,
+							issue: actionItem.status,
+							action: actionItem.status,
+							technician: actionItem.technician.name,
+							timeActioned: moment(actionItem.timeActioned).format('HH:mm ddd, MMM Do YYYY')
+						});
+					}
+
+					if (subAssembly.wearTest != null && subAssembly.wearTest.actionItem != null) {
+						actionItem = subAssembly.wearTest.actionItem;
+
+						requestSubAssembly.actionItems.push({
+							test: 'Wear',
+							status: actionItem.status,
+							issue: actionItem.status,
+							action: actionItem.status,
+							technician: actionItem.technician.name,
+							timeActioned: moment(actionItem.timeActioned).format('HH:mm ddd, MMM Do YYYY')
+						});
+					}
+
+					angular.forEach(subAssembly.oilTestGraphs, function (oilTestGraph) {
+						var svgData = new XMLSerializer().serializeToString(angular.element(oilTestGraph.getHighcharts().container).find('svg')[0]);
+
+						requestSubAssembly.graphs.push('data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData))));
+					});
+
+					angular.forEach(subAssembly.wearTestGraphs, function (wearTestGraph) {
+						var svgData = new XMLSerializer().serializeToString(angular.element(wearTestGraph.getHighcharts().container).find('svg')[0]);
+
+						requestSubAssembly.graphs.push('data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData))));
+					});
+
+					requestMajorAssembly.subAssemblies.push(requestSubAssembly);
+				});
+
+				request.majorAssemblies.push(requestMajorAssembly);
+			});
+
+			DomainExpertInspectionReportService.download($scope.inspectionId, request);
 		};
 
 		LayoutService.getPageHeader().onClicked($scope.download);

@@ -49,7 +49,7 @@
 
                 <tr ng-if="subAssembly.oilTest != null">
                     <td>{{ subAssembly.subAssembly.name }}</td>
-                    <td>Oil Test</td>
+                    <td>Oil</td>
                     <td>{{ subAssembly.oilTest.actionItem.status }}</td>
                     <td>{{ subAssembly.oilTest.actionItem.issue }}</td>
                     <td>{{ subAssembly.oilTest.actionItem.action }}</td>
@@ -64,7 +64,7 @@
 
                 <tr ng-if="subAssembly.wearTest != null">
                     <td>{{ subAssembly.subAssembly.name }}</td>
-                    <td>Wear Test</td>
+                    <td>Wear</td>
                     <td>{{ subAssembly.wearTest.actionItem.status }}</td>
                     <td>{{ subAssembly.wearTest.actionItem.issue }}</td>
                     <td>{{ subAssembly.wearTest.actionItem.action }}</td>
@@ -84,10 +84,12 @@
         </div>
     </div>
 </div>
-</div>
-<div class="ibox" ng-repeat="subAssembly in subAssemblies">
+
+<div ng-repeat-start="majorAssembly in inspection.majorAssemblies"></div>
+
+<div class="ibox" ng-repeat="subAssembly in majorAssembly.subAssemblies" ng-if="subAssembly.oilTestGraphs.length > 0 || subAssembly.wearTestGraphs.length > 0">
     <div class="ibox-title">
-        <h5>{{ subAssembly.name }}</h5>
+        <h5>{{ subAssembly.subAssembly.name }}</h5>
         <div class="ibox-tools" ibox-tools>
             <a class="collapse-link">
                 <i class="fa fa-chevron-up"></i>
@@ -104,6 +106,7 @@
                 <div class="col-md-6 m-b" ng-repeat="graph in subAssembly.oilTestGraphs">
                     <div class="highchart" config="graph"></div>
                 </div>
+
                 <div class="col-md-6 m-b" ng-repeat="graph in subAssembly.wearTestGraphs">
                     <div class="highchart" config="graph"></div>
                 </div>
@@ -111,3 +114,5 @@
         </div>
     </div>
 </div>
+
+<div ng-repeat-end></div>

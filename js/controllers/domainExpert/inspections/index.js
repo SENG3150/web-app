@@ -17,6 +17,7 @@ angular
 			}
 		]);
 
+		//get a list of all inspections that are in the system
 		Inspections.getList({include: 'machine.model,technician,scheduler'}).then(function (data) {
 			$scope.loading = false;
 			$scope.inspections = data;

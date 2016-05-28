@@ -10,6 +10,7 @@ angular
 			controller: ['$scope', 'Comments', 'AuthService', 'moment', 'toastr', function ($scope, Comments, AuthService, moment, toastr) {
 				$scope.commentData = {};
 
+				//save a comment
 				$scope.submitComment = function () {
 					toastr.info('Attempting to save your comment');
 

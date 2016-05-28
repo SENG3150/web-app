@@ -43,6 +43,7 @@ angular
 			}
 		);
 
+		//allow a comment to be saved to the correct location in the inspection
 		$scope.addComment = function () {
 			if ($scope.comment != '') {
 				var comment = {

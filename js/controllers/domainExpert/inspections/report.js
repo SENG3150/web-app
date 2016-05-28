@@ -36,20 +36,24 @@ angular
 			}
 		]);
 
+		// callback for when the json has been returned from the API
 		baseInspections.get({
 			include: 'majorAssemblies.majorAssembly,majorAssemblies.subAssemblies.subAssembly'
 		}).then(
 			function (data) {
 				$scope.inspection = data;
 
+				// callback for once we have received the graphs json back
 				baseInspections.one('graphs').get().then(
 					function (data) {
 						$scope.loading = false;
 
+						//loop through each sub assembly
 						angular.forEach(data.subAssemblies, function (subAssembly) {
 							subAssembly.oilTestGraphs = [];
 							subAssembly.wearTestGraphs = [];
 
+							// check to see if the sub assembly requires oil test graphs
 							if (subAssembly.oilTests && subAssembly.oilTests.length > 0) {
 								var lead = [];
 								var copper = [];
@@ -62,6 +66,7 @@ angular
 								var water = [];
 								var viscosity = [];
 
+								// loop through all the oil tests we have for a specified assembly
 								angular.forEach(subAssembly.oilTests, function (oilTest) {
 									var date = moment(oilTest.timeCompleted).valueOf();
 
@@ -77,6 +82,7 @@ angular
 									viscosity.push([date, parseFloat(oilTest.viscosity)]);
 								});
 
+								// specify each trace that is required for each graph
 								var graphOne = [
 									{
 										name: "Sodium (Na)",
@@ -129,6 +135,7 @@ angular
 									}
 								];
 
+								//create a time line graph for each graph we require
 								subAssembly.oilTestGraphs = [
 									createTimeLineGraph(subAssembly.name + ' - Oil Test', graphOne),
 									createTimeLineGraph(subAssembly.name + ' - Oil Test', graphTwo),
@@ -137,28 +144,34 @@ angular
 								];
 							}
 
+							// check to see if the sub assembly requires wear test graphs
 							if (subAssembly.wearTests && subAssembly.wearTests.length > 0) {
 								var scatterPlot = [];
 								var regressionLine = [];
 								var firstGreyLine = [];
 								var secondGreyLine = [];
 
+								// loop through each wear test we have for the specific assembly
 								angular.forEach(subAssembly.wearTests, function (wearTest, index) {
+									//check to make sure we have all the required fields for the graph
 									if (wearTest.uniqueDetails['value'] != null && wearTest.uniqueDetails['new'] != null
 										&& wearTest.uniqueDetails['lifeUpper'] != null && wearTest.uniqueDetails['limit'] != null) {
+
 										// scatter plot: x = SMU, y = (value on wear / replace)
 										// line of best fit between scatter plots
 										scatterPlot.push([wearTest.smu, wearTest.uniqueDetails['value']]);
 										regressionLine.push([wearTest.smu, wearTest.uniqueDetails['value']]);
 
-										// grey line:
-										//      Line 1:
-										// 			start: x = smu LOWER    , y = (wear / replace) NEW
-										//			end:   x = (wear / replace) UPPER    , y = (wear / replace) LIMIT
-										//      Line 2:
-										// 			start: x = smu LOWER    , y = (wear / replace) NEW
-										//			end:   x = smu UPPER    , y = (wear / replace) LIMIT
+
+										//The two lines only need to be added once to the graph
 										if (index == subAssembly.wearTests.length - 1) {
+											// grey line:
+											//      Line 1:
+											// 			start: x = smu LOWER    , y = (wear / replace) NEW
+											//			end:   x = (wear / replace) UPPER    , y = (wear / replace) LIMIT
+											//      Line 2:
+											// 			start: x = smu LOWER    , y = (wear / replace) NEW
+											//			end:   x = smu UPPER    , y = (wear / replace) LIMIT
 											firstGreyLine.push([wearTest.lifeLower, wearTest.uniqueDetails['new']]); //start
 											firstGreyLine.push([wearTest.uniqueDetails['lifeUpper'], wearTest.uniqueDetails['limit']]); //end
 
@@ -168,6 +181,7 @@ angular
 									}
 								});
 
+								//if we have all the correct data, add the graph to the page.
 								if (scatterPlot.length != 0 && regressionLine.length != 0 && firstGreyLine.length != 0 && secondGreyLine.length != 0) {
 									subAssembly.wearTestGraphs = [
 										createWearGraph(subAssembly.name + ' - Wear Test', regressionLine, scatterPlot, firstGreyLine, secondGreyLine)
@@ -202,6 +216,7 @@ angular
 			}
 		});
 
+		//create a time line graph
 		var createTimeLineGraph = function (graphTitle, traces) {
 			return {
 				exporting: {
@@ -251,6 +266,7 @@ angular
 			};
 		};
 
+		//create a wear graph
 		var createWearGraph = function (graphName, regressionLine, scatterPlot, greyLineOne, greyLineTwo) {
 			return {
 				exporting: {
@@ -308,6 +324,8 @@ angular
 			};
 		};
 
+		//allow for the downloading of the report. The required information is packed to be sent to the server
+		//to produce the report, which will return with the generated pdf.
 		$scope.download = function () {
 			var request = {
 				majorAssemblies: []

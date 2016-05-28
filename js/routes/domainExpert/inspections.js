@@ -9,7 +9,7 @@ angular
 				controller: 'DomainExpertInspectionsControllerIndex',
 				resolve: {
 					loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
-						return $ocLazyLoad.load(['dataTables'])
+						return $ocLazyLoad.load(['dataTables']);
 					}],
 					loggedIn: ['AuthService', function (AuthService) {
 						return AuthService.checkPermissions(true);
@@ -23,7 +23,7 @@ angular
 				controller: 'DomainExpertInspectionsControllerCreate',
 				resolve: {
 					loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
-						return $ocLazyLoad.load(['dateTimePicker'])
+						return $ocLazyLoad.load(['dateTimePicker']);
 					}],
 					loggedIn: ['AuthService', function (AuthService) {
 						return AuthService.checkPermissions(true);
@@ -36,6 +36,9 @@ angular
 				templateUrl: 'views/domainExpert/inspections/view.html',
 				controller: 'DomainExpertInspectionsControllerView',
 				resolve: {
+					loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
+						return $ocLazyLoad.load(['ngJsTree']);
+					}],
 					loggedIn: ['AuthService', function (AuthService) {
 						return AuthService.checkPermissions(true);
 					}]
@@ -48,7 +51,7 @@ angular
 				controller: 'DomainExpertInspectionsControllerReport',
 				resolve: {
 					loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
-						return $ocLazyLoad.load(['highcharts'])
+						return $ocLazyLoad.load(['highcharts']);
 					}],
 					loggedIn: ['AuthService', function (AuthService) {
 						return AuthService.checkPermissions(true);

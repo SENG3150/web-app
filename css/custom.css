@@ -44,8 +44,16 @@
     font-weight: bold;
 }
 
+.table.table-transparent > thead > tr > th {
+    background-color: transparent;
+}
+
 .breadcrumb > li {
     padding-right: 5px;
+}
+
+.text-highlight {
+    color: #c31f30 !important;
 }
 
 /* lg - larger desktops */

@@ -41,6 +41,15 @@ angular
 						'/bower_components/highcharts-ng/dist/highcharts-ng.min.js'
 					],
 					serie: true
+				},
+				{
+					name: 'ngJsTree',
+					files: [
+						'/bower_components/jstree/dist/themes/default/style.min.css',
+						'/bower_components/jstree/dist/jstree.min.js',
+						'/bower_components/ng-js-tree/dist/ngJsTree.min.js'
+					],
+					serie: true
 				}
 			]
 		});

@@ -1,10 +1,19 @@
 angular
     .module('joy-global')
-    .controller('DomainExpertMachinesControllerView', ['$scope', '$state', 'Inspections', 'Machines', '$stateParams', 'LayoutService', function ($scope, $state, Inspections, Machines, $stateParams, LayoutService) {
-        $scope.inspections = Inspections.getList({include: 'machine'}).$object;
-        //$scope.machines = Machines.getList({include: 'model.majorAssemblies.subAssemblies'}).$object;
+    .controller('DomainExpertMachinesControllerView', ['$scope', '$state', 'Machines', '$stateParams', 'LayoutService', 'moment', 'DataTablesService', function ($scope, $state, Machines, $stateParams, LayoutService, moment, DataTablesService) {
         $scope.machineId = $stateParams.id;
-        $scope.machine = Machines.one($scope.machineId).get({include: 'model.majorAssemblies.subAssemblies'}).$object;
+	    $scope.loading = true;
+
+	    $scope.moment = moment;
+	    $scope.dtOptions = DataTablesService.prepare('Inspection History');
+	    
+        Machines.one($scope.machineId).get({include: 'model.majorAssemblies.subAssemblies,inspections.technician,inspections.scheduler'}).then(
+	        function(data) {
+		        $scope.loading = false;
+
+		        $scope.machine = data;
+	        }
+        );
 
         LayoutService.reset();
         LayoutService.setTitle(['Machine ' + $scope.machineId, 'Machines']);
@@ -27,4 +36,5 @@ angular
 	    LayoutService.getPageHeader().onClicked(function () {
 		    $state.go('domainExpert-inspections-create');
 	    });
+
     }]);

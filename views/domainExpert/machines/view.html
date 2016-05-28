@@ -1,53 +1,90 @@
 <div class="ibox">
     <div class="ibox-title">
-        <h5>Machines</h5>
-        <a ui-sref="domainExpert-inspections-create({id: machine.id})" class="btn btn-primary btn-block">Temp create inspection link</a>
-
-        <div class="ibox-tools" ibox-tools>
-            <a class="collapse-link">
-                <i class="fa fa-chevron-up"></i>
-            </a>
-        </div>
+        <h5>Machine<span ng-if="loading == true"> (loading...)</span></h5>
     </div>
     <div class="ibox-content">
-        <div class="well">
-            <table class="table">
+        <div class="text-center" ng-if="loading == true">
+            <i class="fa fa-spinner fa-spin fa-3x"></i>
+        </div>
 
+        <div ng-if="loading == false">
+            <table class="table table-bordered table-middle table-transparent">
                 <thead>
-                <th>Machine Name</th>
-                <th>Model Name</th>
+                <tr>
+                    <th>Machine Name</th>
+                    <th>Model Name</th>
+                </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>{{machine.name}}</td>
-                    <td>{{machine.model.name}}</td>
+                    <td>{{ machine.name }}</td>
+                    <td>{{ machine.model.name }}</td>
                 </tr>
                 </tbody>
             </table>
-            <h3>Assemblies</h3>
-            <div ng-app id="ng-app" class="panel panel-info" ng-repeat="majorAssembly in machine.model.majorAssemblies">
-                <div class="panel-heading"><a href="#" ng-model="collapsed" ng-click="collapsed=!collapsed">{{majorAssembly.name}}</a>
-                </div>
+        </div>
+    </div>
+</div>
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>Assemblies<span ng-if="loading == true"> (loading...)</span></h5>
+    </div>
+    <div class="ibox-content">
+        <div class="text-center" ng-if="loading == true">
+            <i class="fa fa-spinner fa-spin fa-3x"></i>
+        </div>
 
-                <div ng-show="collapsed" class="panel-body">
-                    <table class="table">
-                        <thead>
-                        <th>Sub Assembly ID</th>
-                        <th>Sub Assembly Name</th>
-                        <th>Last Inspection</th>
-                        <th>Next Inspection</th>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="subAssembly in majorAssembly.subAssemblies">
-                            <td>{{subAssembly.id}}</td>
-                            <td>{{subAssembly.name}}</td>
-                            <td>--/--/-- --:--:--</td>
-                            <td>--/--/-- --:--:--</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <div ng-if="loading == false">
+            <table class="table table-bordered table-middle">
+                <tbody>
+                <tr ng-repeat-start="majorAssembly in machine.model.majorAssemblies">
+                    <td class="text-center table-header-row" colspan="4">{{ majorAssembly.name }}</td>
+                </tr>
+                <tr ng-repeat="subAssembly in majorAssembly.subAssemblies">
+                    <td>{{ subAssembly.name }}</td>
+                </tr>
+                <tr ng-repeat-end></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>Inspection History<span ng-if="loading == true"> (loading...)</span></h5>
+    </div>
+    <div class="ibox-content">
+        <div class="text-center" ng-if="loading == true">
+            <i class="fa fa-spinner fa-spin fa-3x"></i>
+        </div>
+
+        <div ng-if="loading == false">
+            <table datatable="ng" class="table table-bordered table-middle" dt-options="dtOptions">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Technician</th>
+                    <th>Domain Expert</th>
+                    <th>Time</th>
+                    <th>View / Edit</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="inspection in machine.inspections">
+                    <td>{{ inspection.id }}</td>
+                    <td>{{ inspection.technician.name }}</td>
+                    <td>{{ inspection.scheduler.name }}</td>
+                    <td>{{ moment(inspection.timeScheduled).format("HH:mm ddd, MMM Do YYYY") }}</td>
+                    <td>
+                        <a ui-sref="domainExpert-inspections-view({ id: inspection.id })"
+                           class="btn btn-primary btn-block">
+                            <i class="fa fa-fw fa-search"></i>
+                            View / Edit
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

@@ -223,7 +223,7 @@ angular
 
 
 				//wear graph test
-				if (subAssembly.wearTests.length > 0 && false) {
+				if (subAssembly.wearTests.length > 0) {
 					var scatterPlot = [];
 					var regressionLine = [];
 					var firstGreyLine = [];
@@ -231,29 +231,32 @@ angular
 
 					for (var testID in subAssembly.wearTests) {
 						var wearTest = subAssembly.wearTests[testID];
+						if (wearTest.uniqueDetails['value'] != null && wearTest.uniqueDetails['new'] != null
+							&& wearTest.uniqueDetails['lifeUpper'] != null && wearTest.uniqueDetails['limit'] != null) {
+							//scatter plot: x = SMU, y = (value on wear / replace)
+							//line of best fit between scatter plots
+							scatterPlot.push([wearTest.smu, wearTest.uniqueDetails['value']]);
+							regressionLine.push([wearTest.smu, wearTest.uniqueDetails['value']]);
 
-						//scatter plot: x = SMU, y = (value on wear / replace)
-						//line of best fit between scatter plots
-						scatterPlot.push([wearTest.smu, wearTest.uniqueDetails['value']]);
-						regressionLine.push([wearTest.smu, wearTest.uniqueDetails['value']]);
+							//grey line:
+							//      Line 1:
+							// 			start: x = smu LOWER    , y = (wear / replace) NEW
+							//			end:   x = (wear / replace) UPPER    , y = (wear / replace) LIMIT
+							//      Line 2:
+							// 			start: x = smu LOWER    , y = (wear / replace) NEW
+							//			end:   x = smu UPPER    , y = (wear / replace) LIMIT
+							if (testID == subAssembly.wearTests.length - 1) {
+								firstGreyLine.push([wearTest.lifeLower, wearTest.uniqueDetails['new']]); //start
+								firstGreyLine.push((wearTest.uniqueDetails['lifeUpper'], wearTest.uniqueDetails['limit'])); //end
 
-						//grey line:
-						//      Line 1:
-						// 			start: x = smu LOWER    , y = (wear / replace) NEW
-						//			end:   x = (wear / replace) UPPER    , y = (wear / replace) LIMIT
-						//      Line 2:
-						// 			start: x = smu LOWER    , y = (wear / replace) NEW
-						//			end:   x = smu UPPER    , y = (wear / replace) LIMIT
-						if (testID == subAssembly.wearTests.length - 1) {
-							firstGreyLine.push([wearTest.lifeLower, wearTest.uniqueDetails['new']]); //start
-							firstGreyLine.push((wearTest.uniqueDetails['lifeUpper'], wearTest.uniqueDetails['limit'])); //end
-
-							secondGreyLine.push([wearTest.lower, wearTest.uniqueDetails['new']]);
-							secondGreyLine.push([wearTest.upper, wearTest.uniqueDetails['limit']]);
+								secondGreyLine.push([wearTest.lower, wearTest.uniqueDetails['new']]);
+								secondGreyLine.push([wearTest.upper, wearTest.uniqueDetails['limit']]);
+							}
 						}
 					}
-
-					$scope.wearTestGraphs.push(createWearGraph(subAssembly.name, regressionLine, scatterPlot, firstGreyLine, secondGreyLine));
+					if (scatterPlot.length != 0 && regressionLine.length != 0 && firstGreyLine.length != 0 && secondGreyLine.length != 0) {
+						$scope.wearTestGraphs.push(createWearGraph(subAssembly.name, regressionLine, scatterPlot, firstGreyLine, secondGreyLine));
+					}
 				}
 			}
 		});
@@ -269,19 +272,19 @@ angular
 				console.log(document.getElementById('printTable'));
 				pdf.save('test.pdf');
 			});
-/*
-			html2canvas(document.getElementById('printGraph'), {
-				allowTaint: true,
-				background: '#FFFFFF',
-				onrendered: function(canvas) {
-					var doc = new jsPDF();
-					var imgData = canvas.toDataURL('image/png');
-					console.log(document.getElementById('printGraph'));
-					doc.addImage(imgData, 'PNG', 10, 10);
-					doc.save("test.pdf");
-				}
-			});
-*/
+			/*
+			 html2canvas(document.getElementById('printGraph'), {
+			 allowTaint: true,
+			 background: '#FFFFFF',
+			 onrendered: function(canvas) {
+			 var doc = new jsPDF();
+			 var imgData = canvas.toDataURL('image/png');
+			 console.log(document.getElementById('printGraph'));
+			 doc.addImage(imgData, 'PNG', 10, 10);
+			 doc.save("test.pdf");
+			 }
+			 });
+			 */
 		}
 
 		LayoutService.getPageHeader().onClicked($scope.toPdf);

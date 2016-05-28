@@ -1,11 +1,16 @@
 angular
 	.module('joy-global')
-	.controller('DomainExpertInspectionsControllerView', ['$scope', 'Inspections', 'moment', '$stateParams', 'LayoutService', 'toastr', '$auth', '$state', function ($scope, Inspections, moment, $stateParams, LayoutService, toastr, $auth, $state) {
+	.controller('DomainExpertInspectionsControllerView', ['$scope', 'Inspections', 'moment', '$stateParams', 'LayoutService', 'toastr', '$auth', '$state', 'AuthService', 'Comments', function ($scope, Inspections, moment, $stateParams, LayoutService, toastr, $auth, $state, AuthService, Comments) {
 		$scope.inspectionId = $stateParams.id;
 		$scope.loading = true;
 
 		$scope.moment = moment;
 		$scope.token = $auth.getToken();
+
+		$scope.comment = '';
+		$scope.nodeParts = [];
+		$scope.selectedNodeId = '';
+		$scope.treeInstance = {};
 
 		LayoutService.reset();
 		LayoutService.setTitle(['Inspection ' + $scope.inspectionId, 'Inspections']);
@@ -26,140 +31,118 @@ angular
 		]);
 
 		$scope.inspection = Inspections.one($scope.inspectionId).get({
-			include: 'majorAssemblies.majorAssembly,majorAssemblies.subAssemblies.subAssembly'
+			include: 'technician,scheduler,machine.model,majorAssemblies.majorAssembly,majorAssemblies.subAssemblies.subAssembly'
 		}).then(
 			function (data) {
 				$scope.loading = false;
 
 				$scope.inspection = data;
 
-				var rootNode = {
-					id: 'root',
-					text: 'Inspection ' + $scope.inspectionId,
-					children: [],
-					state: {
-						opened: true,
-						selected: true
-					}
-				};
-
-				if ($scope.inspection.comments.length > 0 || $scope.inspection.photos.length > 0) {
-					rootNode.a_attr = {
-						class: 'text-highlight'
-					};
-				}
-
-				angular.forEach($scope.inspection.majorAssemblies, function (majorAssembly) {
-					var majorAssemblyNode = {
-						id: ['root', majorAssembly.id].join('-'),
-						text: majorAssembly.majorAssembly.name,
-						children: [],
-						state: {
-							opened: true
-						}
-					};
-
-					if (majorAssembly.comments.length > 0 || majorAssembly.photos.length > 0) {
-						majorAssemblyNode.a_attr = {
-							class: 'text-highlight'
-						};
-					}
-
-					angular.forEach(majorAssembly.subAssemblies, function (subAssembly) {
-						var subAssemblyNode = {
-							id: ['root', majorAssembly.id, subAssembly.id].join('-'),
-							text: subAssembly.subAssembly.name,
-							children: [],
-							state: {
-								opened: true
-							}
-						};
-
-						if (subAssembly.comments.length > 0 || subAssembly.photos.length > 0) {
-							subAssemblyNode.a_attr = {
-								class: 'text-highlight'
-							};
-						}
-
-						if (subAssembly.machineGeneralTest) {
-							var machineGeneralTestNode = {
-								id: ['root', majorAssembly.id, subAssembly.id, 'machineGeneral'].join('-'),
-								text: 'Machine General Test',
-								type: 'machine-general-test',
-								state: {
-									opened: true
-								}
-							};
-
-							if (subAssembly.machineGeneralTest.comments.length > 0 || subAssembly.machineGeneralTest.photos.length > 0) {
-								machineGeneralTestNode.a_attr = {
-									class: 'text-highlight'
-								};
-							}
-
-							subAssemblyNode.children.push(machineGeneralTestNode);
-						}
-
-						if (subAssembly.oilTest) {
-							var oilTestNode = {
-								id: ['root', majorAssembly.id, subAssembly.id, 'oil'].join('-'),
-								text: 'Oil Test',
-								type: 'oil-test',
-								state: {
-									opened: true
-								}
-							};
-
-							if (subAssembly.oilTest.comments.length > 0 || subAssembly.oilTest.photos.length > 0) {
-								oilTestNode.a_attr = {
-									class: 'text-highlight'
-								};
-							}
-
-							subAssemblyNode.children.push(oilTestNode);
-						}
-
-						if (subAssembly.wearTest) {
-							var wearTestNode = {
-								id: ['root', majorAssembly.id, subAssembly.id, 'wear'].join('-'),
-								text: 'Wear Test',
-								type: 'wear-test',
-								state: {
-									opened: true
-								}
-							};
-
-							if (subAssembly.wearTest.comments.length > 0 || subAssembly.wearTest.photos.length > 0) {
-								wearTestNode.a_attr = {
-									class: 'text-highlight'
-								};
-							}
-
-							subAssemblyNode.children.push(wearTestNode);
-						}
-
-						majorAssemblyNode.children.push(subAssemblyNode);
-					});
-
-					rootNode.children.push(majorAssemblyNode);
-				});
-
-				$scope.treeData = [
-					rootNode
-				];
-
+				$scope.buildTree('root');
 				$scope.parseNode('root');
 			}
 		);
 
-		$scope.addComment = function() {
-			toastr.clear();
-			toastr.info('Coming soon.');
-		};
+		$scope.addComment = function () {
+			if ($scope.comment != '') {
+				var comment = {
+					domainExpert: AuthService.getUser().primary.id,
+					text: $scope.comment,
+					timeCommented: moment().format()
+				};
 
-		$scope.addPhoto = function() {
-			toastr.clear();
-			toastr.info('Coming soon.');
+				switch ($scope.type) {
+					case 'inspection':
+					{
+						comment.inspection = $scope.node.id;
+
+						break;
+					}
+
+					case 'majorAssembly':
+					{
+						comment.majorAssembly = $scope.node.id;
+
+						break;
+					}
+
+					case 'subAssembly':
+					{
+						comment.subAssembly = $scope.node.id;
+
+						break;
+					}
+
+					case 'test-machineGeneral':
+					{
+						comment.machineGeneralTest = $scope.node.id;
+
+						break;
+					}
+
+					case 'test-oil':
+					{
+						comment.oilTest = $scope.node.id;
+
+						break;
+					}
+
+					case 'test-wear':
+					{
+						comment.wearTest = $scope.node.id;
+
+						break;
+					}
+				}
+
+				toastr.clear();
+				toastr.info('Saving your comment...');
+
+				Comments.save(comment).then(
+					function () {
+						toastr.clear();
+						toastr.success('Your comment was saved successfully.');
+
+						comment.author = AuthService.getUser().primary;
+
+						$scope.node.comments.push(comment);
+
+						// http://stackoverflow.com/a/17578861
+						var recursiveFilter = function (item) {
+							if (item.id == $scope.selectedNodeId) {
+								return true;
+							} else if (typeof item.children != 'undefined' && item.children.length > 0) {
+								for (var i = 0; i < item.children.length; i++) {
+									if (recursiveFilter(item.children[i]) == true) {
+										return true;
+									}
+								}
+							} else {
+								return false;
+							}
+						};
+
+						var selectedNode = _.find($scope.treeData, recursiveFilter);
+
+						selectedNode.a_attr = {
+							class: 'text-highlight'
+						};
+
+						$scope.buildTree($scope.selectedNodeId);
+
+						angular.element(document.querySelector('#' + $scope.selectedNodeId + '_anchor')).addClass('text-highlight');
+
+						$scope.dismiss();
+					},
+					function () {
+						toastr.clear();
+						toastr.error('There was an error while saving your comment.', 'Error');
+					}
+				)
+			} else {
+				toastr.clear();
+				toastr.warning('You must enter a comment.');
+			}
 		};
 
 		$scope.selectNode = function (node, selected) {
@@ -167,13 +150,14 @@ angular
 		};
 
 		$scope.parseNode = function (node) {
-			var parts = node.split('-');
+			$scope.selectedNodeId = node;
+			$scope.nodeParts = node.split('-');
 
 			var majorAssembly = null;
 			var subAssembly = null;
 			var test = null;
 
-			switch (parts.length) {
+			switch ($scope.nodeParts.length) {
 				case 1:
 				{
 					$scope.title = 'Inspection ' + $scope.inspection.id;
@@ -188,7 +172,7 @@ angular
 				case 2:
 				{
 					majorAssembly = _.find($scope.inspection.majorAssemblies, function (item) {
-						return item.id == parseInt(parts[1]);
+						return item.id == parseInt($scope.nodeParts[1]);
 					});
 
 					$scope.title = majorAssembly.majorAssembly.name;
@@ -203,11 +187,11 @@ angular
 				case 3:
 				{
 					majorAssembly = _.find($scope.inspection.majorAssemblies, function (item) {
-						return item.id == parseInt(parts[1]);
+						return item.id == parseInt($scope.nodeParts[1]);
 					});
 
 					subAssembly = _.find(majorAssembly.subAssemblies, function (item) {
-						return item.id == parseInt(parts[2]);
+						return item.id == parseInt($scope.nodeParts[2]);
 					});
 
 					$scope.title = subAssembly.subAssembly.name;
@@ -222,14 +206,14 @@ angular
 				case 4:
 				{
 					majorAssembly = _.find($scope.inspection.majorAssemblies, function (item) {
-						return item.id == parseInt(parts[1]);
+						return item.id == parseInt($scope.nodeParts[1]);
 					});
 
 					subAssembly = _.find(majorAssembly.subAssemblies, function (item) {
-						return item.id == parseInt(parts[2]);
+						return item.id == parseInt($scope.nodeParts[2]);
 					});
 
-					switch (parts[3]) {
+					switch ($scope.nodeParts[3]) {
 						case 'machineGeneral':
 						{
 							test = subAssembly.machineGeneralTest;
@@ -272,13 +256,144 @@ angular
 			$scope.$apply();
 		};
 
+		$scope.buildTree = function (selectedId) {
+			var rootNode = {
+				id: 'root',
+				text: 'Inspection ' + $scope.inspectionId,
+				children: [],
+				state: {
+					opened: true
+				}
+			};
+
+			rootNode.state.selected = (rootNode.id == selectedId);
+
+			if ($scope.inspection.comments.length > 0 || $scope.inspection.photos.length > 0) {
+				rootNode.a_attr = {
+					class: 'text-highlight'
+				};
+			}
+
+			angular.forEach($scope.inspection.majorAssemblies, function (majorAssembly) {
+				var majorAssemblyNode = {
+					id: ['root', majorAssembly.id].join('-'),
+					text: majorAssembly.majorAssembly.name,
+					children: [],
+					state: {
+						opened: true
+					}
+				};
+
+				majorAssemblyNode.state.selected = (majorAssemblyNode.id == selectedId);
+
+				if (majorAssembly.comments.length > 0 || majorAssembly.photos.length > 0) {
+					majorAssemblyNode.a_attr = {
+						class: 'text-highlight'
+					};
+				}
+
+				angular.forEach(majorAssembly.subAssemblies, function (subAssembly) {
+					var subAssemblyNode = {
+						id: ['root', majorAssembly.id, subAssembly.id].join('-'),
+						text: subAssembly.subAssembly.name,
+						children: [],
+						state: {
+							opened: true
+						}
+					};
+
+					subAssemblyNode.state.selected = (subAssemblyNode.id == selectedId);
+
+					if (subAssembly.comments.length > 0 || subAssembly.photos.length > 0) {
+						subAssemblyNode.a_attr = {
+							class: 'text-highlight'
+						};
+					}
+
+					if (subAssembly.machineGeneralTest) {
+						var machineGeneralTestNode = {
+							id: ['root', majorAssembly.id, subAssembly.id, 'machineGeneral'].join('-'),
+							text: 'Machine General Test',
+							type: 'machine-general-test',
+							state: {
+								opened: true
+							}
+						};
+
+						machineGeneralTestNode.state.selected = (machineGeneralTestNode.id == selectedId);
+
+						if (subAssembly.machineGeneralTest.comments.length > 0 || subAssembly.machineGeneralTest.photos.length > 0) {
+							machineGeneralTestNode.a_attr = {
+								class: 'text-highlight'
+							};
+						}
+
+						subAssemblyNode.children.push(machineGeneralTestNode);
+					}
+
+					if (subAssembly.oilTest) {
+						var oilTestNode = {
+							id: ['root', majorAssembly.id, subAssembly.id, 'oil'].join('-'),
+							text: 'Oil Test',
+							type: 'oil-test',
+							state: {
+								opened: true
+							}
+						};
+
+						oilTestNode.state.selected = (oilTestNode.id == selectedId);
+
+						if (subAssembly.oilTest.comments.length > 0 || subAssembly.oilTest.photos.length > 0) {
+							oilTestNode.a_attr = {
+								class: 'text-highlight'
+							};
+						}
+
+						subAssemblyNode.children.push(oilTestNode);
+					}
+
+					if (subAssembly.wearTest) {
+						var wearTestNode = {
+							id: ['root', majorAssembly.id, subAssembly.id, 'wear'].join('-'),
+							text: 'Wear Test',
+							type: 'wear-test',
+							state: {
+								opened: true
+							}
+						};
+
+						wearTestNode.state.selected = (wearTestNode.id == selectedId);
+
+						if (subAssembly.wearTest.comments.length > 0 || subAssembly.wearTest.photos.length > 0) {
+							wearTestNode.a_attr = {
+								class: 'text-highlight'
+							};
+						}
+
+						subAssemblyNode.children.push(wearTestNode);
+					}
+
+					majorAssemblyNode.children.push(subAssemblyNode);
+				});
+
+				rootNode.children.push(majorAssemblyNode);
+			});
+
+			$scope.treeData = [
+				rootNode
+			];
+		};
+
 		$scope.treeEvents = {
 			'select_node': $scope.selectNode
 		};
 
 		$scope.treeConfig = {
-			'plugins': ['types', 'dnd'],
-			'types': {
+			core: {
+				multiple: false
+			},
+			plugins: ['types', 'dnd'],
+			types: {
 				'default': {
 					'icon': 'fa fa-fw fa-folder'
 				},
@@ -301,6 +416,6 @@ angular
 		};
 
 		LayoutService.getPageHeader().onClicked(function () {
-			$state.go('domainExpert-inspections-report', { id: $scope.inspectionId })
+			$state.go('domainExpert-inspections-report', {id: $scope.inspectionId})
 		});
 	}]);

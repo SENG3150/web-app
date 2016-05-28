@@ -8,47 +8,80 @@
         </div>
 
         <div ng-if="loading == false">
-            <table class="table table-bordered table-middle table-transparent">
-                <thead>
-                <tr>
-                    <th>Time Created</th>
-                    <th>Time Scheduled</th>
-                    <th>Time Started</th>
-                    <th>Time Completed</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td ng-if="inspection.timeCreated != null">
-                        {{ moment(inspection.timeCreated).format("HH:mm ddd, MMM Do YYYY") }}
-                    </td>
-                    <td ng-if="inspection.timeCreated == null">
-                        Not Created
-                    </td>
+            <div class="row">
+                <div class="col-md-6">
+                    <dl class="dl-horizontal">
+                        <dt>Machine</dt>
+                        <dd>{{ inspection.machine.name }}</dd>
 
-                    <td ng-if="inspection.timeScheduled != null">
-                        {{ moment(inspection.timeScheduled).format("HH:mm ddd, MMM Do YYYY") }}
-                    </td>
-                    <td ng-if="inspection.timeScheduled == null">
-                        No Schedule
-                    </td>
+                        <dt>Model</dt>
+                        <dd>{{ inspection.machine.model.name }}</dd>
 
-                    <td ng-if="inspection.timeStarted != null">
-                        {{ moment(inspection.timeStarted).format("HH:mm ddd, MMM Do YYYY") }}
-                    </td>
-                    <td ng-if="inspection.timeStarted == null">
-                        Not Started
-                    </td>
+                        <dt>Technician</dt>
+                        <dd>
+                            <span ng-if="inspection.technician != null">
+                                {{ inspection.technician.name }}
+                            </span>
+                            <span ng-if="inspection.technician == null">
+                                Not Assigned
+                            </span>
+                        </dd>
 
-                    <td ng-if="inspection.timeCompleted != null">
-                        {{ moment(inspection.timeCompleted).format("HH:mm ddd, MMM Do YYYY") }}
-                    </td>
-                    <td ng-if="inspection.timeCompleted == null">
-                        Not Completed
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                        <dt>Domain Expert</dt>
+                        <dd>
+                            <span ng-if="inspection.scheduler != null">
+                                {{ inspection.scheduler.name }}
+                            </span>
+                            <span ng-if="inspection.scheduler == null">
+                                Not Assigned
+                            </span>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-6">
+                    <dl class="dl-horizontal">
+                        <dt>Time Created</dt>
+                        <dd>
+                            <span ng-if="inspection.timeCreated != null">
+                                {{ moment(inspection.timeCreated).format("HH:mm ddd, MMM Do YYYY") }}
+                            </span>
+                            <span ng-if="inspection.timeCreated == null">
+                                Not Created
+                            </span>
+                        </dd>
+
+                        <dt>Time Scheduled</dt>
+                        <dd>
+                            <span ng-if="inspection.timeScheduled != null">
+                                {{ moment(inspection.timeScheduled).format("HH:mm ddd, MMM Do YYYY") }}
+                            </span>
+                            <span ng-if="inspection.timeScheduled == null">
+                                No Schedule
+                            </span>
+                        </dd>
+
+                        <dt>Time Started</dt>
+                        <dd>
+                            <span ng-if="inspection.timeStarted != null">
+                                {{ moment(inspection.timeStarted).format("HH:mm ddd, MMM Do YYYY") }}
+                            </span>
+                            <span ng-if="inspection.timeStarted == null">
+                                Not Started
+                            </span>
+                        </dd>
+
+                        <dt>Time Completed</dt>
+                        <dd>
+                            <span ng-if="inspection.timeCompleted != null">
+                                {{ moment(inspection.timeCompleted).format("HH:mm ddd, MMM Do YYYY") }}
+                            </span>
+                            <span ng-if="inspection.timeCompleted == null">
+                                Not Completed
+                            </span>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -66,8 +99,7 @@
                 <div ng-if="loading == false">
                     <p><span class="text-navy">Highlighted</span> nodes have a photo or comment.</p>
 
-                    <div js-tree="treeConfig" ng-model="treeData" tree="treeInstance"
-                         tree-events-obj="treeEvents"></div>
+                    <div js-tree="treeConfig" ng-model="treeData" tree-events-obj="treeEvents"></div>
                 </div>
             </div>
         </div>
@@ -214,7 +246,8 @@
             <div class="ibox-title">
                 <h5>Comments for {{ title }}<span ng-if="loading == true"> (loading...)</span></h5>
                 <div class="ibox-tools">
-                    <button type="button" class="btn btn-xs btn-primary" ng-click="addComment()">
+                    <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
+                            data-target="#comments-modal">
                         <i class="fa fa-fw fa-plus"></i>
                         Add Comment
                     </button>
@@ -254,15 +287,9 @@
                 </div>
             </div>
         </div>
-        <div class="ibox">
+        <div class="ibox" ng-if="node.photos.length != 0">
             <div class="ibox-title">
                 <h5>Photos for {{ title }}<span ng-if="loading == true"> (loading...)</span></h5>
-                <div class="ibox-tools">
-                    <button type="button" class="btn btn-xs btn-primary" ng-click="addPhoto()">
-                        <i class="fa fa-fw fa-plus"></i>
-                        Add Photo
-                    </button>
-                </div>
             </div>
             <div class="ibox-content">
                 <div class="text-center" ng-if="loading == true">
@@ -270,13 +297,11 @@
                 </div>
 
                 <div ng-if="loading == false">
-                    <p ng-if="node.photos.length == 0">
-                        There are currently no photos for this node.
-                    </p>
-
                     <div ng-repeat="photo in node.photos">
-                        <img class="center-block img-responsive img-thumbnail"
-                             ng-src="{{ photo.url }}?token={{ token }}">
+                        <a href="{{ photo.url }}?token={{ token }}" title="{{ photo.text }}" target="_blank">
+                            <img class="center-block img-responsive img-thumbnail"
+                                 ng-src="{{ photo.url }}?token={{ token }}">
+                        </a>
 
                         <small>
                             <strong>{{ photo.author.name }}</strong>
@@ -285,6 +310,33 @@
                         <p>{{ photo.text }}</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="comments-modal" tabindex="-1" role="dialog" aria-labelledby="comments-modal-label" my-modal>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="comments-modal-label">Add Comment to {{ title }}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="control-label" for="comment">Comment</label>
+                    <textarea class="form-control" rows="5" id="comment" ng-model="comment"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="addComment()">
+                    <i class="fa fa-fw fa-check"></i>
+                    Save
+                </button>
             </div>
         </div>
     </div>

@@ -220,19 +220,6 @@ angular
 		//create a time line graph
 		var createTimeLineGraph = function (graphTitle, traces) {
 			return {
-				exporting: {
-					chartOptions: { // specific options for the exported image
-						plotOptions: {
-							series: {
-								dataLabels: {
-									enabled: true
-								}
-							}
-						}
-					},
-					scale: 3,
-					fallbackToExportServer: false
-				},
 				chart: {
 					type: 'spline'
 				},
@@ -270,19 +257,6 @@ angular
 		//create a wear graph
 		var createWearGraph = function (graphName, regressionLine, scatterPlot, greyLineOne, greyLineTwo) {
 			return {
-				exporting: {
-					chartOptions: { // specific options for the exported image
-						plotOptions: {
-							series: {
-								dataLabels: {
-									enabled: true
-								}
-							}
-						}
-					},
-					scale: 3,
-					fallbackToExportServer: false
-				},
 				xAxis: {},
 				yAxis: {},
 				title: {

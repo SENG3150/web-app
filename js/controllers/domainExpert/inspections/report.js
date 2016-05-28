@@ -1,7 +1,7 @@
 //Controller to allow the display and downloading of a report of an inspection.
 angular
 	.module('joy-global')
-	.controller('DomainExpertInspectionsControllerReport', ['$scope', 'Inspections', 'moment', '$stateParams', 'LayoutService', 'DomainExpertInspectionReportService', function ($scope, Inspections, moment, $stateParams, LayoutService, DomainExpertInspectionReportService) {
+	.controller('DomainExpertInspectionsControllerReport', ['$scope', 'Inspections', 'moment', '$stateParams', 'LayoutService', 'DomainExpertInspectionReportService', 'toastr', function ($scope, Inspections, moment, $stateParams, LayoutService, DomainExpertInspectionReportService, toastr) {
 		$scope.inspectionId = $stateParams.id;
 		$scope.loading = true;
 		$scope.loadingGraphs = true;
@@ -302,6 +302,9 @@ angular
 		//allow for the downloading of the report. The required information is packed to be sent to the server
 		//to produce the report, which will return with the generated pdf.
 		$scope.download = function () {
+			toastr.clear();
+			toastr.info('Your report is being prepared, please be patient as this can take up to a minute depending on your connection.');
+
 			var request = {
 				majorAssemblies: []
 			};

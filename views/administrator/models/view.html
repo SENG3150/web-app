@@ -1,0 +1,72 @@
+
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>Assemblies<span ng-if="loading == true"> (loading...)</span></h5>
+    </div>
+    <div class="ibox-content">
+        <div class="text-center" ng-if="loading == true">
+            <i class="fa fa-spinner fa-spin fa-3x"></i>
+        </div>
+
+        <div ng-if="loading == false">
+            <table class="table table-striped table-bordered table-middle table-transparent">
+                <thead>
+                <tr>
+                    <th class="text-center" style="width: 40%;" rowspan="2">Sub
+                        Assembly
+                    </th>
+                    <th class="text-center" style="width: 45%;" colspan="3">Tests To Be
+                        Performed
+                    </th>
+                    <th class="text-center" style="width: 15%;" rowspan="2">
+                        <a ui-sref="administrator-models-addMajorAssembly({ id: modelId })"
+                           class="btn btn-primary btn-block">
+                            <i class="fa fa-fw fa-plus"></i>
+                            Add Major Assembly
+                        </a>
+                    </th>
+                </tr>
+                <tr>
+                    <th class="text-center" style="width: 15%;">Machine General</th>
+                    <th class="text-center" style="width: 15%;">Oil</th>
+                    <th class="text-center" style="width: 15%;">Wear</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat-start="majorAssembly in model.majorAssemblies">
+                    <td class="text-center table-header-row" colspan="4">{{ majorAssembly.name }}</td>
+                    <td class="table-header-row">
+                        <a ui-sref="administrator-models-addSubAssembly({ id: modelId, majorAssemblyId: majorAssembly.id })"
+                           class="btn btn-primary btn-block">
+                            <i class="fa fa-fw fa-plus"></i>
+                            Add Sub Assembly
+                        </a>
+                    </td>
+                </tr>
+                <tr ng-repeat="subAssembly in majorAssembly.subAssemblies">
+                    <td class="text-center">{{ subAssembly.name }}</td>
+                    <td class="text-center">
+                        <span ng-if="subAssembly.tests[0].machineGeneral.test == true">
+                            <i class="fa fa-fw fa-check"></i>
+                        </span>
+                    </td>
+                    <td class="text-center">
+                        <span ng-if="subAssembly.tests[0].oil.test == true">
+                            <i class="fa fa-fw fa-check"></i>
+                        </span>
+                    </td>
+                    <td class="text-center">
+                        <span ng-if="subAssembly.tests[0].wear.test == true">
+                            <i class="fa fa-fw fa-check"></i>
+                        </span>
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr ng-repeat-end></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

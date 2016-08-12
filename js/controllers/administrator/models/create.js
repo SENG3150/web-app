@@ -1,4 +1,4 @@
-//Controller to allow the creation of domain experts to the system
+//Controller to allow the creation of a new model
 angular
     .module('joy-global')
     .controller('AdministratorModelsControllerCreate', ['$scope', '$state', 'toastr', 'LayoutService', 'Models', function ($scope, $state, toastr, LayoutService, Models) {

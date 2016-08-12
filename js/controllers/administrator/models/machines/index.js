@@ -1,4 +1,4 @@
-//Controller to show a list of all current domain experts in the system
+//Controller to show a list of all current machines for a particular model
 angular
     .module('joy-global')
     .controller('AdministratorModelsMachinesControllerIndex', ['$scope', 'DomainExperts', 'LayoutService', '$state', 'DataTablesService', 'Models', '$stateParams', function ($scope, DomainExperts, LayoutService, $state, DataTablesService, Models, $stateParams) {

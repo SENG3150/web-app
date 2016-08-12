@@ -1,4 +1,4 @@
-//Controller to allow the creation of domain experts to the system
+//Controller to allow the creation of a new machine for a particular model
 angular
     .module('joy-global')
     .controller('AdministratorModelsMachinesControllerCreate', ['$scope', 'DomainExperts', 'LayoutService', '$state', 'DataTablesService', 'Machines', '$stateParams', 'toastr', function ($scope, DomainExperts, LayoutService, $state, DataTablesService, Machines, $stateParams, toastr) {

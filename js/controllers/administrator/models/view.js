@@ -1,7 +1,8 @@
-//Controller to show a list of all models in the system
+//Controller to show the information about a model
 angular
     .module('joy-global')
-    .controller('AdministratorModelsControllerIndex', ['$scope', 'DomainExperts', 'LayoutService', '$state', 'DataTablesService', 'Models', function ($scope, DomainExperts, LayoutService, $state, DataTablesService, Models) {
+    .controller('AdministratorModelsControllerView', ['$scope', 'DomainExperts', 'LayoutService', '$state', 'DataTablesService', 'Models', '$stateParams', function ($scope, DomainExperts, LayoutService, $state, DataTablesService, Models, $stateParams) {
+        $scope.modelId = $stateParams.id;
         $scope.loading = true;
 
         LayoutService.reset();
@@ -15,11 +16,15 @@ angular
             {
                 route: 'administrator-models-index',
                 displayName: 'Models'
+            },
+            {
+                route: 'administrator-models-view',
+                displayName: 'Edit Model'
             }
         ]);
-        Models.getList().then(function (data) {
+        Models.one($scope.modelId).get({include: 'majorAssemblies.majorAssembly,majorAssemblies.subAssemblies.subAssembly,majorAssemblies.subAssemblies.tests'}).then(function (data) {
             $scope.loading = false;
-            $scope.models = data;
+            $scope.model = data;
         });
 
         $scope.goTo = function() {

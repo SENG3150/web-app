@@ -9,7 +9,8 @@
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>View / Edit</th>
+                    <th>View Machines</th>
+                    <th>Edit Model</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -19,7 +20,14 @@
                         <a ui-sref="administrator-models-machines-index({ id: model.id })"
                            class="btn btn-primary btn-block">
                             <i class="fa fa-fw fa-search"></i>
-                            View / Edit
+                            View Machines
+                        </a>
+                    </td>
+                    <td>
+                        <a ui-sref="administrator-models-view({ id: model.id })"
+                           class="btn btn-primary btn-block">
+                            <i class="fa fa-fw fa-pencil"></i>
+                            Edit Model
                         </a>
                     </td>
                 </tr>

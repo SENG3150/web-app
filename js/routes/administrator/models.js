@@ -28,6 +28,39 @@ angular
                     }]
                 }
             })
+            .state('administrator-models-view', {
+                parent: 'administrator',
+                url: '/models/view/:id',
+                templateUrl: 'views/administrator/models/view.html',
+                controller: 'AdministratorModelsControllerView',
+                resolve: {
+                    loggedIn: ['AuthService', function (AuthService) {
+                        return AuthService.checkPermissions(true);
+                    }]
+                }
+            })
+            .state('administrator-models-addMajorAssembly', {
+                parent: 'administrator',
+                url: '/models/view/:id/addMajorAssembly',
+                templateUrl: 'views/administrator/models/addMajorAssembly.html',
+                controller: 'AdministratorModelsControllerAddMajorAssembly',
+                resolve: {
+                    loggedIn: ['AuthService', function (AuthService) {
+                        return AuthService.checkPermissions(true);
+                    }]
+                }
+            })
+            .state('administrator-models-addSubAssembly', {
+                parent: 'administrator',
+                url: '/models/view/:id/addSubAssembly/:majorAssemblyId',
+                templateUrl: 'views/administrator/models/addSubAssembly.html',
+                controller: 'AdministratorModelsControllerAddSubAssembly',
+                resolve: {
+                    loggedIn: ['AuthService', function (AuthService) {
+                        return AuthService.checkPermissions(true);
+                    }]
+                }
+            })
             .state('administrator-models-machines-index', {
                 parent: 'administrator',
                 url: '/models/:id',

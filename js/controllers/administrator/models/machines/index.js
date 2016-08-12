@@ -16,6 +16,10 @@ angular
             {
                 route: 'administrator-models-index',
                 displayName: 'Models'
+            },
+            {
+                route: 'administrator-models-machines-index',
+                displayName: 'Machines'
             }
         ]);
         Models.one($scope.modelId).get({include: 'machines'}).then(function (data) {

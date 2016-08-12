@@ -19,11 +19,15 @@ angular
                 displayName: 'Home'
             },
             {
-                route: 'administrator-model-machine-index',
+                route: 'administrator-models-index',
                 displayName: 'Models'
             },
             {
-                route: 'administrator-model-machine-create',
+                route: 'administrator-models-machines-index({ id: ' + $scope.modelId + ' })',
+                displayName: 'Machines'
+            },
+            {
+                route: 'administrator-models-machines-create',
                 displayName: 'New Model'
             }
         ]);

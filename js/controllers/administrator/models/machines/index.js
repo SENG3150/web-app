@@ -1,7 +1,7 @@
 //Controller to show a list of all current machines for a particular model
 angular
     .module('joy-global')
-    .controller('AdministratorModelsMachinesControllerIndex', ['$scope', 'DomainExperts', 'LayoutService', '$state', 'DataTablesService', 'Models', '$stateParams', function ($scope, DomainExperts, LayoutService, $state, DataTablesService, Models, $stateParams) {
+    .controller('AdministratorModelsMachinesControllerIndex', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'Models', '$stateParams', function ($scope, LayoutService, $state, DataTablesService, Models, $stateParams) {
         $scope.modelId = $stateParams.id;
         $scope.loading = true;
 

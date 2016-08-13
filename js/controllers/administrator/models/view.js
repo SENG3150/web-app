@@ -1,7 +1,7 @@
 //Controller to show the information about a model
 angular
     .module('joy-global')
-    .controller('AdministratorModelsControllerView', ['$scope', 'DomainExperts', 'LayoutService', '$state', 'DataTablesService', 'Models', '$stateParams', function ($scope, DomainExperts, LayoutService, $state, DataTablesService, Models, $stateParams) {
+    .controller('AdministratorModelsControllerView', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'Models', '$stateParams', function ($scope, LayoutService, $state, DataTablesService, Models, $stateParams) {
         $scope.modelId = $stateParams.id;
         $scope.loading = true;
 

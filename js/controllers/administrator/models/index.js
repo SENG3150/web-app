@@ -1,7 +1,7 @@
 //Controller to show a list of all models in the system
 angular
     .module('joy-global')
-    .controller('AdministratorModelsControllerIndex', ['$scope', 'DomainExperts', 'LayoutService', '$state', 'DataTablesService', 'Models', function ($scope, DomainExperts, LayoutService, $state, DataTablesService, Models) {
+    .controller('AdministratorModelsControllerIndex', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'Models', function ($scope, LayoutService, $state, DataTablesService, Models) {
         $scope.loading = true;
 
         LayoutService.reset();

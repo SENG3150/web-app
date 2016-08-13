@@ -1,7 +1,7 @@
 //Controller to allow the creation of a new machine for a particular model
 angular
     .module('joy-global')
-    .controller('AdministratorModelsMachinesControllerCreate', ['$scope', 'DomainExperts', 'LayoutService', '$state', 'DataTablesService', 'Machines', '$stateParams', 'toastr', function ($scope, DomainExperts, LayoutService, $state, DataTablesService, Machines, $stateParams, toastr) {
+    .controller('AdministratorModelsMachinesControllerCreate', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'Machines', '$stateParams', 'toastr', function ($scope, LayoutService, $state, DataTablesService, Machines, $stateParams, toastr) {
         $scope.modelId = $stateParams.id;
         $scope.machine = {
             name: '',

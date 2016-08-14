@@ -12,5 +12,6 @@ angular.module('joy-global', [
 	'templates',
 	'ngAnimate',
 	'toastr',
-	'restangular'
+	'restangular',
+	'angular-confirm'
 ]);

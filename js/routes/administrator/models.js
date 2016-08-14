@@ -72,6 +72,17 @@ angular
                     }]
                 }
             })
+            .state('administrator-models-editMajorAssembly', {
+                parent: 'administrator',
+                url: '/models/view/:id/editMajorAssembly/:majorAssemblyId',
+                templateUrl: 'views/administrator/models/editMajorAssembly.html',
+                controller: 'AdministratorModelsControllerEditMajorAssembly',
+                resolve: {
+                    loggedIn: ['AuthService', function (AuthService) {
+                        return AuthService.checkPermissions(true);
+                    }]
+                }
+            })
             .state('administrator-models-machines-index', {
                 parent: 'administrator',
                 url: '/models/:id',

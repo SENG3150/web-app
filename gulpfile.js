@@ -52,7 +52,8 @@ var concatCoreConfig = {
 		'bower_components/restangular/dist/restangular.js',
 		'bower_components/angular-ui-select/dist/select.js',
 		'bower_components/underscore/underscore-min.js',
-		'bower_components/angular-underscore-module/angular-underscore-module.js'
+		'bower_components/angular-underscore-module/angular-underscore-module.js',
+		'bower_components/angular-confirm-modal/angular-confirm.min.js'
 	],
 	destination: 'dist/',
 	output: 'core.js'

@@ -41,6 +41,12 @@
                             <i class="fa fa-fw fa-plus"></i>
                             Add Sub Assembly
                         </a>
+                        <a ui-sref="administrator-models-editMajorAssembly({ id: modelId, majorAssemblyId: majorAssembly.id })"
+                           class="btn btn-primary btn-block">
+                            <i class="fa fa-fw fa-pencil"></i>
+                            Edit
+                        </a>
+                        <button class="btn btn-primary btn-block fa fa-fw fa-trash-o" type="button" ng-click="deleteMajor(majorAssembly.id, majorAssembly.name)"> Delete</button>
                     </td>
                 </tr>
                 <tr ng-repeat="subAssembly in majorAssembly.subAssemblies">
@@ -66,6 +72,8 @@
                             <i class="fa fa-fw fa-pencil"></i>
                             Edit Sub Assembly
                         </a>
+
+                        <button class="btn btn-primary btn-block fa fa-fw fa-trash-o" type="button" ng-click="deleteSub(subAssembly.id, subAssembly.name)"> Delete</button>
                     </td>
                 </tr>
                 <tr ng-repeat-end></tr>

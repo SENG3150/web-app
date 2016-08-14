@@ -1,7 +1,7 @@
 //Controller to show a list of all current machines for a particular model
 angular
     .module('joy-global')
-    .controller('AdministratorModelsMachinesControllerIndex', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'Models', '$stateParams', function ($scope, LayoutService, $state, DataTablesService, Models, $stateParams) {
+    .controller('AdministratorModelsMachinesControllerIndex', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'Models', '$stateParams', '$confirm', 'Machines', 'toastr', function ($scope, LayoutService, $state, DataTablesService, Models, $stateParams, $confirm, Machines, toastr) {
         $scope.modelId = $stateParams.id;
         $scope.loading = true;
 
@@ -29,6 +29,20 @@ angular
 
         $scope.goTo = function() {
             $state.go('administrator-models-machines-create', {id: $scope.modelId});
+        };
+
+        $scope.delete = function(id, name) {
+            $confirm({text: 'Are you sure you want to delete the Machine: ' + name + '?', title: 'Delete Machine', ok: 'Delete', cancel: 'Cancel'})
+                .then(function() {
+                    Machines.one(id).remove().then(function () {
+                        toastr.clear();
+                        toastr.success('Machine was deleted successfully.');
+                        $state.reload();
+                    }, function () {
+                        toastr.clear();
+                        toastr.error('There was an error deleting the Machine.');
+                    });
+                });
         };
 
         LayoutService.getPageHeader().onClicked($scope.goTo);

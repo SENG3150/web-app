@@ -10,6 +10,7 @@
                     <th>Name</th>
                     <th>Model</th>
                     <th>View / Edit</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -23,6 +24,9 @@
                             <i class="fa fa-fw fa-search"></i>
                             View / Edit
                         </a>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary btn-block fa fa-fw fa-trash-o" type="button" ng-click="delete(machine.id, machine.name)"> Delete</button>
                     </td>
                 </tr>
                 </tbody>

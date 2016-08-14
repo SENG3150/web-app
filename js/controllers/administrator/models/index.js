@@ -1,7 +1,7 @@
 //Controller to show a list of all models in the system
 angular
     .module('joy-global')
-    .controller('AdministratorModelsControllerIndex', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'Models', function ($scope, LayoutService, $state, DataTablesService, Models) {
+    .controller('AdministratorModelsControllerIndex', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'Models', '$confirm', 'toastr', function ($scope, LayoutService, $state, DataTablesService, Models, $confirm, toastr) {
         $scope.loading = true;
 
         LayoutService.reset();
@@ -24,6 +24,20 @@ angular
 
         $scope.goTo = function() {
             $state.go('administrator-models-create');
+        };
+
+        $scope.delete = function(id, name) {
+            $confirm({text: 'Are you sure you want to delete the Model: ' + name + '?', title: 'Delete Model', ok: 'Delete', cancel: 'Cancel'})
+                .then(function() {
+                    Models.one(id).remove().then(function () {
+                        toastr.clear();
+                        toastr.success('Model was deleted successfully.');
+                        $state.reload();
+                    }, function () {
+                        toastr.clear();
+                        toastr.error('There was an error deleting the Model.');
+                    });
+                });
         };
 
         LayoutService.getPageHeader().onClicked($scope.goTo);

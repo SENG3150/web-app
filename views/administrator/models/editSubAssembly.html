@@ -1,0 +1,152 @@
+<div class="ibox">
+
+    <div class="ibox-title">
+        <h5>Modify Sub Assembly Name<span ng-if="loading == true"> (loading...)</span></h5>
+    </div>
+
+    <div class="ibox-content">
+        <div ng-if="loading == false">
+            <div class="form-group">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="name" class="control-label">Sub Assembly Name</label>
+                        <input type="text" class="form-control" placeholder="Major Assembly Name" id="name"
+                               ng-model="subAssembly.name">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="ibox">
+
+    <div class="ibox-title">
+        <h5>Machine General Test<span ng-if="loading == true"> (loading...)</span></h5>
+    </div>
+
+    <div class="ibox-content">
+        <div ng-if="loading == false">
+            <div class="form-group">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="machineGeneralTest" class="control-label">Perform Machine General Test</label>
+                        <div class="checkbox checkbox-primary checkbox-circle">
+                            <input type="checkbox" checked="checked" autocomplete="off"
+                                   ng-model="subAssemblyTest.machineGeneral.test" id="machineGeneralTest">
+                            <label for="machineGeneralTest">
+                                Perform Machine General Test
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="machineGeneralLower" class="control-label">Lower</label>
+                        <input type="text" class="form-control" placeholder="Lower Value" id="machineGeneralLower"
+                               ng-model="subAssemblyTest.machineGeneral.lower">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="machineGeneralUpper" class="control-label">Upper</label>
+                        <input type="text" class="form-control" placeholder="Upper Value" id="machineGeneralUpper"
+                               ng-model="subAssemblyTest.machineGeneral.upper">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="ibox">
+
+    <div class="ibox-title">
+        <h5>Oil Test<span ng-if="loading == true"> (loading...)</span></h5>
+    </div>
+
+    <div class="ibox-content">
+        <div ng-if="loading == false">
+            <div class="form-group">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="oilTestTest" class="control-label">Perform Oil Test</label>
+                        <div class="checkbox checkbox-primary checkbox-circle">
+                            <input type="checkbox" checked="checked" autocomplete="off"
+                                   ng-model="subAssemblyTest.oil.test" id="oilTestTest">
+                            <label for="oilTestTest">
+                                Perform Oil Test
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="oilTestLower" class="control-label">Lower</label>
+                        <input type="text" class="form-control" placeholder="Lower Value" id="oilTestLower"
+                               ng-model="subAssemblyTest.oil.lower">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="oilTestUpper" class="control-label">Upper</label>
+                        <input type="text" class="form-control" placeholder="Upper Value" id="oilTestUpper"
+                               ng-model="subAssemblyTest.oil.upper">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="ibox">
+
+    <div class="ibox-title">
+        <h5>Wear Test<span ng-if="loading == true"> (loading...)</span></h5>
+    </div>
+
+    <div class="ibox-content">
+        <div ng-if="loading == false">
+            <div class="form-group">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="wearTestTest" class="control-label">Perform Wear Test</label>
+                        <div class="checkbox checkbox-primary checkbox-circle">
+                            <input type="checkbox" checked="checked" autocomplete="off"
+                                   ng-model="subAssemblyTest.wear.test" id="wearTestTest">
+                            <label for="wearTestTest">
+                                Perform Oil Test
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="wearTestLower" class="control-label">Lower</label>
+                        <input type="text" class="form-control" placeholder="Lower Value" id="wearTestLower"
+                               ng-model="subAssemblyTest.wear.lower">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="wearTestUpper" class="control-label">Upper</label>
+                        <input type="text" class="form-control" placeholder="Upper Value" id="wearTestUpper"
+                               ng-model="subAssemblyTest.wear.upper">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -15,6 +15,8 @@
                     <th>Domain Expert</th>
                     <th>Time</th>
                     <th>View / Edit</th>
+                    <th>Add Schedule</th>
+                    <th>View / Edit Schedule</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -30,6 +32,22 @@
                            class="btn btn-primary btn-block">
                             <i class="fa fa-fw fa-search"></i>
                             View / Edit
+                        </a>
+                    </td>
+                    <td>
+                        <!-- If the inspection has a recurring schedule set up, show the start time, value, period, instead of the button -->
+                        <a ui-sref="domainExpert-inspections-addSchedule({ id: inspection.id })"
+                           class="btn btn-primary btn-block">
+                            <i class="fa fa-fw fa-search"></i>
+                            Add Schedule
+                        </a>
+                    </td>
+                    <td>
+                        <!-- If no recurring schedule, no button, or have 'Not Recurring' -->
+                        <a ui-sref="domainExpert-inspections-viewSchedule({ id: inspection.id })"
+                           class="btn btn-primary btn-block">
+                            <i class="fa fa-fw fa-search"></i>
+                            View / Edit Schedule
                         </a>
                     </td>
                 </tr>

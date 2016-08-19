@@ -58,5 +58,33 @@ angular
 						return AuthService.checkPermissions(true);
 					}]
 				}
+			})
+			.state('domainExpert-inspections-addSchedule', {
+				parent: 'domainExpert',
+				url: '/inspections/:id/addSchedule',
+				templateUrl: 'views/domainExpert/inspections/addSchedule.html',
+				controller: 'DomainExpertInspectionsControllerAddSchedule',
+				resolve: {
+					loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
+						return $ocLazyLoad.load(['dateTimePicker']);
+					}],
+					loggedIn: ['AuthService', function (AuthService) {
+						return AuthService.checkPermissions(true);
+					}]
+				}
+			})
+			.state('domainExpert-inspections-viewSchedule', {
+				parent: 'domainExpert',
+				url: '/inspections/:id/viewSchedule',
+				templateUrl: 'views/domainExpert/inspections/viewSchedule.html',
+				controller: 'DomainExpertInspectionsControllerViewSchedule',
+				resolve: {
+					loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
+						return $ocLazyLoad.load(['ngJsTree']);
+					}],
+					loggedIn: ['AuthService', function (AuthService) {
+						return AuthService.checkPermissions(true);
+					}]
+				}
 			});
 	}]);

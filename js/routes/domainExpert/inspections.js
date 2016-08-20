@@ -17,6 +17,20 @@ angular
 					}]
 				}
 			})
+			.state('domainExpert-inspections-indexSchedule', {
+				parent: 'domainExpert',
+				url: '/inspections/indexSchedule',
+				templateUrl: 'views/domainExpert/inspections/indexSchedule.html',
+				controller: 'DomainExpertInspectionsControllerIndexSchedule',
+				resolve: {
+					loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
+						return $ocLazyLoad.load(['dataTables']);
+					}],
+					loggedIn: ['AuthService', function (AuthService) {
+						return AuthService.checkPermissions(true);
+					}]
+				}
+			})
 			.state('domainExpert-inspections-create', {
 				parent: 'domainExpert',
 				url: '/inspections/create',

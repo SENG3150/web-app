@@ -1,0 +1,58 @@
+<div class="ibox">
+    <div class="ibox-content">
+        <div class="ibox-tools">
+            <button type="button" class="btn btn-xs btn-primary">
+                <a ui-sref="domainExpert-inspections-index"
+                   class="btn btn-xs btn-primary">
+                    <i class="fa fa-fw fa-search"></i>
+                    Inspection Index
+                </a>
+            </button>
+            <p></p> <!-- Provides a space between the Index/Schedule Index button and the d/l as... buttons -->
+        </div>
+        <div class="text-center" ng-if="loading == true">
+            <i class="fa fa-spinner fa-spin fa-3x"></i>
+        </div>
+        <div ng-if="loading == false">
+            <table datatable="ng" class="table table-striped table-bordered table-middle" dt-options="dtOptions">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Machine</th>
+                    <th>Model</th>
+                    <th>Inspection ID</th>
+                    <th>Next Inspection Time</th>
+                    <th>Time Remaining</th>
+                    <th>Add Schedule</th>
+                    <th>View / Edit</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="inspectionSchedule in inspectionSchedules">
+                    <td>{{ inspectionSchedule.id }}</td>
+                    <td>{{ inspectionSchedule.inspection.machine.name }}</td>
+                    <td>{{ inspectionSchedule.inspection.machine.model.name }}</td>
+                    <td>{{ inspectionSchedule.inspection.id }}</td>
+                    <td>{{ inspectionSchedule.startTime }}</td>
+                    <td>{{ inspectionSchedule.value }} {{ inspectionSchedule.period }}</td>
+                    <td>
+                        <a ui-sref="domainExpert-inspections-addSchedule({ id: inspection.id })"
+                           class="btn btn-primary btn-block">
+                            <i class="fa fa-fw fa-plus"></i>
+                            Add Schedule
+                        </a>
+                    </td>
+                    <td>
+                        <a ui-sref="domainExpert-inspections-viewSchedule({ id: inspection.id })"
+                           class="btn btn-primary btn-block">
+                            <i class="fa fa-fw fa-search"></i>
+                            View / Edit
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

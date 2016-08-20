@@ -2,11 +2,11 @@
     <div class="ibox-content">
         <div class="ibox-tools">
             <button type="button" class="btn btn-xs btn-primary">
-                    <a ui-sref="domainExpert-inspections-indexSchedule"
-                       class="btn btn-xs btn-primary">
-                        <i class="fa fa-fw fa-search"></i>
-                        List of Recurring Inspections
-                    </a>
+                <a ui-sref="domainExpert-inspections-index"
+                   class="btn btn-xs btn-primary">
+                    <i class="fa fa-fw fa-search"></i>
+                    Inspection Index
+                </a>
             </button>
             <p></p> <!-- Provides a space between the Index/Schedule Index button and the d/l as... buttons -->
         </div>
@@ -20,29 +20,21 @@
                     <th>ID</th>
                     <th>Machine</th>
                     <th>Model</th>
-                    <th>Technician</th>
-                    <th>Domain Expert</th>
-                    <th>Time</th>
-                    <th>View / Edit</th>
+                    <th>Inspection ID</th>
+                    <th>Next Inspection Time</th>
+                    <th>Time Remaining</th>
                     <th>Add Schedule</th>
-                    <th>View / Edit Schedule</th>
+                    <th>View / Edit</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="inspection in inspections">
-                    <td>{{ inspection.id }}</td>
-                    <td>{{ inspection.machine.name }}</td>
-                    <td>{{ inspection.machine.model.name }}</td>
-                    <td>{{ inspection.technician.name }}</td>
-                    <td>{{ inspection.scheduler.name }}</td>
-                    <td>{{ moment(inspection.timeScheduled).format("HH:mm ddd, MMM Do YYYY") }}</td>
-                    <td>
-                        <a ui-sref="domainExpert-inspections-view({ id: inspection.id })"
-                           class="btn btn-primary btn-block">
-                            <i class="fa fa-fw fa-search"></i>
-                            View / Edit
-                        </a>
-                    </td>
+                <tr ng-repeat="inspectionSchedule in inspectionSchedules">
+                    <td>{{ inspectionSchedule.id }}</td>
+                    <td>{{ inspectionSchedule.inspection.machine.name }}</td>
+                    <td>{{ inspectionSchedule.inspection.machine.model.name }}</td>
+                    <td>{{ inspectionSchedule.inspection.id }}</td>
+                    <td>{{ inspectionSchedule.startTime }}</td>
+                    <td>{{ inspectionSchedule.value }} {{ inspectionSchedule.period }}</td>
                     <td>
                         <a ui-sref="domainExpert-inspections-addSchedule({ id: inspection.id })"
                            class="btn btn-primary btn-block">
@@ -54,10 +46,11 @@
                         <a ui-sref="domainExpert-inspections-viewSchedule({ id: inspection.id })"
                            class="btn btn-primary btn-block">
                             <i class="fa fa-fw fa-search"></i>
-                            View / Edit Schedule
+                            View / Edit
                         </a>
                     </td>
                 </tr>
+                </tbody>
                 </tbody>
             </table>
         </div>

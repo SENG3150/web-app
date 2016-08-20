@@ -1,7 +1,7 @@
 //Controller to allow the adding of recurring schedules to inspections
 angular
     .module('joy-global')
-    .controller('DomainExpertInspectionsControllerAddSchedule', ['$scope', 'Inspections', 'moment', 'LayoutService', 'DataTablesService', '$state', '$stateParams', 'toastr', function ($scope, Inspections, moment, LayoutService, DataTablesService, $state, $stateParams, toastr) {
+    .controller('DomainExpertInspectionsControllerAddSchedule', ['$scope', 'Inspections', 'InspectionSchedules', 'moment', 'LayoutService', '$state', '$stateParams', 'toastr', '_', function ($scope, Inspections, InspectionSchedules, moment, LayoutService, $state, $stateParams, toastr, _) {
         $scope.inspectionId = $stateParams.id;
         $scope.loading = false;
 
@@ -12,11 +12,11 @@ angular
             {id: 'years', value: 'Years'}
         ];
 
-        $scope.schedule = {
-            startTime: moment().add(7, 'days'),
-            value: 0,           // ???How many times it will recur, the frequency by which it will recur (if period=6months & value=2, then an inspection will occur every 3 months or twice in that period)???
-            period: 0,          // the length of time the inspections will repeat for (days/weeks/months/years)
-            interval: 0
+        $scope.inspectionSchedule = {
+            startTime: moment().add(7, 'days'),  // (value, period)
+            inspection: $scope.inspection,
+            value: 0,                            // every [value]*[period] the inspection is repeated (eg, every 7 days)
+            period: 'days'                       // (days/weeks/months/years)
         };
 
         LayoutService.reset();
@@ -42,9 +42,29 @@ angular
 
         $scope.save = function () {
             toastr.clear();
-            toastr.success('Schedule was saved. But not really.');
+            toastr.success('Ummmm1');
 
-            $state.go('domainExpert-inspections-index')
+            //toastr.success('Schedule was saved. But not really.');
+
+            //$state.go('domainExpert-inspections-index')
+            if ($scope.inspectionSchedule.value > 0) {
+
+                //var inspectionSchedule = _.clone($scope.inspectionSchedule);
+
+                InspectionSchedules.getBulk().post($scpoe.inspectionSchedule).then(
+                    function () {
+                        toastr.success('The inspection was scheduled successfully.');
+
+                        $state.go('domainExpert-inspections-index');
+                    },
+                    function () {
+                        toastr.error('There was an error while scheduling the inspection.', 'Error');
+                    }
+                );
+                toastr.success('Ummmm2');
+            } else {
+                toastr.warning('You must select a value.');
+            }
         };
 
         LayoutService.getPageHeader().onClicked($scope.save);

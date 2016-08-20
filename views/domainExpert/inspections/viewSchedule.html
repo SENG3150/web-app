@@ -85,3 +85,61 @@
         </div>
     </div>
 </div>
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>Schedule<span ng-if="loading == true"> (loading...)</span></h5>
+    </div>
+    <div class="ibox-content">
+        <div class="text-center" ng-if="loading == true">
+            <i class="fa fa-spinner fa-spin fa-3x"></i>
+        </div>
+
+        <div ng-if="loading == false">
+            <div class="row">
+                <div class="col-md-6">
+                    <dl class="dl-horizontal">
+                        <dt>Start Time</dt>
+                        <dd>
+                            <span ng-if="inspectionSchedule.startTime != null">
+                                {{ inspectionSchedule.startTime }}
+                            </span>
+                            <span ng-if="inspectionSchedule.startTime == null">
+                                Not Scheduled
+                            </span>
+                        </dd>
+
+                        <dt>Value</dt>
+                        <dd>
+                            <span ng-if="inspectionSchedule.value != null">
+                                {{ inspectionSchedule.value }}
+                            </span>
+                            <span ng-if="inspectionSchedule.value == null">
+                                Not Scheduled
+                            </span>
+                        </dd>
+
+                        <dt>Period</dt>
+                        <dd>
+                            <span ng-if="inspectionSchedule.period != null">
+                                {{ inspectionSchedule.period }}
+                            </span>
+                            <span ng-if="inspectionSchedule.period == null">
+                                Not Scheduled
+                            </span>
+                        </dd>
+
+                        <dt>Next Inspection Time</dt>
+                        <dd>
+                            <span ng-if="inspectionSchedule.nextInspectionTime != null">
+                                {{ inspectionSchedule.nextInspectionTime }}
+                            </span>
+                            <span ng-if="inspectionSchedule.nextInspectionTime == null">
+                                Not Scheduled
+                            </span>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

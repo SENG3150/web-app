@@ -1,8 +1,11 @@
 //Controller for allowing of viewing of all schedules of an inspection
 angular
     .module('joy-global')
-    .controller('DomainExpertInspectionsControllerViewSchedule', ['$scope', 'Inspections', 'moment', 'LayoutService', 'DataTablesService', '$state', '$stateParams', function ($scope, Inspections, moment, LayoutService, DataTablesService, $state, $stateParams) {
+    .controller('DomainExpertInspectionsControllerViewSchedule', ['$scope', 'Inspections', 'InspectionSchedules', 'moment', 'LayoutService', '$state', '$stateParams', function ($scope, Inspections, InspectionSchedules, moment, LayoutService, $state, $stateParams) {
         $scope.inspectionId = $stateParams.id;
+        
+        $scope.inspectionScheduleId = $stateParams.id;
+        
         $scope.loading = true;
 
         LayoutService.reset();
@@ -33,9 +36,18 @@ angular
 
             }
         );
+        
+        $scope.inspectionSchedule = InspectionSchedules.one($scope.inspectionScheduleId).get({
+            include: 'inspection, startTime, value, period, nextInspectionTime'
+        }).then(
+            function (data) {
+                $scope.loading = false;
+                
+                $scope.inspectionSchedule = data;
+            }
+        );
 
         $scope.moment = moment;
-        $scope.dtOptions = DataTablesService.prepare('Inspections');
 
         LayoutService.getPageHeader().onClicked(function () {
             $state.go('domainExpert-inspections-index')

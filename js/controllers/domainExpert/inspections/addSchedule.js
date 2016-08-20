@@ -51,7 +51,7 @@ angular
 
                 //var inspectionSchedule = _.clone($scope.inspectionSchedule);
 
-                InspectionSchedules.getBulk().post($scpoe.inspectionSchedule).then(
+                InspectionSchedules.getBulk().post($scope.inspectionSchedule).then(
                     function () {
                         toastr.success('The inspection was scheduled successfully.');
 

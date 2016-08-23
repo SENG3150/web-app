@@ -50,6 +50,13 @@ angular
 						'/bower_components/ng-js-tree/dist/ngJsTree.min.js'
 					],
 					serie: true
+				},
+				{
+					name: 'xlsx',
+					files: [
+						'bower_components/js-xlsx/dist/xlsx.core.min.js'
+					],
+					serie: true
 				}
 			]
 		});

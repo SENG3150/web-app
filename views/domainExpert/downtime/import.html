@@ -1,0 +1,45 @@
+<div class="ibox">
+    <div class="ibox-content">
+        <input type="file" id="downtimeImportFile" name="file" enctype="multipart/form-data" />
+    </div>
+</div>
+
+<div class="ibox" ng-show="loadingFile == false">
+    <div class="ibox-content">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="machineId" class="control-label">Downtime for Machine: </label>
+                    <select name="repeatSelect" id="machineId" ng-model="downtime.machine">
+                        <option ng-repeat="machine in machines" value="{{machine.id}}">{{machine.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="systenNameField" class="control-label">System Name Field in File: </label>
+                    <select name="repeatSelect" id="systenNameField" ng-model="systemNameCell">
+                        <option ng-repeat="header in headers" value="{{header.id}}">{{header.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="downtimeHoursField" class="control-label">Down Time Hours Field in File: </label>
+                    <select name="repeatSelect" id="downtimeHoursField" ng-model="downTimeHoursCell">
+                        <option ng-repeat="header in headers" value="{{header.id}}">{{header.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="reasonField" class="control-label">Reason Field in File (Optional): </label>
+                    <select name="repeatSelect" id="reasonField" ng-model="reasonCell">
+                        <option ng-repeat="header in headers" value="{{header.id}}">{{header.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

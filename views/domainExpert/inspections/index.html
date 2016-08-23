@@ -1,6 +1,6 @@
 <div class="ibox">
     <div class="ibox-content">
-        <div class="ibox-tools">
+        <!--<div class="ibox-tools">
             <button type="button" class="btn btn-xs btn-primary">
                     <a ui-sref="domainExpert-inspections-indexSchedule"
                        class="btn btn-xs btn-primary">
@@ -8,8 +8,8 @@
                         List of Recurring Inspections
                     </a>
             </button>
-            <p></p> <!-- Provides a space between the Index/Schedule Index button and the d/l as... buttons -->
-        </div>
+            <p></p> <!-- Provides a space between the Index/Schedule Index button and the d/l as... buttons
+        </div>-->
         <div class="text-center" ng-if="loading == true">
             <i class="fa fa-spinner fa-spin fa-3x"></i>
         </div>
@@ -24,8 +24,6 @@
                     <th>Domain Expert</th>
                     <th>Time</th>
                     <th>View / Edit</th>
-                    <th>Add Schedule</th>
-                    <th>View / Edit Schedule</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -41,20 +39,6 @@
                            class="btn btn-primary btn-block">
                             <i class="fa fa-fw fa-search"></i>
                             View / Edit
-                        </a>
-                    </td>
-                    <td>
-                        <a ui-sref="domainExpert-inspections-addSchedule({ id: inspection.id })"
-                           class="btn btn-primary btn-block">
-                            <i class="fa fa-fw fa-plus"></i>
-                            Add Schedule
-                        </a>
-                    </td>
-                    <td>
-                        <a ui-sref="domainExpert-inspections-viewSchedule({ id: inspection.id })"
-                           class="btn btn-primary btn-block">
-                            <i class="fa fa-fw fa-search"></i>
-                            View / Edit Schedule
                         </a>
                     </td>
                 </tr>

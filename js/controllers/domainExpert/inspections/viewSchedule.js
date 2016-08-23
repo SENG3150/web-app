@@ -1,7 +1,7 @@
 //Controller for allowing of viewing of all schedules of an inspection
 angular
     .module('joy-global')
-    .controller('DomainExpertInspectionsControllerViewSchedule', ['$scope', 'Inspections', 'InspectionSchedules', 'moment', 'LayoutService', '$state', '$stateParams', function ($scope, Inspections, InspectionSchedules, moment, LayoutService, $state, $stateParams) {
+    .controller('DomainExpertInspectionsControllerViewSchedule', ['$scope', 'Inspections', 'InspectionSchedules', 'moment', 'LayoutService', '$state', '$stateParams', 'toastr', function ($scope, Inspections, InspectionSchedules, moment, LayoutService, $state, $stateParams, toastr) {
         $scope.inspectionId = $stateParams.id;
         
         $scope.inspectionScheduleId = $stateParams.id;
@@ -10,7 +10,7 @@ angular
 
         LayoutService.reset();
         LayoutService.setTitle(['Inspection ' + $scope.inspectionId, 'Inspections']);
-        LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-check"></i> Save</button>');
+        LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Add Schedule</button>');
         LayoutService.getPageHeader().setBreadcrumbs([
             {
                 route: 'domainExpert-index',
@@ -21,8 +21,12 @@ angular
                 displayName: 'Inspections'
             },
             {
-                route: 'domainExpert-inspections-index',
+                route: 'domainExpert-inspections-view({ id: ' + $scope.inspectionId + ' })',
                 displayName: 'Inspection ' + $scope.inspectionId
+            },
+            {
+                route: 'domainExpert-inspections-viewSchedule',
+                displayName: 'View Inspection Schedules'
             }
         ]);
 
@@ -49,7 +53,12 @@ angular
 
         $scope.moment = moment;
 
+        $scope.deleteSchedule = function () {
+            toastr.success('Deleted Message');
+            //delete inspectionSchedule;
+        };
+
         LayoutService.getPageHeader().onClicked(function () {
-            $state.go('domainExpert-inspections-index')
+            $state.go('domainExpert-inspections-addSchedule', {id: $scope.inspectionId});
         });
     }]);

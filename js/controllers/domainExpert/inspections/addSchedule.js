@@ -16,11 +16,11 @@ angular
             startTime: moment().add(7, 'days'),  // (value, period)
             inspection: $scope.inspection,
             value: 0,                            // every [value]*[period] the inspection is repeated (eg, every 7 days)
-            period: 'days'                       // (days/weeks/months/years)
+            period: 'days'                       // (days/weeks/months/years
         };
 
         LayoutService.reset();
-        LayoutService.setTitle(['Inspections']);
+        LayoutService.setTitle(['Create Recurring Inspection']);
         LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-check"></i> Save</button>');
         LayoutService.getPageHeader().setBreadcrumbs([
             {
@@ -32,37 +32,41 @@ angular
                 displayName: 'Inspections'
             },
             {
-                route: 'domainExpert-inspections-addSchedule',
+                route: 'domainExpert-inspections-view({ id: ' + $scope.inspectionId + ' })',
                 displayName: 'Inspection ' + $scope.inspectionId
+            },
+            {
+                route: 'domainExpert-inspections-addSchedule',
+                displayName: 'Create Inspection Schedule'
             }
         ]);
 
         $scope.inspection = Inspections.one($scope.inspectionId).get({
             include: 'technician,scheduler,machine.model,majorAssemblies.majorAssembly,majorAssemblies.subAssemblies.subAssembly'});
 
+
         $scope.save = function () {
             toastr.clear();
-            toastr.success('Ummmm1');
 
-            //toastr.success('Schedule was saved. But not really.');
-
-            //$state.go('domainExpert-inspections-index')
             if ($scope.inspectionSchedule.value > 0) {
+
+                toastr.success('Save Message.');
+
+                $state.go('domainExpert-inspections-view', {id: $scope.inspectionId});
 
                 //var inspectionSchedule = _.clone($scope.inspectionSchedule);
 
-                InspectionSchedules.getBulk().post($scope.inspectionSchedule).then(
+/*                InspectionSchedules.getBulk().post($scope.inspectionSchedule).then(
                     function () {
                         toastr.success('The inspection was scheduled successfully.');
 
-                        $state.go('domainExpert-inspections-index');
+                        $state.go('domainExpert-inspections-view({ id: ' + $scope.inspectionId + ' })');
                     },
                     function () {
                         toastr.error('There was an error while scheduling the inspection.', 'Error');
                     }
                 );
-                toastr.success('Ummmm2');
-            } else {
+*/            } else {
                 toastr.warning('You must select a value.');
             }
         };

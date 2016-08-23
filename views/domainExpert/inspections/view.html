@@ -3,20 +3,22 @@
         <h5>Inspection<span ng-if="loading == true"> (loading...)</span></h5>
         <div class="ibox-tools">
             <button type="button" class="btn btn-xs btn-primary">
-                <span ng-if="inspectionSchedule.value != null">
+                <!--<span ng-if="inspectionSchedule.value != null">-->
                     <a ui-sref="domainExpert-inspections-viewSchedule({ id: inspection.id })"
                        class="btn-primary">
                         <i class="fa fa-fw fa-search"></i>
                         Edit Schedule
                     </a>
-                </span>
-                <span ng-if="inspectionSchedule.value == null">
+            </button>
+                <!--</span>
+                <span ng-if="inspectionSchedule.value == null">-->
+            <button type="button" class="btn btn-xs btn-primary">
                     <a ui-sref="domainExpert-inspections-addSchedule({ id: inspection.id })"
                        class="btn-primary">
                         <i class="fa fa-fw fa-plus"></i>
                         Add Schedule
                     </a>
-                </span>
+                <!--</span>-->
             </button>
         </div>
     </div>

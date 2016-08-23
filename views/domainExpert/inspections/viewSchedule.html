@@ -88,6 +88,14 @@
 <div class="ibox">
     <div class="ibox-title">
         <h5>Schedule<span ng-if="loading == true"> (loading...)</span></h5>
+        <div class="ibox-tools">
+            <button type="button" class="btn btn-xs btn-primary">
+                <a ng-href="#delete" ng-click="deleteSchedule()" class="btn btn-xs btn-primary">
+                    <i class="fa fa-fw fa-remove"></i>
+                    Delete
+                </a>
+            </button>
+        </div>
     </div>
     <div class="ibox-content">
         <div class="text-center" ng-if="loading == true">

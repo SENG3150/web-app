@@ -173,9 +173,9 @@ angular
             if(systemCategoriesLocation == -1) {
                 $scope.systemCategories.push(entry.systemName);
 
-                $scope.systemData.push({hours: parseInt(entry.downTimeHours)});
+                $scope.systemData.push({hours: parseFloat(entry.downTimeHours)});
             }else {
-                $scope.systemData[systemCategoriesLocation].hours += parseInt(entry.downTimeHours);
+                $scope.systemData[systemCategoriesLocation].hours += parseFloat(entry.downTimeHours);
             }
 
             if(entry.reason != null || entry.reason != '') {
@@ -184,9 +184,9 @@ angular
                 if(reasonCategoriesLocation == -1) {
                     $scope.reasonCategories.push(entry.reason);
 
-                    $scope.reasonData.push({hours: parseInt(entry.downTimeHours)});
+                    $scope.reasonData.push({hours: parseFloat(entry.downTimeHours)});
                 }else {
-                    $scope.reasonData[reasonCategoriesLocation].hours += parseInt(entry.downTimeHours);
+                    $scope.reasonData[reasonCategoriesLocation].hours += parseFloat(entry.downTimeHours);
                 }
             }
         };

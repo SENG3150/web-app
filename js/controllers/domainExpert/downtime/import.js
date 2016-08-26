@@ -146,17 +146,14 @@ angular
 
         $scope.validate = function () {
             if ($scope.downtime.machine == null || isNaN($scope.downtime.machine)) {
-                console.log("first false");
                 return false;
             }
 
             if ($scope.systemNameCell == null || $scope.systemNameCell == "") {
-                console.log("second false");
                 return false;
             }
 
             if ($scope.downTimeHoursCell == null || $scope.downTimeHoursCell == "") {
-                console.log("third false");
                 return false;
             }
 

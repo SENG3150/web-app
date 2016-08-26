@@ -35,7 +35,7 @@ angular
 				controller: 'DomainExpertMachinesControllerView',
 				resolve: {
 					loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
-						return $ocLazyLoad.load(['dataTables'])
+						return $ocLazyLoad.load(['dataTables', 'highcharts', 'xlsx'])
 					}],
 					loggedIn: ['AuthService', function (AuthService) {
 						return AuthService.checkPermissions(true);

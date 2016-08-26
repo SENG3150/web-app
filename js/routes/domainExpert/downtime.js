@@ -8,6 +8,9 @@ angular
                 templateUrl: 'views/domainExpert/downtime/index.html',
                 controller: 'DomainExpertDowntimeControllerIndex',
                 resolve: {
+                    loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load(['highcharts']);
+                    }],
                     loggedIn: ['AuthService', function (AuthService) {
                         return AuthService.checkPermissions(true);
                     }]

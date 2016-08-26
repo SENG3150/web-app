@@ -9,5 +9,10 @@ angular
             return APIService.service('downtime/bulk');
         };
 
+        //get downtime for a particular machine
+        service.getByMachine = function() {
+            return APIService.service('downtime/machine');
+        }
+
         return service;
     }]);

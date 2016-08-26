@@ -100,7 +100,7 @@ angular
                             var seconds = 0;
                             //day, hours, min, secs
                             for (var i = timeArray.length - 1; i >= 0; i--) {
-                                seconds += parseInt(timeArray[i]) * Math.pow(60, (timeArray.length - i))
+                                seconds += parseInt(timeArray[i]) * Math.pow(60, (timeArray.length - i) - 1)
                             }
                             var hours = seconds / 3600;
 
@@ -146,14 +146,17 @@ angular
 
         $scope.validate = function () {
             if ($scope.downtime.machine == null || isNaN($scope.downtime.machine)) {
+                console.log("first false");
                 return false;
             }
 
             if ($scope.systemNameCell == null || $scope.systemNameCell == "") {
+                console.log("second false");
                 return false;
             }
 
             if ($scope.downTimeHoursCell == null || $scope.downTimeHoursCell == "") {
+                console.log("third false");
                 return false;
             }
 

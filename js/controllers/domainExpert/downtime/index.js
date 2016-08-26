@@ -95,28 +95,25 @@ angular
                         title: {
                             text: 'Detailed Downtime: ' + data[0].machine.name
                         },
-                        yAxis: {
+                        xAxis: {
                             categories: [],
                             title: {
                                 text: null
                             }
                         },
-                        xAxis: {
+                        yAxis: {
                             min: 0,
                             title: {
                                 text: 'Downtime (Hrs)',
                                 align: 'high'
                             },
                             labels: {
-                                overflow: 'justify'
+                                overflow: 'justify',
+                                align: 'centre'
                             }
                         },
-                        plotOptions: {
-                            bar: {
-                                dataLabels: {
-                                    enabled: true
-                                }
-                            }
+                        tooltip: {
+                            valueSuffix: ' hours'
                         },
                         credits: {
                             enabled: false

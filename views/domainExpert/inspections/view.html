@@ -311,8 +311,7 @@
             <div class="ibox-title">
                 <h5>Comments for {{ title }}<span ng-if="loading == true"> (loading...)</span></h5>
                 <div class="ibox-tools">
-                    <a href="#" type="button" class="btn btn-xs btn-primary" data-toggle="modal"
-                            data-target="#comments-modal">
+                    <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#comments-modal">
                         <i class="fa fa-fw fa-plus"></i>
                         Add Comment
                     </a>
@@ -380,7 +379,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="comments-modal" tabindex="-1" role="dialog" aria-labelledby="comments-modal-label" my-modal>
+<div class="modal" id="comments-modal" tabindex="-1" role="dialog" aria-labelledby="comments-modal-label" my-modal>
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

@@ -56,6 +56,10 @@
     color: #c31f30 !important;
 }
 
+.modal-backdrop.in {
+    display: none !important;
+}
+
 /* lg - larger desktops */
 @media (min-width: 1200px) {
 }

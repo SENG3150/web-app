@@ -55,8 +55,8 @@
 
         <div id="tab-3" class="tab-pane">
             <div class="panel-body">
-                <a href="#" class="btn btn-xs btn-primary pull-right" data-toggle="modal"
-                        data-target="#downtime-import-modal">
+                <a class="btn btn-xs btn-primary pull-right" data-toggle="modal"
+                   data-target="#downtime-import-modal">
                     <i class="fa fa-fw fa-plus"></i>
                     Import Downtime
                 </a>
@@ -120,7 +120,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="downtime-import-modal" tabindex="-1" role="dialog" aria-labelledby="downtime-import-modal-label" my-modal>
+<div class="modal" id="downtime-import-modal" tabindex="-1" role="dialog" aria-labelledby="downtime-import-modal-label"
+     my-modal>
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -130,7 +131,7 @@
             </div>
             <div class="modal-body">
                 <div>
-                    <input type="file" id="downtimeImportFile" name="file" enctype="multipart/form-data" />
+                    <input type="file" id="downtimeImportFile" name="file" enctype="multipart/form-data"/>
                 </div>
                 <div ng-if="loadingFile == false">
                     <div class="form-group">
@@ -144,8 +145,10 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="downtimeHoursField" class="control-label">Down Time Hours Field in File: </label>
-                                <select name="repeatSelect" id="downtimeHoursField" ng-model="cellNames.downTimeHoursCell">
+                                <label for="downtimeHoursField" class="control-label">Down Time Hours Field in
+                                    File: </label>
+                                <select name="repeatSelect" id="downtimeHoursField"
+                                        ng-model="cellNames.downTimeHoursCell">
                                     <option ng-repeat="header in headers" value="{{header.id}}">{{header.name}}</option>
                                 </select>
                             </div>

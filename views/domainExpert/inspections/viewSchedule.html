@@ -1,93 +1,6 @@
 <div class="ibox">
     <div class="ibox-title">
-        <h5>Inspection<span ng-if="loading == true"> (loading...)</span></h5>
-    </div>
-    <div class="ibox-content">
-        <div class="text-center" ng-if="loading == true">
-            <i class="fa fa-spinner fa-spin fa-3x"></i>
-        </div>
-
-        <div ng-if="loading == false">
-            <div class="row">
-                <div class="col-md-6">
-                    <dl class="dl-horizontal">
-                        <dt>Machine</dt>
-                        <dd>{{ inspection.machine.name }}</dd>
-
-                        <dt>Model</dt>
-                        <dd>{{ inspection.machine.model.name }}</dd>
-
-                        <dt>Technician</dt>
-                        <dd>
-                            <span ng-if="inspection.technician != null">
-                                {{ inspection.technician.name }}
-                            </span>
-                            <span ng-if="inspection.technician == null">
-                                Not Assigned
-                            </span>
-                        </dd>
-
-                        <dt>Domain Expert</dt>
-                        <dd>
-                            <span ng-if="inspection.scheduler != null">
-                                {{ inspection.scheduler.name }}
-                            </span>
-                            <span ng-if="inspection.scheduler == null">
-                                Not Assigned
-                            </span>
-                        </dd>
-                    </dl>
-                </div>
-                <div class="col-md-6">
-                    <dl class="dl-horizontal">
-                        <dt>Time Created</dt>
-                        <dd>
-                            <span ng-if="inspection.timeCreated != null">
-                                {{ moment(inspection.timeCreated).format("HH:mm ddd, MMM Do YYYY") }}
-                            </span>
-                            <span ng-if="inspection.timeCreated == null">
-                                Not Created
-                            </span>
-                        </dd>
-
-                        <dt>Time Scheduled</dt>
-                        <dd>
-                            <span ng-if="inspection.timeScheduled != null">
-                                {{ moment(inspection.timeScheduled).format("HH:mm ddd, MMM Do YYYY") }}
-                            </span>
-                            <span ng-if="inspection.timeScheduled == null">
-                                No Schedule
-                            </span>
-                        </dd>
-
-                        <dt>Time Started</dt>
-                        <dd>
-                            <span ng-if="inspection.timeStarted != null">
-                                {{ moment(inspection.timeStarted).format("HH:mm ddd, MMM Do YYYY") }}
-                            </span>
-                            <span ng-if="inspection.timeStarted == null">
-                                Not Started
-                            </span>
-                        </dd>
-
-                        <dt>Time Completed</dt>
-                        <dd>
-                            <span ng-if="inspection.timeCompleted != null">
-                                {{ moment(inspection.timeCompleted).format("HH:mm ddd, MMM Do YYYY") }}
-                            </span>
-                            <span ng-if="inspection.timeCompleted == null">
-                                Not Completed
-                            </span>
-                        </dd>
-                    </dl>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="ibox">
-    <div class="ibox-title">
-        <h5>Schedule<span ng-if="loading == true"> (loading...)</span></h5>
+        <h5>Schedule {{inspectionScheduleId}}<span ng-if="loading == true"> (loading...)</span></h5>
         <div class="ibox-tools">
             <button type="button" class="btn btn-xs btn-primary">
                 <a ng-href="#delete" ng-click="deleteSchedule()" class="btn btn-xs btn-primary">
@@ -106,17 +19,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <dl class="dl-horizontal">
-                        <dt>Start Time</dt>
-                        <dd>
-                            <span ng-if="inspectionSchedule.startTime != null">
-                                {{ inspectionSchedule.startTime }}
-                            </span>
-                            <span ng-if="inspectionSchedule.startTime == null">
-                                Not Scheduled
-                            </span>
-                        </dd>
-
-                        <dt>Value</dt>
+                        <dt>Repeats Every</dt>
                         <dd>
                             <span ng-if="inspectionSchedule.value != null">
                                 {{ inspectionSchedule.value }}
@@ -124,25 +27,9 @@
                             <span ng-if="inspectionSchedule.value == null">
                                 Not Scheduled
                             </span>
-                        </dd>
 
-                        <dt>Period</dt>
-                        <dd>
                             <span ng-if="inspectionSchedule.period != null">
                                 {{ inspectionSchedule.period }}
-                            </span>
-                            <span ng-if="inspectionSchedule.period == null">
-                                Not Scheduled
-                            </span>
-                        </dd>
-
-                        <dt>Next Inspection Time</dt>
-                        <dd>
-                            <span ng-if="inspectionSchedule.nextInspectionTime != null">
-                                {{ inspectionSchedule.nextInspectionTime }}
-                            </span>
-                            <span ng-if="inspectionSchedule.nextInspectionTime == null">
-                                Not Scheduled
                             </span>
                         </dd>
                     </dl>

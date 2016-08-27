@@ -1,6 +1,6 @@
 <div class="ibox">
     <div class="ibox-title">
-        <h5>Inspection<span ng-if="loading == true"> (loading...)</span></h5>
+        <h5>Create Schedule<span ng-if="loading == true"> (loading...)</span></h5>
     </div>
     <div class="ibox-content">
         <div class="text-center" ng-if="loading == true">
@@ -8,27 +8,6 @@
         </div>
         <div ng-if="loading == false">
             <div class="row">
-                <div class="col-md-4">
-                    <label class="control-label" for="time">Schedule Start Time</label>
-
-                    <div class="dropdown">
-                        <div class="dropdown-toggle time-toggle-select" role="button" data-toggle="dropdown">
-                            <div class="input-group">
-                                <input type="text" class="form-control"
-                                       data-ng-model="inspectionSchedule.startTime"
-                                       mo-date-input="DD/MM/YYYY HH:mm" id="time">
-                                        <span class="input-group-addon">
-                                            <i class="glyphicon glyphicon-calendar"></i>
-                                        </span>
-                            </div>
-                        </div>
-                        <ul class="dropdown-menu" role="menu">
-                            <datetimepicker data-ng-model="inspectionSchedule.startTime"
-                                            data-datetimepicker-config="{ dropdownSelector: '.time-toggle-select', startView:'day', minView:'minute', modelType: 'moment' }"></datetimepicker>
-                        </ul>
-                    </div>
-                </div>
-
                 <div class="col-md-2">
                     <label class="control-label">Value</label>
 
@@ -42,7 +21,7 @@
                 </div>
 
                 <div class="col-md-2">
-                    <label class="control-label" for="time">Period</label>
+                    <label class="control-label">Period</label>
 
                     <div class="dropdown">
                         <div class="dropdown-toggle time-toggle-select" role="button" data-toggle="dropdown">

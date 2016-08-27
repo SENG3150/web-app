@@ -30,19 +30,8 @@ angular
             }
         ]);
 
-        $scope.inspection = Inspections.one($scope.inspectionId).get({
-            include: 'technician,scheduler,machine.model,majorAssemblies.majorAssembly,majorAssemblies.subAssemblies.subAssembly'
-        }).then(
-            function (data) {
-                $scope.loading = false;
-
-                $scope.inspection = data;
-
-            }
-        );
-        
         $scope.inspectionSchedule = InspectionSchedules.one($scope.inspectionScheduleId).get({
-            include: 'inspection, startTime, value, period, nextInspectionTime'
+            include: 'inspection, value, period, nextInspectionTime'
         }).then(
             function (data) {
                 $scope.loading = false;
@@ -55,7 +44,7 @@ angular
 
         $scope.deleteSchedule = function () {
             toastr.success('Deleted Message');
-            //delete inspectionSchedule;
+            delete inspectionScheduleId;
         };
 
         LayoutService.getPageHeader().onClicked(function () {

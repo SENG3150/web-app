@@ -1,5 +1,9 @@
 /* Generic custom styles here */
 
+.modal-backdrop {
+    height: 100%;
+}
+
 .content {
     margin-top: 70px;
 }

@@ -147,45 +147,17 @@ angular
 
 							// check to see if the sub assembly requires wear test graphs
 							if (subAssembly.wearTests && subAssembly.wearTests.length > 0) {
-								var scatterPlot = [];
-								var regressionLine = [];
-								var firstGreyLine = [];
-								var secondGreyLine = [];
+								var line = [];
 
 								// loop through each wear test we have for the specific assembly
 								angular.forEach(subAssembly.wearTests, function (wearTest, index) {
-									//check to make sure we have all the required fields for the graph
-									if (wearTest.uniqueDetails['value'] != null && wearTest.uniqueDetails['new'] != null
-										&& wearTest.uniqueDetails['lifeUpper'] != null && wearTest.uniqueDetails['limit'] != null) {
-
-										// scatter plot: x = SMU, y = (value on wear / replace)
-										// line of best fit between scatter plots
-										scatterPlot.push([wearTest.smu, wearTest.uniqueDetails['value']]);
-										regressionLine.push([wearTest.smu, wearTest.uniqueDetails['value']]);
-
-
-										//The two lines only need to be added once to the graph
-										if (index == subAssembly.wearTests.length - 1) {
-											// grey line:
-											//      Line 1:
-											// 			start: x = smu LOWER    , y = (wear / replace) NEW
-											//			end:   x = (wear / replace) UPPER    , y = (wear / replace) LIMIT
-											//      Line 2:
-											// 			start: x = smu LOWER    , y = (wear / replace) NEW
-											//			end:   x = smu UPPER    , y = (wear / replace) LIMIT
-											firstGreyLine.push([wearTest.lifeLower, wearTest.uniqueDetails['new']]); //start
-											firstGreyLine.push([wearTest.uniqueDetails['lifeUpper'], wearTest.uniqueDetails['limit']]); //end
-
-											secondGreyLine.push([wearTest.lower, wearTest.uniqueDetails['new']]);
-											secondGreyLine.push([wearTest.upper, wearTest.uniqueDetails['limit']]);
-										}
-									}
+									line.push([moment(wearTest.timeCompleted).valueOf(), wearTest.smu]);
 								});
 
 								//if we have all the correct data, add the graph to the page.
-								if (scatterPlot.length != 0 && regressionLine.length != 0 && firstGreyLine.length != 0 && secondGreyLine.length != 0) {
+								if (line.length != 0) {
 									subAssembly.wearTestGraphs = [
-										createWearGraph(subAssembly.name + ' - Wear Test', regressionLine, scatterPlot, firstGreyLine, secondGreyLine)
+										createWearGraph(subAssembly.name + ' - Wear Test', line)
 									];
 								}
 							}
@@ -255,10 +227,26 @@ angular
 		};
 
 		//create a wear graph
-		var createWearGraph = function (graphName, regressionLine, scatterPlot, greyLineOne, greyLineTwo) {
+		var createWearGraph = function (graphName, line) {
 			return {
-				xAxis: {},
-				yAxis: {},
+				xAxis: {
+					type: 'datetime',
+					dateTimeLabelFormats: { // don't display the dummy year
+						millisecond: '%e. %b',
+						second: '%e. %b',
+						minute: '%e. %b',
+						hour: '%e. %b',
+						day: '%e. %b',
+						week: '%e. %b',
+						month: '%e. %b',
+						year: '%e. %b'
+					}
+				},
+				yAxis: {
+					title: {
+						text: 'SMU'
+					}
+				},
 				title: {
 					text: graphName
 				},
@@ -267,33 +255,9 @@ angular
 				},
 				series: [{
 					type: 'line',
-					data: regressionLine,
-					marker: {
-						enabled: false
-					},
-					states: {
-						hover: {
-							lineWidth: 0
-						}
-					},
-					enableMouseTracking: false
-				}, {
-					type: 'scatter',
-					data: scatterPlot,
+					data: line,
 					marker: {
 						radius: 4
-					}
-				}, {
-					type: 'line',
-					data: greyLineOne,
-					marker: {
-						enabled: false
-					}
-				}, {
-					type: 'line',
-					data: greyLineTwo,
-					marker: {
-						enabled: false
 					}
 				}]
 			};

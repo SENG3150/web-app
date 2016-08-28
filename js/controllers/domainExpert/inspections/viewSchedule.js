@@ -1,7 +1,7 @@
 //Controller for allowing of viewing of all schedules of an inspection
 angular
     .module('joy-global')
-    .controller('DomainExpertInspectionsControllerViewSchedule', ['$scope', 'Inspections', 'InspectionSchedules', 'moment', 'LayoutService', '$state', '$confirm', '$stateParams', 'toastr', function ($scope, Inspections, InspectionSchedules, moment, LayoutService, $state, $confirm, $stateParams, toastr) {
+    .controller('DomainExpertInspectionsControllerViewSchedule', ['$scope', 'Inspections', 'InspectionSchedules', 'moment', 'LayoutService', '$state', '$confirm', '$stateParams', 'toastr', 'Inspections', function ($scope, Inspections, InspectionSchedules, moment, LayoutService, $state, $confirm, $stateParams, toastr, Inspections) {
         $scope.inspectionId = $stateParams.id;
         
         $scope.inspectionScheduleId = $stateParams.id;
@@ -30,12 +30,8 @@ angular
             }
         ]);
 
-        $scope.inspectionSchedule = InspectionSchedules.one($scope.inspectionScheduleId).get({
-            include: 'inspection, value, period'
-        }).then(
-            function (data) {
+        Inspections.one($scope.inspectionId).get({include: 'schedules'}).then(function (data) {
                 $scope.loading = false;
-                
                 $scope.inspectionSchedule = data;
             }
         );

@@ -1,38 +1,40 @@
-<div class="ibox">
-    <div class="ibox-title">
-        <h5>Schedule {{inspectionScheduleId}}<span ng-if="loading == true"> (loading...)</span></h5>
-        <div class="ibox-tools">
-            <button type="button" class="btn btn-xs btn-primary">
-                <a ng-click="deleteSchedule(inspectionSchedule.id)" class="btn btn-xs btn-primary">
-                    <i class="fa fa-fw fa-remove"></i>
-                    Delete
-                </a>
-            </button>
+<div ng-repeat="schedule in inspectionSchedule.schedules">
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5>Schedule {{$index + 1}}<span ng-if="loading == true"> (loading...)</span></h5>
+            <div class="ibox-tools">
+                <button type="button" class="btn btn-xs btn-primary">
+                    <a ng-click="deleteSchedule(schedule.id)" class="btn btn-xs btn-primary">
+                        <i class="fa fa-fw fa-remove"></i>
+                        Delete
+                    </a>
+                </button>
+            </div>
         </div>
-    </div>
-    <div class="ibox-content">
-        <div class="text-center" ng-if="loading == true">
-            <i class="fa fa-spinner fa-spin fa-3x"></i>
-        </div>
+        <div class="ibox-content">
+            <div class="text-center" ng-if="loading == true">
+                <i class="fa fa-spinner fa-spin fa-3x"></i>
+            </div>
 
-        <div ng-if="loading == false">
-            <div class="row">
-                <div class="col-md-6">
-                    <dl class="dl-horizontal">
-                        <dt>Repeats Every</dt>
-                        <dd>
-                            <span ng-if="inspectionSchedule.value != null">
-                                {{ inspectionSchedule.value }}
+            <div ng-if="loading == false">
+                <div class="row">
+                    <div class="col-md-6">
+                        <dl class="dl-horizontal">
+                            <dt>Repeats Every</dt>
+                            <dd>
+                            <span ng-if="schedule.value != null">
+                                {{ schedule.value }}
                             </span>
-                            <span ng-if="inspectionSchedule.value == null">
+                            <span ng-if="schedule.value == null">
                                 Not Scheduled
                             </span>
 
-                            <span ng-if="inspectionSchedule.period != null">
-                                {{ inspectionSchedule.period }}
+                            <span ng-if="schedule.period != null">
+                                {{ schedule.period }}
                             </span>
-                        </dd>
-                    </dl>
+                            </dd>
+                        </dl>
+                    </div>
                 </div>
             </div>
         </div>

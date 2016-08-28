@@ -15,7 +15,9 @@ angular
         ];
 
         $scope.inspectionSchedule = {
-            inspection: $scope.inspection,
+            inspection: {
+                id: $scope.inspectionId
+            },
             value: 0,                            // every [value]*[period] the inspection is repeated (eg, every 7 days)
             period: 'days'                       // (days/weeks/months/years)
         };
@@ -42,18 +44,11 @@ angular
             }
         ]);
 
-        $scope.inspection = Inspections.one($scope.inspectionId).get()
-            .then(function (data) {
-                $scope.inspectionSchedule.inspection = data;
-            });
-
-
         $scope.submitSchedule = function () {
             toastr.clear();
-
             if ($scope.inspectionSchedule.value > 0) {
-                InspectionSchedules.post($scope.inspectionSchedule).then(
-                    function () {
+                InspectionSchedules.post($scope.inspectionSchedule)
+                    .then(function () {
                         toastr.success('The inspection was scheduled successfully.');
                         $state.go('domainExpert-inspections-viewSchedule', {id: $scope.inspectionId});
                     },

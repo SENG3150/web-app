@@ -7,7 +7,11 @@ angular
 
         $scope.subAssembly = {
             name: null,
-            majorAssembly: $scope.majorAssemblyId
+            majorAssembly: $scope.majorAssemblyId,
+            machineGeneral: false,
+            oil: false,
+            wear: false,
+            uniqueDetails: [{}]
         }
 
         $scope.loading = true;
@@ -59,6 +63,28 @@ angular
                 toastr.error('Internal Error.');
                 return false;
             }
+
+            //machine general
+            if(typeof($scope.subAssembly.machineGeneral) !== 'boolean') {
+                toastr.clear();
+                toastr.error('Internal Error');
+                return false;
+            }
+
+            //oil test
+            if(typeof($scope.subAssembly.oil) !== 'boolean') {
+                toastr.clear();
+                toastr.error('Internal Error');
+                return false;
+            }
+
+            //wear test
+            if(typeof($scope.subAssembly.wear) !== 'boolean') {
+                toastr.clear();
+                toastr.error('Internal Error');
+                return false;
+            }
+
             return true;
         };
 

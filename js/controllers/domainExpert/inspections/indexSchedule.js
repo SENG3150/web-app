@@ -2,7 +2,7 @@
 angular
     .module('joy-global')
     .controller('DomainExpertInspectionsControllerIndexSchedule', ['$scope', 'Inspections', 'InspectionSchedules', 'moment', 'LayoutService', 'DataTablesService', '$state', function ($scope, Inspections, InspectionSchedules, moment, LayoutService, DataTablesService, $state) {
-        $scope.loading = false;
+        $scope.loading = true;
 
         LayoutService.reset();
         LayoutService.setTitle(['Recurring Scheduled Inspections']);
@@ -18,9 +18,9 @@ angular
             }
         ]);
 
-        InspectionSchedules.getList({include: 'inspection, value, period'}).then(function (data) {
+        InspectionSchedules.getList({include: 'inspection.machine'}).then(function (data) {
             $scope.loading = false;
-            $scope.inspectionSchedule = data;
+            $scope.inspectionSchedules = data;
         });
 
         $scope.moment = moment;

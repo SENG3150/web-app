@@ -10,7 +10,7 @@ angular
         SubAssemblies.one($scope.subAssemblyId).get({include: 'tests'}).then(function (data) {
             $scope.subAssembly = data;
 
-            $scope.subAssemblyTestsId = data.tests[0].id;
+            $scope.subAssemblyTestsId = data.id;
 
             SubAssemblyTests.one($scope.subAssemblyTestsId).get().then(function (data) {
                 $scope.subAssemblyTest = data;

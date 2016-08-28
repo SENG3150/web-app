@@ -99,15 +99,15 @@ angular
 								return item.id == subAssemblyId;
 							});
 
-							if (modelSubAssembly.tests[0].machineGeneral.test == true) {
+							if (modelSubAssembly.machineGeneral == true) {
 								$scope.scheduledTests++;
 							}
 
-							if (modelSubAssembly.tests[0].oil.test == true) {
+							if (modelSubAssembly.oil == true) {
 								$scope.scheduledTests++;
 							}
 
-							if (modelSubAssembly.tests[0].wear.test == true) {
+							if (modelSubAssembly.wear == true) {
 								$scope.scheduledTests++;
 							}
 						}

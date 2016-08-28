@@ -15,7 +15,7 @@ angular
                 displayName: 'Home'
             },
             {
-                route: 'administrator-model-index',
+                route: 'administrator-models-index',
                 displayName: 'Models'
             },
             {

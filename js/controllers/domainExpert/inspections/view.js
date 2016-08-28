@@ -255,7 +255,10 @@ angular
 				}
 			}
 
-			$scope.$apply();
+			if(!$scope.$$phase) {
+				$scope.$apply();
+			}
+
 		};
 
 		$scope.buildTree = function (selectedId) {

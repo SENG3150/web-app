@@ -13,22 +13,12 @@ angular
                 displayName: 'Home'
             },
             {
-                route: 'domainExpert-inspections-index',
-                displayName: 'Inspections'
-            },
-            {
                 route: 'domainExpert-inspections-indexSchedule',
                 displayName: 'Recurring Inspections'
             }
         ]);
-/*
-        //get a list of all inspections that are in the system
-        Inspections.getList({include: 'machine.model,technician,scheduler'}).then(function (data) {
-            $scope.loading = false;
-            $scope.inspections = data;
-        });
-*/
-        InspectionSchedules.getList({include: 'startTime, inspection, value, period'}).then(function (data) {
+
+        InspectionSchedules.getList({include: 'inspection, value, period'}).then(function (data) {
             $scope.loading = false;
             $scope.inspectionSchedule = data;
         });

@@ -12,7 +12,6 @@
                     <th>Machine</th>
                     <th>Model</th>
                     <th>Inspection ID</th>
-                    <th>Next Inspection Time</th>
                     <th>Time Remaining</th>
                     <th>Add Schedule</th>
                     <th>View / Edit</th>
@@ -24,7 +23,6 @@
                     <td>{{ inspectionSchedule.inspection.machine.name }}</td>
                     <td>{{ inspectionSchedule.inspection.machine.model.name }}</td>
                     <td>{{ inspectionSchedule.inspection.id }}</td>
-                    <td>{{ inspectionSchedule.startTime }}</td>
                     <td>{{ inspectionSchedule.value }} {{ inspectionSchedule.period }}</td>
                     <td>
                         <a ui-sref="domainExpert-inspections-addSchedule({ id: inspection.id })"

@@ -3,22 +3,18 @@
         <h5>Inspection<span ng-if="loading == true"> (loading...)</span></h5>
         <div class="ibox-tools">
             <button type="button" class="btn btn-xs btn-primary">
-                <!--<span ng-if="inspectionSchedule.value != null">-->
                     <a ui-sref="domainExpert-inspections-viewSchedule({ id: inspection.id })"
                        class="btn-primary">
                         <i class="fa fa-fw fa-search"></i>
                         Edit Schedule
                     </a>
             </button>
-                <!--</span>
-                <span ng-if="inspectionSchedule.value == null">-->
             <button type="button" class="btn btn-xs btn-primary">
                     <a ui-sref="domainExpert-inspections-addSchedule({ id: inspection.id })"
                        class="btn-primary">
                         <i class="fa fa-fw fa-plus"></i>
                         Add Schedule
                     </a>
-                <!--</span>-->
             </button>
         </div>
     </div>
@@ -101,51 +97,6 @@
                         </dd>
                     </dl>
                 </div>
-                <span ng-if="inspectionSchedule.value != null">
-                    <div class="col-md-4">
-                        <dl class="dl-horizontal">
-                            <dt>Start Time</dt>
-                            <dd>
-                                <span ng-if="inspectionSchedule.startTime != null">
-                                    {{ inspectionSchedule.startTime }}
-                                </span>
-                                <span ng-if="inspectionSchedule.startTime == null">
-                                    Not Scheduled
-                                </span>
-                            </dd>
-
-                            <dt>Value</dt>
-                            <dd>
-                                <span ng-if="inspectionSchedule.value != null">
-                                    {{ inspectionSchedule.value }}
-                                </span>
-                                <span ng-if="inspectionSchedule.value == null">
-                                    Not Scheduled
-                                </span>
-                            </dd>
-
-                            <dt>Period</dt>
-                            <dd>
-                                <span ng-if="inspectionSchedule.period != null">
-                                    {{ inspectionSchedule.period }}
-                                </span>
-                                <span ng-if="inspectionSchedule.period == null">
-                                    Not Scheduled
-                                </span>
-                            </dd>
-
-                            <dt>Next Inspection Time</dt>
-                            <dd>
-                                <span ng-if="inspectionSchedule.nextInspectionTime != null">
-                                    {{ inspectionSchedule.nextInspectionTime }}
-                                </span>
-                                <span ng-if="inspectionSchedule.nextInspectionTime == null">
-                                    Not Scheduled
-                                </span>
-                            </dd>
-                        </dl>
-                    </div>
-                </span>
             </div>
         </div>
     </div>

@@ -3,7 +3,7 @@
         <h5>Schedule {{inspectionScheduleId}}<span ng-if="loading == true"> (loading...)</span></h5>
         <div class="ibox-tools">
             <button type="button" class="btn btn-xs btn-primary">
-                <a ng-href="#delete" ng-click="deleteSchedule()" class="btn btn-xs btn-primary">
+                <a ng-click="deleteSchedule(inspectionSchedule.id)" class="btn btn-xs btn-primary">
                     <i class="fa fa-fw fa-remove"></i>
                     Delete
                 </a>

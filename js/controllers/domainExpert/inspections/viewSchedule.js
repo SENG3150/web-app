@@ -42,8 +42,8 @@ angular
 
         $scope.moment = moment;
 
-        $scope.deleteSchedule = function(id, name) {
-            $confirm({text: 'Are you sure you want to delete this schedule: ' + name + '?', title: 'Delete Schedule', ok: 'Delete', cancel: 'Cancel'})
+        $scope.deleteSchedule = function(id) {
+            $confirm({text: 'Are you sure you want to delete this schedule?', title: 'Delete Schedule', ok: 'Delete', cancel: 'Cancel'})
                 .then(function() {
                     InspectionSchedules.one(id).remove().then(function () {
                         toastr.clear();

@@ -1,7 +1,7 @@
 //Controller for allowing of viewing of all schedules of an inspection
 angular
     .module('joy-global')
-    .controller('DomainExpertInspectionsControllerViewSchedule', ['$scope', 'Inspections', 'InspectionSchedules', 'moment', 'LayoutService', '$state', '$stateParams', 'toastr', function ($scope, Inspections, InspectionSchedules, moment, LayoutService, $state, $stateParams, toastr) {
+    .controller('DomainExpertInspectionsControllerViewSchedule', ['$scope', 'Inspections', 'InspectionSchedules', 'moment', 'LayoutService', '$state', '$confirm', '$stateParams', 'toastr', function ($scope, Inspections, InspectionSchedules, moment, LayoutService, $state, $confirm, $stateParams, toastr) {
         $scope.inspectionId = $stateParams.id;
         
         $scope.inspectionScheduleId = $stateParams.id;
@@ -31,7 +31,7 @@ angular
         ]);
 
         $scope.inspectionSchedule = InspectionSchedules.one($scope.inspectionScheduleId).get({
-            include: 'inspection, value, period, nextInspectionTime'
+            include: 'inspection, value, period'
         }).then(
             function (data) {
                 $scope.loading = false;
@@ -42,9 +42,18 @@ angular
 
         $scope.moment = moment;
 
-        $scope.deleteSchedule = function () {
-            toastr.success('Deleted Message');
-            delete inspectionScheduleId;
+        $scope.deleteSchedule = function(id, name) {
+            $confirm({text: 'Are you sure you want to delete this schedule: ' + name + '?', title: 'Delete Schedule', ok: 'Delete', cancel: 'Cancel'})
+                .then(function() {
+                    InspectionSchedules.one(id).remove().then(function () {
+                        toastr.clear();
+                        toastr.success('Schedule was deleted successfully.');
+                        $state.reload();
+                    }, function () {
+                        toastr.clear();
+                        toastr.error('There was an error deleting the Schedule.');
+                    });
+                });
         };
 
         LayoutService.getPageHeader().onClicked(function () {

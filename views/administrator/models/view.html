@@ -52,17 +52,17 @@
                 <tr ng-repeat="subAssembly in majorAssembly.subAssemblies">
                     <td class="text-center">{{ subAssembly.name }}</td>
                     <td class="text-center">
-                        <span ng-if="subAssembly.tests[0].machineGeneral.test == true">
+                        <span ng-if="subAssembly.machineGeneral == true">
                             <i class="fa fa-fw fa-check"></i>
                         </span>
                     </td>
                     <td class="text-center">
-                        <span ng-if="subAssembly.tests[0].oil.test == true">
+                        <span ng-if="subAssembly.oil == true">
                             <i class="fa fa-fw fa-check"></i>
                         </span>
                     </td>
                     <td class="text-center">
-                        <span ng-if="subAssembly.tests[0].wear.test == true">
+                        <span ng-if="subAssembly.wear == true">
                             <i class="fa fa-fw fa-check"></i>
                         </span>
                     </td>

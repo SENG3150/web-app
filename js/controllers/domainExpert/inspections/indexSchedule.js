@@ -6,7 +6,6 @@ angular
 
         LayoutService.reset();
         LayoutService.setTitle(['Recurring Scheduled Inspections']);
-        LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Add Schedule</button>');
         LayoutService.getPageHeader().setBreadcrumbs([
             {
                 route: 'domainExpert-index',
@@ -25,8 +24,4 @@ angular
 
         $scope.moment = moment;
         $scope.dtOptions = DataTablesService.prepare('InspectionSchedules');
-
-        LayoutService.getPageHeader().onClicked(function () {
-            $state.go('domainExpert-inspections-addSchedule')
-        });
     }]);

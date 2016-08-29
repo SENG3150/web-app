@@ -1,1 +1,27 @@
-Create Machine
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>Create Machine<span ng-if="loading == true"> (loading...)</span></h5>
+    </div>
+
+    <div class="ibox-content">
+        <div ng-if="loading == false">
+            <div class="form-group">
+                <div class="row m-b-lg">
+                    <div class="col-md-6">
+                        <label for="modelField" class="control-label">Model: </label>
+                        <select name="repeatSelect" id="modelField" ng-model="machine.model.id">
+                            <option ng-repeat="model in models" value="{{model.id}}">{{model.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="name" class="control-label">Machine Name</label>
+                        <input type="text" class="form-control" placeholder="Machine Name" id="name"
+                               ng-model="machine.name">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -28,7 +28,7 @@ angular
             },
             {
                 route: 'domainExpert-models-machines-create',
-                displayName: 'New Model'
+                displayName: 'New Machine'
             }
         ]);
 

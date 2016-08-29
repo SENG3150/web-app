@@ -4,33 +4,6 @@
             <i class="fa fa-spinner fa-spin fa-3x"></i>
         </div>
         <div ng-if="loading == false">
-            <table datatable="ng" class="table table-striped table-bordered table-middle" dt-options="dtOptions">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Model</th>
-                    <th>View / Edit</th>
-                    <th>Delete</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="machine in machines.machines">
-
-                    <td>{{ machine.name }}</td>
-                    <td>{{ machine.model.name }} </td>
-                    <td>
-                        <a ui-sref="domainExpert-machines-view({ id: machine.id })"
-                           class="btn btn-primary btn-block">
-                            <i class="fa fa-fw fa-search"></i>
-                            View / Edit
-                        </a>
-                    </td>
-                    <td>
-                        <button class="btn btn-primary btn-block fa fa-fw fa-trash-o" type="button" ng-click="delete(machine.id, machine.name)"> Delete</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
         </div>
     </div>
 </div>

@@ -22,6 +22,7 @@ angular
                 displayName: 'Machines'
             }
         ]);
+
         Models.one($scope.modelId).get({include: 'machines'}).then(function (data) {
             $scope.loading = false;
             $scope.machines = data;

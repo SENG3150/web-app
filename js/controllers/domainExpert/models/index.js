@@ -17,6 +17,7 @@ angular
                 displayName: 'Models'
             }
         ]);
+
         Models.getList().then(function (data) {
             $scope.loading = false;
             $scope.models = data;

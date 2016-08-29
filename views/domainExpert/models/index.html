@@ -9,8 +9,7 @@
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>View Machines</th>
-                    <th>Edit Model</th>
+                    <th>View / Edit</th>
                     <th>Delete Model</th>
                 </tr>
                 </thead>
@@ -18,17 +17,10 @@
                 <tr ng-repeat="model in models">
                     <td>{{ model.name }}</td>
                     <td>
-                        <a ui-sref="domainExpert-models-machines-index({ id: model.id })"
-                           class="btn btn-primary btn-block">
-                            <i class="fa fa-fw fa-search"></i>
-                            View Machines
-                        </a>
-                    </td>
-                    <td>
                         <a ui-sref="domainExpert-models-view({ id: model.id })"
                            class="btn btn-primary btn-block">
-                            <i class="fa fa-fw fa-pencil"></i>
-                            Edit Model
+                            <i class="fa fa-fw fa-search"></i>
+                            View / Edit
                         </a>
                     </td>
                     <td>

@@ -19,7 +19,7 @@
                         Performed
                     </th>
                     <th class="text-center" style="width: 15%;" rowspan="2">
-                        <a ui-sref="administrator-models-addMajorAssembly({ id: modelId })"
+                        <a ui-sref="domainExpert-models-addMajorAssembly({ id: modelId })"
                            class="btn btn-primary btn-block">
                             <i class="fa fa-fw fa-plus"></i>
                             Add Major Assembly
@@ -36,12 +36,12 @@
                 <tr ng-repeat-start="majorAssembly in model.majorAssemblies">
                     <td class="text-center table-header-row" colspan="4">{{ majorAssembly.name }}</td>
                     <td class="table-header-row">
-                        <a ui-sref="administrator-models-addSubAssembly({ id: modelId, majorAssemblyId: majorAssembly.id })"
+                        <a ui-sref="domainExpert-models-addSubAssembly({ id: modelId, majorAssemblyId: majorAssembly.id })"
                            class="btn btn-primary btn-block">
                             <i class="fa fa-fw fa-plus"></i>
                             Add Sub Assembly
                         </a>
-                        <a ui-sref="administrator-models-editMajorAssembly({ id: modelId, majorAssemblyId: majorAssembly.id })"
+                        <a ui-sref="domainExpert-models-editMajorAssembly({ id: modelId, majorAssemblyId: majorAssembly.id })"
                            class="btn btn-primary btn-block">
                             <i class="fa fa-fw fa-pencil"></i>
                             Edit
@@ -67,7 +67,7 @@
                         </span>
                     </td>
                     <td>
-                        <a ui-sref="administrator-models-editSubAssembly({ id: modelId, subAssemblyId: subAssembly.id })"
+                        <a ui-sref="domainExpert-models-editSubAssembly({ id: modelId, subAssemblyId: subAssembly.id })"
                            class="btn btn-primary btn-block">
                             <i class="fa fa-fw fa-pencil"></i>
                             Edit Sub Assembly

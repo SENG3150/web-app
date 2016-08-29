@@ -1,7 +1,7 @@
 //Controller to show a list of all current machines for a particular model
 angular
     .module('joy-global')
-    .controller('AdministratorModelsMachinesControllerIndex', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'Models', '$stateParams', '$confirm', 'Machines', 'toastr', function ($scope, LayoutService, $state, DataTablesService, Models, $stateParams, $confirm, Machines, toastr) {
+    .controller('DomainExpertModelsMachinesControllerIndex', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'Models', '$stateParams', '$confirm', 'Machines', 'toastr', function ($scope, LayoutService, $state, DataTablesService, Models, $stateParams, $confirm, Machines, toastr) {
         $scope.modelId = $stateParams.id;
         $scope.loading = true;
 
@@ -10,15 +10,15 @@ angular
         LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> New Machine</button>');
         LayoutService.getPageHeader().setBreadcrumbs([
             {
-                route: 'administrator-index',
+                route: 'domainExpert-index',
                 displayName: 'Home'
             },
             {
-                route: 'administrator-models-index',
+                route: 'domainExpert-models-index',
                 displayName: 'Models'
             },
             {
-                route: 'administrator-models-machines-index',
+                route: 'domainExpert-models-machines-index',
                 displayName: 'Machines'
             }
         ]);
@@ -28,7 +28,7 @@ angular
         });
 
         $scope.goTo = function() {
-            $state.go('administrator-models-machines-create', {id: $scope.modelId});
+            $state.go('domainExpert-models-machines-create', {id: $scope.modelId});
         };
 
         $scope.delete = function(id, name) {

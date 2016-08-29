@@ -3,11 +3,11 @@ angular
     .module('joy-global')
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
-            .state('administrator-models-index', {
-                parent: 'administrator',
+            .state('domainExpert-models-index', {
+                parent: 'domainExpert',
                 url: '/models',
-                templateUrl: 'views/administrator/models/index.html',
-                controller: 'AdministratorModelsControllerIndex',
+                templateUrl: 'views/domainExpert/models/index.html',
+                controller: 'DomainExpertModelsControllerIndex',
                 resolve: {
                     loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load(['dataTables'])
@@ -17,88 +17,88 @@ angular
                     }]
                 }
             })
-            .state('administrator-models-create', {
-                parent: 'administrator',
+            .state('domainExpert-models-create', {
+                parent: 'domainExpert',
                 url: '/models/create',
-                templateUrl: 'views/administrator/models/create.html',
-                controller: 'AdministratorModelsControllerCreate',
+                templateUrl: 'views/domainExpert/models/create.html',
+                controller: 'DomainExpertModelsControllerCreate',
                 resolve: {
                     loggedIn: ['AuthService', function (AuthService) {
                         return AuthService.checkPermissions(true);
                     }]
                 }
             })
-            .state('administrator-models-view', {
-                parent: 'administrator',
+            .state('domainExpert-models-view', {
+                parent: 'domainExpert',
                 url: '/models/view/:id',
-                templateUrl: 'views/administrator/models/view.html',
-                controller: 'AdministratorModelsControllerView',
+                templateUrl: 'views/domainExpert/models/view.html',
+                controller: 'DomainExpertModelsControllerView',
                 resolve: {
                     loggedIn: ['AuthService', function (AuthService) {
                         return AuthService.checkPermissions(true);
                     }]
                 }
             })
-            .state('administrator-models-addMajorAssembly', {
-                parent: 'administrator',
+            .state('domainExpert-models-addMajorAssembly', {
+                parent: 'domainExpert',
                 url: '/models/view/:id/addMajorAssembly',
-                templateUrl: 'views/administrator/models/addMajorAssembly.html',
-                controller: 'AdministratorModelsControllerAddMajorAssembly',
+                templateUrl: 'views/domainExpert/models/addMajorAssembly.html',
+                controller: 'DomainExpertModelsControllerAddMajorAssembly',
                 resolve: {
                     loggedIn: ['AuthService', function (AuthService) {
                         return AuthService.checkPermissions(true);
                     }]
                 }
             })
-            .state('administrator-models-addSubAssembly', {
-                parent: 'administrator',
+            .state('domainExpert-models-addSubAssembly', {
+                parent: 'domainExpert',
                 url: '/models/view/:id/addSubAssembly/:majorAssemblyId',
-                templateUrl: 'views/administrator/models/addSubAssembly.html',
-                controller: 'AdministratorModelsControllerAddSubAssembly',
+                templateUrl: 'views/domainExpert/models/addSubAssembly.html',
+                controller: 'DomainExpertModelsControllerAddSubAssembly',
                 resolve: {
                     loggedIn: ['AuthService', function (AuthService) {
                         return AuthService.checkPermissions(true);
                     }]
                 }
             })
-            .state('administrator-models-editSubAssembly', {
-                parent: 'administrator',
+            .state('domainExpert-models-editSubAssembly', {
+                parent: 'domainExpert',
                 url: '/models/view/:id/editSubAssembly/:subAssemblyId',
-                templateUrl: 'views/administrator/models/editSubAssembly.html',
-                controller: 'AdministratorModelsControllerEditSubAssembly',
+                templateUrl: 'views/domainExpert/models/editSubAssembly.html',
+                controller: 'DomainExpertModelsControllerEditSubAssembly',
                 resolve: {
                     loggedIn: ['AuthService', function (AuthService) {
                         return AuthService.checkPermissions(true);
                     }]
                 }
             })
-            .state('administrator-models-editMajorAssembly', {
-                parent: 'administrator',
+            .state('domainExpert-models-editMajorAssembly', {
+                parent: 'domainExpert',
                 url: '/models/view/:id/editMajorAssembly/:majorAssemblyId',
-                templateUrl: 'views/administrator/models/editMajorAssembly.html',
-                controller: 'AdministratorModelsControllerEditMajorAssembly',
+                templateUrl: 'views/domainExpert/models/editMajorAssembly.html',
+                controller: 'DomainExpertModelsControllerEditMajorAssembly',
                 resolve: {
                     loggedIn: ['AuthService', function (AuthService) {
                         return AuthService.checkPermissions(true);
                     }]
                 }
             })
-            .state('administrator-models-machines-index', {
-                parent: 'administrator',
+            .state('domainExpert-models-machines-index', {
+                parent: 'domainExpert',
                 url: '/models/:id',
-                templateUrl: 'views/administrator/models/machines/index.html',
-                controller: 'AdministratorModelsMachinesControllerIndex',
+                templateUrl: 'views/domainExpert/models/machines/index.html',
+                controller: 'DomainExpertModelsMachinesControllerIndex',
                 resolve: {
                     loggedIn: ['AuthService', function (AuthService) {
                         return AuthService.checkPermissions(true);
                     }]
                 }
             })
-            .state('administrator-models-machines-create', {
-                parent: 'administrator',
+            .state('domainExpert-models-machines-create', {
+                parent: 'domainExpert',
                 url: '/models/:id/create',
-                templateUrl: 'views/administrator/models/machines/create.html',
-                controller: 'AdministratorModelsMachinesControllerCreate',
+                templateUrl: 'views/domainExpert/models/machines/create.html',
+                controller: 'DomainExpertModelsMachinesControllerCreate',
                 resolve: {
                     loggedIn: ['AuthService', function (AuthService) {
                         return AuthService.checkPermissions(true);

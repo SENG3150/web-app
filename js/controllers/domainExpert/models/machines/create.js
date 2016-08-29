@@ -1,7 +1,7 @@
 //Controller to allow the creation of a new machine for a particular model
 angular
     .module('joy-global')
-    .controller('AdministratorModelsMachinesControllerCreate', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'Machines', '$stateParams', 'toastr', function ($scope, LayoutService, $state, DataTablesService, Machines, $stateParams, toastr) {
+    .controller('DomainExpertModelsMachinesControllerCreate', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'Machines', '$stateParams', 'toastr', function ($scope, LayoutService, $state, DataTablesService, Machines, $stateParams, toastr) {
         $scope.modelId = $stateParams.id;
         $scope.machine = {
             name: '',
@@ -15,19 +15,19 @@ angular
         LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-check"></i> Save</button>');
         LayoutService.getPageHeader().setBreadcrumbs([
             {
-                route: 'administrator-index',
+                route: 'domainExpert-index',
                 displayName: 'Home'
             },
             {
-                route: 'administrator-models-index',
+                route: 'domainExpert-models-index',
                 displayName: 'Models'
             },
             {
-                route: 'administrator-models-machines-index({ id: ' + $scope.modelId + ' })',
+                route: 'domainExpert-models-machines-index({ id: ' + $scope.modelId + ' })',
                 displayName: 'Machines'
             },
             {
-                route: 'administrator-models-machines-create',
+                route: 'domainExpert-models-machines-create',
                 displayName: 'New Model'
             }
         ]);
@@ -38,7 +38,7 @@ angular
                     .then(function () {
                         toastr.clear();
                         toastr.success('Model was created successfully.');
-                        $state.go('administrator-models-index');
+                        $state.go('domainExpert-models-index');
                     }, function () {
                         toastr.clear();
                         toastr.error('There was an error creating the model.');

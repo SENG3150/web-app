@@ -1,7 +1,7 @@
 //Controller to show a list of all models in the system
 angular
     .module('joy-global')
-    .controller('AdministratorModelsControllerIndex', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'Models', '$confirm', 'toastr', function ($scope, LayoutService, $state, DataTablesService, Models, $confirm, toastr) {
+    .controller('DomainExpertModelsControllerIndex', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'Models', '$confirm', 'toastr', function ($scope, LayoutService, $state, DataTablesService, Models, $confirm, toastr) {
         $scope.loading = true;
 
         LayoutService.reset();
@@ -9,11 +9,11 @@ angular
         LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> New Model</button>');
         LayoutService.getPageHeader().setBreadcrumbs([
             {
-                route: 'administrator-index',
+                route: 'domainExpert-index',
                 displayName: 'Home'
             },
             {
-                route: 'administrator-models-index',
+                route: 'domainExpert-models-index',
                 displayName: 'Models'
             }
         ]);
@@ -23,7 +23,7 @@ angular
         });
 
         $scope.goTo = function() {
-            $state.go('administrator-models-create');
+            $state.go('domainExpert-models-create');
         };
 
         $scope.delete = function(id, name) {

@@ -1,7 +1,7 @@
 //Controller to add a major assembly to a model
 angular
     .module('joy-global')
-    .controller('AdministratorModelsControllerAddMajorAssembly', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'MajorAssemblies', '$stateParams', 'toastr', function ($scope, LayoutService, $state, DataTablesService, MajorAssemblies, $stateParams, toastr) {
+    .controller('DomainExpertModelsControllerAddMajorAssembly', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'MajorAssemblies', '$stateParams', 'toastr', function ($scope, LayoutService, $state, DataTablesService, MajorAssemblies, $stateParams, toastr) {
         $scope.modelId = $stateParams.id;
 
         $scope.majorAssembly = {
@@ -18,19 +18,19 @@ angular
         LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Save </button>');
         LayoutService.getPageHeader().setBreadcrumbs([
             {
-                route: 'administrator-index',
+                route: 'domainExpert-index',
                 displayName: 'Home'
             },
             {
-                route: 'administrator-models-index',
+                route: 'domainExpert-models-index',
                 displayName: 'Models'
             },
             {
-                route: 'administrator-models-view({ id: ' + $scope.modelId + ' })',
+                route: 'domainExpert-models-view({ id: ' + $scope.modelId + ' })',
                 displayName: 'Edit Model'
             },
             {
-                route: 'administrator-models-addMajorAssembly',
+                route: 'domainExpert-models-addMajorAssembly',
                 displayName: 'Add Major Assembly'
             }
         ]);
@@ -41,7 +41,7 @@ angular
                     .then(function () {
                         toastr.clear();
                         toastr.success('Major Assembly was created successfully.');
-                        $state.go('administrator-models-view',{ id: $scope.modelId });
+                        $state.go('domainExpert-models-view',{ id: $scope.modelId });
                     }, function () {
                         toastr.clear();
                         toastr.error('There was an error creating the Major Assembly.');

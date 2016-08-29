@@ -1,7 +1,7 @@
 //Controller to edit a sub assembly
 angular
     .module('joy-global')
-    .controller('AdministratorModelsControllerEditSubAssembly', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'SubAssemblies', '$stateParams', 'toastr', function ($scope, LayoutService, $state, DataTablesService, SubAssemblies, $stateParams, toastr) {
+    .controller('DomainExpertModelsControllerEditSubAssembly', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'SubAssemblies', '$stateParams', 'toastr', function ($scope, LayoutService, $state, DataTablesService, SubAssemblies, $stateParams, toastr) {
         $scope.modelId = $stateParams.id;
         $scope.subAssemblyId = $stateParams.subAssemblyId;
 
@@ -17,31 +17,30 @@ angular
         LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Save </button>');
         LayoutService.getPageHeader().setBreadcrumbs([
             {
-                route: 'administrator-index',
+                route: 'domainExpert-index',
                 displayName: 'Home'
             },
             {
-                route: 'administrator-models-index',
+                route: 'domainExpert-models-index',
                 displayName: 'Models'
             },
             {
-                route: 'administrator-models-view({ id: ' + $scope.modelId + ' })',
+                route: 'domainExpert-models-view({ id: ' + $scope.modelId + ' })',
                 displayName: 'Edit Model'
             },
             {
-                route: 'administrator-models-EditSubAssembly',
+                route: 'domainExpert-models-EditSubAssembly',
                 displayName: 'Edit Sub Assembly'
             }
         ]);
 
         $scope.submitEditing = function() {
             if ($scope.validateName() == true && $scope.validateTests() == true) {
-                console.log($scope.subAssembly);
                 $scope.subAssembly.post()
                     .then(function () {
                         toastr.clear();
                         toastr.success('Sub Assembly was updated successfully.');
-                        $state.go('administrator-models-view', {id: $scope.modelId});
+                        $state.go('domainExpert-models-view', {id: $scope.modelId});
                     }, function () {
                         toastr.clear();
                         toastr.error('There was an error updating the Sub Assembly.');

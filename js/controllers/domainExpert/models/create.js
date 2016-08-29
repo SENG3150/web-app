@@ -1,7 +1,7 @@
 //Controller to allow the creation of a new model
 angular
     .module('joy-global')
-    .controller('AdministratorModelsControllerCreate', ['$scope', '$state', 'toastr', 'LayoutService', 'Models', function ($scope, $state, toastr, LayoutService, Models) {
+    .controller('DomainExpertModelsControllerCreate', ['$scope', '$state', 'toastr', 'LayoutService', 'Models', function ($scope, $state, toastr, LayoutService, Models) {
         $scope.model = {
             name: ''
         }
@@ -11,15 +11,15 @@ angular
         LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-check"></i> Save</button>');
         LayoutService.getPageHeader().setBreadcrumbs([
             {
-                route: 'administrator-index',
+                route: 'domainExpert-index',
                 displayName: 'Home'
             },
             {
-                route: 'administrator-models-index',
+                route: 'domainExpert-models-index',
                 displayName: 'Models'
             },
             {
-                route: 'administrator-model-create',
+                route: 'domainExpert-model-create',
                 displayName: 'New Model'
             }
         ]);
@@ -30,7 +30,7 @@ angular
                     .then(function () {
                         toastr.clear();
                         toastr.success('Model was created successfully.');
-                        $state.go('administrator-models-index');
+                        $state.go('domainExpert-models-index');
                     }, function () {
                         toastr.clear();
                         toastr.error('There was an error creating the model.');

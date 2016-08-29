@@ -8,10 +8,10 @@
             <div class="form-group">
                 <div class="row m-b-lg">
                     <div class="col-md-6">
+                        <label class="control-label">Model</label>
 
-                        <label class="control-label">Model: </label>
-                        <ui-select ng-model="machine.model.id" theme="bootstrap" sortable="true" class="m-b-sm"
-                                   on-select="setModel($item)">
+                        <ui-select ng-model="selectedModel" theme="bootstrap" sortable="true" class="m-b-sm"
+                                   on-select="setModel($item, $model)">
                             <ui-select-match placeholder="Select model...">
                                 {{$select.selected.name}}
                             </ui-select-match>
@@ -19,12 +19,12 @@
                                 <span ng-bind-html="model.name | highlight: $select.search"></span>
                             </ui-select-choices>
                         </ui-select>
-                        
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label for="name" class="control-label">Machine Name: </label>
+                        <label for="name" class="control-label">Machine Name</label>
+
                         <input type="text" class="form-control" placeholder="Machine Name" id="name"
                                ng-model="machine.name">
                     </div>

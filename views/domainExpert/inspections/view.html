@@ -168,30 +168,13 @@
                         <table class="table table-bordered table-middle table-transparent">
                             <thead>
                             <tr>
-                                <th>Description</th>
-                                <th>New</th>
-                                <th>Limit</th>
-                                <th>Life Lower</th>
-                                <th>Life Upper</th>
                                 <th>SMU</th>
-                                <th>Time Tested</th>
                                 <th>Unique Details</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td>{{ node.description }}</td>
-                                <td>{{ node.new }}</td>
-                                <td>{{ node.limit }}</td>
-                                <td>{{ node.lifeLower }}</td>
-                                <td>{{ node.lifeUpper }}</td>
                                 <td>{{ node.smu }}</td>
-                                <td>
-                                    {{
-                                    moment(node.timeStart)
-                                    .format("HH:mm ddd, MMM Do YYYY")
-                                    }}
-                                </td>
                                 <td>
                                     <div ng-repeat="(key, value) in node.uniqueDetails" class="m-b">
                                         <strong>{{ key }}:</strong>

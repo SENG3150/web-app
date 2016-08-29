@@ -63,5 +63,9 @@ angular
 			return true;
 		};
 
+		$scope.setModel = function (model) {
+			$scope.machine.model.id = model.id;
+		};
+
 		LayoutService.getPageHeader().onClicked($scope.submitModel);
 	}]);

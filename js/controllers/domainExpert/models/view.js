@@ -31,6 +31,7 @@ angular
 
 				LayoutService.reset();
 				LayoutService.setTitle([$scope.model.name, 'Models']);
+				LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Add Machine</button>');
 				LayoutService.getPageHeader().setBreadcrumbs([
 					{
 						route: 'domainExpert-index',
@@ -45,6 +46,10 @@ angular
 						displayName: $scope.model.name
 					}
 				]);
+
+				LayoutService.getPageHeader().onClicked(function () {
+					$state.go('domainExpert-machines-create');
+				});
 			});
 
 		$scope.deleteMajor = function (id, name) {

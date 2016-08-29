@@ -28,6 +28,6 @@ angular
 		$scope.dtOptions = DataTablesService.prepare('Inspections');
 
 		LayoutService.getPageHeader().onClicked(function () {
-			$state.go('domainExpert-inspections-create')
+			$state.go('domainExpert-inspections-create');
 		});
 	}]);

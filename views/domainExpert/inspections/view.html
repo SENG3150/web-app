@@ -3,18 +3,18 @@
         <h5>Inspection<span ng-if="loading == true"> (loading...)</span></h5>
         <div class="ibox-tools">
             <button type="button" class="btn btn-xs btn-primary">
-                    <a ui-sref="domainExpert-inspections-viewSchedule({ id: inspection.id })"
-                       class="btn-primary">
-                        <i class="fa fa-fw fa-search"></i>
-                        Edit Schedule
-                    </a>
+                <a ui-sref="domainExpert-inspections-viewSchedule({ id: inspection.id })"
+                   class="btn-primary">
+                    <i class="fa fa-fw fa-search"></i>
+                    Edit Schedule
+                </a>
             </button>
             <button type="button" class="btn btn-xs btn-primary">
-                    <a ui-sref="domainExpert-inspections-addSchedule({ id: inspection.id })"
-                       class="btn-primary">
-                        <i class="fa fa-fw fa-plus"></i>
-                        Add Schedule
-                    </a>
+                <a ui-sref="domainExpert-inspections-addSchedule({ id: inspection.id })"
+                   class="btn-primary">
+                    <i class="fa fa-fw fa-plus"></i>
+                    Add Schedule
+                </a>
             </button>
         </div>
     </div>
@@ -115,7 +115,9 @@
                 <div ng-if="loading == false">
                     <p><span class="text-navy">Highlighted</span> nodes have a photo or comment.</p>
 
-                    <div js-tree="treeConfig" ng-model="treeData" tree-events-obj="treeEvents"></div>
+                    <div style="overflow-y: scroll; height: 500px;">
+                        <div js-tree="treeConfig" ng-model="treeData" tree-events-obj="treeEvents"></div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -60,6 +60,14 @@
     display: none !important;
 }
 
+.overflow-x {
+    overflow-x: auto;
+}
+
+.overflow-y {
+    overflow-y: auto;
+}
+
 /* lg - larger desktops */
 @media (min-width: 1200px) {
 }

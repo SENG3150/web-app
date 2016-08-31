@@ -1,8 +1,8 @@
 angular
 	.module('joy-global')
 	.service('DataTablesService', [function () {
-		this.domButtons = "<'row'<'col-sm-3'l><'col-sm-9'Bf>><'row'<'col-sm-12'tr>><'row'<'col-sm-5'i><'col-sm-7'p>>";
-		this.dom = "<'row'<'col-sm-3'l><'col-sm-9'f>><'row'<'col-sm-12'tr>><'row'<'col-sm-5'i><'col-sm-7'p>>";
+		this.domButtons = "<'row'<'col-sm-3'l><'col-sm-9'Bf>><'row'<'col-sm-12'<'overflow-x'tr>>><'row'<'col-sm-5'i><'col-sm-7'p>>";
+		this.dom = "<'row'<'col-sm-3'l><'col-sm-9'f>><'row'<'col-sm-12'<'overflow-x'tr>>><'row'<'col-sm-5'i><'col-sm-7'p>>";
 
 		this.buttons = function (title) {
 			return [

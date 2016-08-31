@@ -42,70 +42,48 @@ angular
                     }]
                 }
             })
-            .state('domainExpert-models-addMajorAssembly', {
+            .state('domainExpert-models-view-majorAssembly-create', {
                 parent: 'domainExpert',
-                url: '/models/view/:id/addMajorAssembly',
-                templateUrl: 'views/domainExpert/models/addMajorAssembly.html',
-                controller: 'DomainExpertModelsControllerAddMajorAssembly',
+                url: '/models/view/:id/create',
+                templateUrl: 'views/domainExpert/models/majorAssembly/create.html',
+                controller: 'DomainExpertModelsViewMajorAssemblyControllerCreate',
                 resolve: {
                     loggedIn: ['AuthService', function (AuthService) {
                         return AuthService.checkPermissions(true);
                     }]
                 }
             })
-            .state('domainExpert-models-addSubAssembly', {
+	        .state('domainExpert-models-view-majorAssembly-view', {
+		        parent: 'domainExpert',
+		        url: '/models/view/:id/:majorAssemblyId',
+		        templateUrl: 'views/domainExpert/models/majorAssembly/view.html',
+		        controller: 'DomainExpertModelsViewMajorAssemblyControllerView',
+		        resolve: {
+			        loggedIn: ['AuthService', function (AuthService) {
+				        return AuthService.checkPermissions(true);
+			        }]
+		        }
+	        })
+            .state('domainExpert-models-view-subAssembly-create', {
                 parent: 'domainExpert',
-                url: '/models/view/:id/addSubAssembly/:majorAssemblyId',
-                templateUrl: 'views/domainExpert/models/addSubAssembly.html',
-                controller: 'DomainExpertModelsControllerAddSubAssembly',
+	            url: '/models/view/:id/:majorAssemblyId/create',
+                templateUrl: 'views/domainExpert/models/subAssembly/create.html',
+                controller: 'DomainExpertModelsViewSubAssemblyControllerCreate',
                 resolve: {
                     loggedIn: ['AuthService', function (AuthService) {
                         return AuthService.checkPermissions(true);
                     }]
                 }
             })
-            .state('domainExpert-models-editSubAssembly', {
-                parent: 'domainExpert',
-                url: '/models/view/:id/editSubAssembly/:subAssemblyId',
-                templateUrl: 'views/domainExpert/models/editSubAssembly.html',
-                controller: 'DomainExpertModelsControllerEditSubAssembly',
-                resolve: {
-                    loggedIn: ['AuthService', function (AuthService) {
-                        return AuthService.checkPermissions(true);
-                    }]
-                }
-            })
-            .state('domainExpert-models-editMajorAssembly', {
-                parent: 'domainExpert',
-                url: '/models/view/:id/editMajorAssembly/:majorAssemblyId',
-                templateUrl: 'views/domainExpert/models/editMajorAssembly.html',
-                controller: 'DomainExpertModelsControllerEditMajorAssembly',
-                resolve: {
-                    loggedIn: ['AuthService', function (AuthService) {
-                        return AuthService.checkPermissions(true);
-                    }]
-                }
-            })
-            .state('domainExpert-models-machines-index', {
-                parent: 'domainExpert',
-                url: '/models/:id',
-                templateUrl: 'views/domainExpert/models/machines/index.html',
-                controller: 'DomainExpertModelsMachinesControllerIndex',
-                resolve: {
-                    loggedIn: ['AuthService', function (AuthService) {
-                        return AuthService.checkPermissions(true);
-                    }]
-                }
-            })
-            .state('domainExpert-models-machines-create', {
-                parent: 'domainExpert',
-                url: '/models/:id/create',
-                templateUrl: 'views/domainExpert/models/machines/create.html',
-                controller: 'DomainExpertModelsMachinesControllerCreate',
-                resolve: {
-                    loggedIn: ['AuthService', function (AuthService) {
-                        return AuthService.checkPermissions(true);
-                    }]
-                }
-            });
+	        .state('domainExpert-models-view-subAssembly-view', {
+		        parent: 'domainExpert',
+		        url: '/models/view/:id/:majorAssemblyId/:subAssemblyId',
+		        templateUrl: 'views/domainExpert/models/subAssembly/view.html',
+		        controller: 'DomainExpertModelsViewSubAssemblyControllerView',
+		        resolve: {
+			        loggedIn: ['AuthService', function (AuthService) {
+				        return AuthService.checkPermissions(true);
+			        }]
+		        }
+	        });
     }]);

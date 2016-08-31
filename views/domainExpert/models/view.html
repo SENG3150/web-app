@@ -21,8 +21,8 @@
                                 Performed
                             </th>
                             <th class="text-center" style="width: 25%;" rowspan="2">
-                                <a ui-sref="domainExpert-models-addMajorAssembly({ id: modelId })"
-                                   class="btn btn-primary btn-block">
+                                <a ui-sref="domainExpert-models-view-majorAssembly-create({ id: modelId })"
+                                   class="btn btn-success btn-block">
                                     <i class="fa fa-fw fa-plus"></i>
                                     Add Major
                                 </a>
@@ -39,14 +39,14 @@
                             <td class="text-center table-header-row" colspan="4">{{ majorAssembly.name }}</td>
                             <td class="table-header-row">
                                 <div class="btn-group btn-group-justified">
-                                    <a ui-sref="domainExpert-models-addSubAssembly({ id: modelId, majorAssemblyId: majorAssembly.id })"
-                                       class="btn btn-primary">
+                                    <a ui-sref="domainExpert-models-view-subAssembly-create({ id: modelId, majorAssemblyId: majorAssembly.id })"
+                                       class="btn btn-success">
                                         <i class="fa fa-fw fa-plus"></i>
                                         Add Sub
                                     </a>
 
-                                    <a ui-sref="domainExpert-models-editMajorAssembly({ id: modelId, majorAssemblyId: majorAssembly.id })"
-                                       class="btn btn-success">
+                                    <a ui-sref="domainExpert-models-view-majorAssembly-view({ id: modelId, majorAssemblyId: majorAssembly.id })"
+                                       class="btn btn-primary">
                                         <i class="fa fa-fw fa-pencil"></i>
                                         Edit
                                     </a>
@@ -80,8 +80,8 @@
                             </td>
                             <td>
                                 <div class="btn-group btn-group-justified">
-                                    <a ui-sref="domainExpert-models-editSubAssembly({ id: modelId, subAssemblyId: subAssembly.id })"
-                                       class="btn btn-success">
+                                    <a ui-sref="domainExpert-models-view-subAssembly-view({ id: modelId, majorAssemblyId: majorAssembly.id, subAssemblyId: subAssembly.id })"
+                                       class="btn btn-primary">
                                         <i class="fa fa-fw fa-pencil"></i>
                                         Edit
                                     </a>
@@ -127,13 +127,13 @@
                             <td>{{ machine.model.name }}</td>
                             <td>
                                 <a ui-sref="domainExpert-machines-view({ id: machine.id })"
-                                   class="btn btn-primary btn-block">
+                                   class="btn btn-success btn-block">
                                     <i class="fa fa-fw fa-search"></i>
                                     View / Edit
                                 </a>
                             </td>
                             <td>
-                                <button class="btn btn-primary btn-block btn-danger" type="button"
+                                <button class="btn btn-success btn-block btn-danger" type="button"
                                         ng-click="deleteMachine(machine.id, machine.name)">
                                     <i class="fa fa-fw fa-trash-o"></i>
                                     Delete

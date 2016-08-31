@@ -42,12 +42,42 @@
                         <input type="checkbox" checked="checked" autocomplete="off"
                                ng-model="subAssembly.wear" id="wearTestTest">
                         <label for="wearTestTest">
-                            Perform Oil Test
+                            Perform Wear Test
                         </label>
                     </div>
                 </div>
-            </div>
+                <div class="col-md-6">
+                    <label class="control-label">Wear Test Unique Details</label>
 
+                    <table class="table">
+                        <tbody>
+                        <tr ng-repeat="uniqueDetail in uniqueDetails">
+                            <td>
+                                <input class="form-control" ng-model="uniqueDetail.uniqueDetail"
+                                       placeholder="Unique Details">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-block"
+                                        ng-click="removeUniqueDetail($index)">
+                                    <i class="fa fa-trash"></i>
+                                    Remove Unique Detail
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-block"
+                                        ng-click="addUniqueDetail()">
+                                    <i class="fa fa-plus"></i>
+                                    Add Unique Detail
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>

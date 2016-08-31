@@ -130,15 +130,17 @@
                 <h4 class="modal-title" id="comments-modal-label">Import Downtime Data</h4>
             </div>
             <div class="modal-body">
-                <div>
+                <div class="form-group">
                     <input type="file" id="downtimeImportFile" name="file" enctype="multipart/form-data"/>
                 </div>
                 <div ng-if="loadingFile == false">
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="systenNameField" class="control-label">System Name Field in File: </label>
-                                <select name="repeatSelect" id="systenNameField" ng-model="cellNames.systemNameCell">
+                                <label for="systemNameCell" class="control-label">System Name Field in File</label>
+
+                                <select class="form-control" name="repeatSelect" id="systemNameCell"
+                                        ng-model="cellNames.systemNameCell">
                                     <option ng-repeat="header in headers" value="{{header.id}}">{{header.name}}</option>
                                 </select>
                             </div>
@@ -146,8 +148,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="downtimeHoursField" class="control-label">Down Time Hours Field in
-                                    File: </label>
-                                <select name="repeatSelect" id="downtimeHoursField"
+                                    File</label>
+
+                                <select class="form-control" name="repeatSelect" id="downtimeHoursField"
                                         ng-model="cellNames.downTimeHoursCell">
                                     <option ng-repeat="header in headers" value="{{header.id}}">{{header.name}}</option>
                                 </select>
@@ -155,8 +158,10 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="reasonField" class="control-label">Reason Field in File (Optional): </label>
-                                <select name="repeatSelect" id="reasonField" ng-model="cellNames.reasonCell">
+                                <label for="reasonField" class="control-label">Reason Field in File (Optional)</label>
+
+                                <select class="form-control" name="repeatSelect" id="reasonField"
+                                        ng-model="cellNames.reasonCell">
                                     <option ng-repeat="header in headers" value="{{header.id}}">{{header.name}}</option>
                                 </select>
                             </div>

@@ -1,5 +1,4 @@
 <div class="ibox">
-
     <div class="ibox-title">
         <h5>Modify Sub Assembly Name<span ng-if="loading == true"> (loading...)</span></h5>
     </div>
@@ -7,8 +6,7 @@
     <div class="ibox-content">
         <div ng-if="loading == false">
             <div class="form-group">
-
-                <div class="row">
+                <div class="row m-b-lg">
                     <div class="col-md-6">
                         <label for="name" class="control-label">Sub Assembly Name</label>
                         <input type="text" class="form-control" placeholder="Sub Assembly Name" id="name"
@@ -16,23 +14,7 @@
                     </div>
                 </div>
 
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div class="ibox">
-
-    <div class="ibox-title">
-        <h5>Machine General Test<span ng-if="loading == true"> (loading...)</span></h5>
-    </div>
-
-    <div class="ibox-content">
-        <div ng-if="loading == false">
-            <div class="form-group">
-
-                <div class="row">
+                <div class="row m-b-sm">
                     <div class="col-md-6">
                         <label for="machineGeneralTest" class="control-label">Perform Machine General Test</label>
                         <div class="checkbox checkbox-primary checkbox-circle">
@@ -45,23 +27,7 @@
                     </div>
                 </div>
 
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div class="ibox">
-
-    <div class="ibox-title">
-        <h5>Oil Test<span ng-if="loading == true"> (loading...)</span></h5>
-    </div>
-
-    <div class="ibox-content">
-        <div ng-if="loading == false">
-            <div class="form-group">
-
-                <div class="row">
+                <div class="row m-b-sm">
                     <div class="col-md-6">
                         <label for="oilTestTest" class="control-label">Perform Oil Test</label>
                         <div class="checkbox checkbox-primary checkbox-circle">
@@ -74,37 +40,50 @@
                     </div>
                 </div>
 
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div class="ibox">
-
-    <div class="ibox-title">
-        <h5>Wear Test<span ng-if="loading == true"> (loading...)</span></h5>
-    </div>
-
-    <div class="ibox-content">
-        <div ng-if="loading == false">
-            <div class="form-group">
-
-                <div class="row">
+                <div class="row m-b-sm">
                     <div class="col-md-6">
                         <label for="wearTestTest" class="control-label">Perform Wear Test</label>
                         <div class="checkbox checkbox-primary checkbox-circle">
                             <input type="checkbox" checked="checked" autocomplete="off"
                                    ng-model="subAssembly.wear" id="wearTestTest">
                             <label for="wearTestTest">
-                                Perform Oil Test
+                                Perform Wear Test
                             </label>
                         </div>
                     </div>
-                </div>
+                    <div class="col-md-6">
+                        <label class="control-label">Wear Test Unique Details</label>
 
+                        <table class="table">
+                            <tbody>
+                            <tr ng-repeat="uniqueDetail in uniqueDetails">
+                                <td>
+                                    <input class="form-control" ng-model="uniqueDetail.uniqueDetail"
+                                           placeholder="Unique Details">
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-block"
+                                            ng-click="removeUniqueDetail($index)">
+                                        <i class="fa fa-trash"></i>
+                                        Remove Unique Detail
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-block"
+                                            ng-click="addUniqueDetail()">
+                                        <i class="fa fa-plus"></i>
+                                        Add Unique Detail
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
 </div>

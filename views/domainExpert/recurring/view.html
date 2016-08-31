@@ -1,0 +1,71 @@
+<div class="tabs-container">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" data-target="#tab-1"> Info</a></li>
+        <li><a data-toggle="tab" data-target="#tab-2">Inspection History</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="tab-1" class="tab-pane active">
+            <div class="panel-body">
+                <div class="text-center" ng-if="loading == true">
+                    <i class="fa fa-spinner fa-spin fa-3x"></i>
+                </div>
+
+                <div ng-if="loading == false">
+                    <table class="table table-bordered table-middle table-transparent">
+                        <thead>
+                        <tr>
+                            <th>Inspection ID</th>
+                            <th>Value</th>
+                            <th>Period</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{ inspectionSchedule.inspection.id }}</td>
+                            <td>{{ inspectionSchedule.value | number:0 }}</td>
+                            <td>{{ inspectionSchedule.period }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-2" class="tab-pane">
+            <div class="panel-body">
+                <div class="text-center" ng-if="loading == true">
+                    <i class="fa fa-spinner fa-spin fa-3x"></i>
+                </div>
+
+                <div ng-if="loading == false">
+                    <table datatable="ng" class="table table-bordered table-middle" dt-options="dtOptions">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Technician</th>
+                            <th>Domain Expert</th>
+                            <th>Time</th>
+                            <th>View / Edit</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="inspection in inspectionSchedule.inspections">
+                            <td>{{ inspection.id }}</td>
+                            <td>{{ inspection.technician.name }}</td>
+                            <td>{{ inspection.scheduler.name }}</td>
+                            <td>{{ moment(inspection.timeScheduled).format("HH:mm ddd, MMM Do YYYY") }}</td>
+                            <td>
+                                <a ui-sref="domainExpert-inspections-view({ id: inspection.id })"
+                                   class="btn btn-primary btn-block">
+                                    <i class="fa fa-fw fa-search"></i>
+                                    View / Edit
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

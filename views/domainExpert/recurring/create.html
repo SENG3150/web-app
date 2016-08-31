@@ -1,0 +1,60 @@
+<div class="ibox">
+    <div class="ibox-content">
+        <div class="text-center" ng-if="loading == true">
+            <i class="fa fa-spinner fa-spin fa-3x"></i>
+        </div>
+        <div ng-if="loading == false">
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="control-label">Inspection</label>
+
+                    <ui-select ng-model="selectedInspection" theme="bootstrap" sortable="true" class="m-b-sm"
+                               on-select="setInspection($item, $model)">
+                        <ui-select-match placeholder="Select inspection...">
+                            Inspection {{$select.selected.id}}
+                            [
+                            {{moment($select.selected.timeScheduled).format("HH:mm ddd, MMM Do YYYY")}} |
+                            {{$select.selected.machine.name}} |
+                            {{$select.selected.machine.model.name}}
+                            ]
+                        </ui-select-match>
+                        <ui-select-choices repeat="inspection in inspections | filter: $select.search">
+                            Inspection <span ng-bind-html="inspection.id | highlight: $select.search"></span>
+                            [
+                            {{moment(inspection.timeScheduled).format("HH:mm ddd, MMM Do YYYY")}} |
+                            {{inspection.machine.name}} |
+                            {{inspection.machine.model.name}}
+                            ]
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="control-label">Value</label>
+
+                    <div class="dropdown">
+                        <div class="dropdown-toggle time-toggle-select" role="button" data-toggle="dropdown">
+                            <div class="input-group">
+                                <input type="number" class="form-control" ng-model="inspectionSchedule.value"
+                                       min="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="control-label">Period</label>
+
+                    <div class="dropdown">
+                        <div class="dropdown-toggle time-toggle-select" role="button" data-toggle="dropdown">
+                            <div class="input-group">
+                                <select class="form-control" ng-model="inspectionSchedule.period"
+                                        ng-options="timeInterval.id as timeInterval.value for timeInterval in timeIntervals"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

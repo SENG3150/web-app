@@ -2,20 +2,10 @@
     <div class="ibox-title">
         <h5>Inspection<span ng-if="loading == true"> (loading...)</span></h5>
         <div class="ibox-tools">
-            <button type="button" class="btn btn-xs btn-primary">
-                <a ui-sref="domainExpert-inspections-viewSchedule({ id: inspection.id })"
-                   class="btn-primary">
-                    <i class="fa fa-fw fa-search"></i>
-                    Edit Schedule
-                </a>
-            </button>
-            <button type="button" class="btn btn-xs btn-primary">
-                <a ui-sref="domainExpert-inspections-addSchedule({ id: inspection.id })"
-                   class="btn-primary">
-                    <i class="fa fa-fw fa-plus"></i>
-                    Add Schedule
-                </a>
-            </button>
+            <a ui-sref="domainExpert-recurring-create" class="btn btn-xs btn-primary">
+                <i class="fa fa-fw fa-plus"></i>
+                Create Recurring Inspection
+            </a>
         </div>
     </div>
     <div class="ibox-content">

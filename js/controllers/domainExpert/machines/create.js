@@ -55,11 +55,11 @@ angular
 				Machines.post($scope.machine)
 					.then(function () {
 						toastr.clear();
-						toastr.success('Model was created successfully.');
+						toastr.success('Machine was created successfully.');
 						$state.go('domainExpert-machines-index');
 					}, function () {
 						toastr.clear();
-						toastr.error('There was an error creating the model.');
+						toastr.error('There was an error creating the machine.');
 					});
 			}
 		};
@@ -67,13 +67,13 @@ angular
 		$scope.validate = function () {
 			if ($scope.machine.name == '' || $scope.machine.name == null) {
 				toastr.clear();
-				toastr.error('Enter Machine name.');
+				toastr.error('Enter machine name.');
 				return false;
 			}
 
 			if ($scope.machine.model.id == '' || $scope.machine.model.id == null) {
 				toastr.clear();
-				toastr.error('Please choose a Model.');
+				toastr.error('Please choose a model.');
 				return false;
 			}
 

@@ -23,9 +23,9 @@ angular
 
 			$scope.recentlyCompletedInspections = _.filter($scope.inspections, function (inspection) {
 				if (inspection.timeCompleted != null) {
-					var days = moment(inspection.timeCompleted).diff(moment(), 'days');
+					var days = moment().diff(moment(inspection.timeCompleted), 'days');
 
-					return days < 7;
+					return 0 <= days && days < 7;
 				} else {
 					return false;
 				}

@@ -52,11 +52,11 @@
                     <table class="table">
                         <tbody>
                         <tr ng-repeat="uniqueDetail in uniqueDetails">
-                            <td>
+                            <td style="width: 50%;">
                                 <input class="form-control" ng-model="uniqueDetail.uniqueDetail"
                                        placeholder="Unique Details">
                             </td>
-                            <td>
+                            <td style="width: 50%;">
                                 <button type="button" class="btn btn-danger btn-block"
                                         ng-click="removeUniqueDetail($index)">
                                     <i class="fa fa-trash"></i>
@@ -65,8 +65,8 @@
                             </td>
                         </tr>
                         <tr>
-                            <td></td>
-                            <td>
+                            <td style="width: 50%;"></td>
+                            <td style="width: 50%;">
                                 <button type="button" class="btn btn-primary btn-block"
                                         ng-click="addUniqueDetail()">
                                     <i class="fa fa-plus"></i>

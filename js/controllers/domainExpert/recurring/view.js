@@ -23,6 +23,7 @@ angular
 			}
 		]);
 
+		// GET the inspection schedule data from the server
 		InspectionSchedules
 			.one($scope.inspectionScheduleId)
 			.get({include: 'inspection,inspections.scheduler,inspections.technician'})

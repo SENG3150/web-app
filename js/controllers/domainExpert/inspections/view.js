@@ -31,6 +31,7 @@ angular
 			}
 		]);
 
+		//get the data of the inspection from the server
 		$scope.inspection = Inspections.one($scope.inspectionId).get({
 			include: 'technician,scheduler,machine.model,majorAssemblies.majorAssembly,majorAssemblies.subAssemblies.subAssembly'
 		}).then(
@@ -261,6 +262,7 @@ angular
 
 		};
 
+		// builds the tree, to display all test information
 		$scope.buildTree = function (selectedId) {
 			var rootNode = {
 				id: 'root',
@@ -272,13 +274,14 @@ angular
 			};
 
 			rootNode.state.selected = (rootNode.id == selectedId);
-
+			
 			if ($scope.inspection.comments.length > 0 || $scope.inspection.photos.length > 0) {
 				rootNode.a_attr = {
 					class: 'text-highlight'
 				};
 			}
 
+			// Adds each of the major assemblies that were tested in the inspection to the tree
 			angular.forEach($scope.inspection.majorAssemblies, function (majorAssembly) {
 				var majorAssemblyNode = {
 					id: ['root', majorAssembly.id].join('-'),
@@ -297,6 +300,7 @@ angular
 					};
 				}
 
+				// Adds each of the sub assemblies that were tested in the inspection as a child of the major assembly
 				angular.forEach(majorAssembly.subAssemblies, function (subAssembly) {
 					var subAssemblyNode = {
 						id: ['root', majorAssembly.id, subAssembly.id].join('-'),

@@ -221,7 +221,7 @@ angular
         //IMPORTING DOWNTIME DATA
         var fileInput = document.getElementById('downtimeImportFile');
 
-        //handle the reading of the excell file that was imported
+        //handle the reading of the excel file that was imported
         $scope.handleFile = function (e) {
             $scope.loadingFile = true;
             var files = e.target.files;
@@ -251,7 +251,7 @@ angular
         };
         fileInput.addEventListener('change', $scope.handleFile, false); //add function to when the user adds a file
 
-        //importing a excell file into the system
+        //importing an excel file into the system
         $scope.import = function () {
             $scope.downtime.data = [];
             if ($scope.loadingFile == false) {
@@ -345,7 +345,7 @@ angular
             return true;
         };
 
-        //find heads in a excell file
+        //find heads in an excel file
         //searches the first 20 rows and columns for headers
         //minimum of 3 consecutive cells must be occupied to count as headers found
         $scope.findHeaders = function (worksheet) {

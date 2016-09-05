@@ -18,12 +18,15 @@ angular
 			}
 		]);
 
+		// API call to the server to get the data of the machine associated to the schedule
 		InspectionSchedules.getList({include: 'inspection.machine'}).then(function (data) {
 			$scope.loading = false;
 			$scope.inspectionSchedules = data;
 		});
 
+		// Allows for the deletion of the inspection schedule
 		$scope.delete = function (id) {
+			// Creates a confirmation box with the options, Delete and Cancel
 			$confirm({
 				text: 'Are you sure you want to delete this recurring inspection?',
 				title: 'Delete Recurring Inspection',
@@ -31,6 +34,7 @@ angular
 				cancel: 'Cancel'
 			})
 				.then(function () {
+					// API call to the server to delete the inspection schedule
 					InspectionSchedules
 						.one(id)
 						.remove()

@@ -1,4 +1,4 @@
-//Controller to edit a sub assembly
+//Controller to edit a major assembly
 angular
     .module('joy-global')
     .controller('DomainExpertModelsViewMajorAssemblyControllerView', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'MajorAssemblies', '$stateParams', 'toastr', function ($scope, LayoutService, $state, DataTablesService, MajorAssemblies, $stateParams, toastr) {

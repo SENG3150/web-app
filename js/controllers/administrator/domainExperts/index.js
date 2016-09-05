@@ -18,6 +18,7 @@ angular
 			}
 		]);
 
+		//Return a list of all Domain Experts
 		DomainExperts.getList().then(function (data) {
 			$scope.loading = false;
 			$scope.domainExperts = data;

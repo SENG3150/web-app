@@ -8,6 +8,7 @@ angular
 		$scope.password = '';
 		$scope.confirmPassword = '';
 
+		//Get the information for a domain expert by ID
 		DomainExperts.one($scope.domainExpertsId).get().then(
 			function(data) {
 				$scope.loading = false;
@@ -48,6 +49,7 @@ angular
 			}
 		]);
 
+		//Validate all entered data before submitting to the server
 		$scope.validate = function () {
 			if ($scope.domainExpert.username == '' || $scope.domainExpert.username == null) {
 				toastr.clear();
@@ -87,6 +89,7 @@ angular
 			return true;
 		};
 
+		//If user data is edited the new data is validated and then saved to the server
 		$scope.save = function () {
 			if ($scope.validate() == true) {
 				if ($scope.password != '') {

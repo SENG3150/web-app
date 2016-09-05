@@ -29,7 +29,7 @@ angular
             }
         ]);
 
-
+        //If the entered data passes validation, submit the data to the server
         $scope.submitUser = function () {
             if ($scope.validate() == true) {
                 DomainExperts.post($scope.domainExpert)
@@ -44,6 +44,7 @@ angular
             }
         };
 
+        //Validate all entered data before submitting to the server
         $scope.validate = function () {
             if ($scope.domainExpert.username == '' || $scope.domainExpert.username == null) {
                 toastr.clear();
@@ -51,7 +52,7 @@ angular
 
                 return false;
             }
-            
+
             if ($scope.domainExpert.firstName == '' || $scope.domainExpert.firstName == null) {
                 toastr.clear();
                 toastr.error('Enter first name.');

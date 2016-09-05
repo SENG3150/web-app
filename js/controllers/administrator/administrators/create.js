@@ -28,9 +28,9 @@ angular
                 displayName: 'New Administrator'
             }
         ]);
-
-
-        $scope.submitUser = function () {
+        
+        //If the entered data passes validation, submit the data to the server
+       $scope.submitUser = function () {
             if ($scope.validate() == true) {
                 Administrators.post($scope.administrator)
                     .then(function () {
@@ -44,7 +44,8 @@ angular
 
             }
         };
-
+        
+        //Validate all entered data before submitting to the server
         $scope.validate = function () {
             if ($scope.administrator.username == '' || $scope.administrator.username == null) {
                 toastr.clear();

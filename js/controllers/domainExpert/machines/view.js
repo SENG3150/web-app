@@ -31,7 +31,8 @@ angular
             machine: $scope.machineId,
             data: []
         };
-	    
+
+        //get the data of the machine from the server
         Machines.one($scope.machineId).get({include: 'model.majorAssemblies.subAssemblies,inspections.technician,inspections.scheduler'}).then(
 	        function(data) {
 		        $scope.loading = false;
@@ -64,6 +65,7 @@ angular
         $scope.generateGraphs = function() {
             Downtime.getByMachine().one($scope.machineId).get({include: 'machine'}).then(function (data){
                 if(data.length > 0) {
+                    //system graph config
                     $scope.systemGraph = {
                         options: {
                             chart: {
@@ -102,6 +104,7 @@ angular
                         series: []
                     };
 
+                    //reason graph config
                     $scope.reasonGraph = {
                         options: {
                             chart: {
@@ -147,11 +150,15 @@ angular
                     $scope.systemData = [];
                     $scope.reasonData = [];
 
+                    //add the data to the series
                     angular.forEach(data, function (entry) {
                         $scope.createSeries(entry);
                     });
 
+                    //create the graphs
                     $scope.createGraphs();
+
+                    //allow the graphs to be rendered to the page
                     $scope.displayGraphs = true;
                     $scope.noGraphsAvailable = false;
                 }else {
@@ -177,6 +184,7 @@ angular
                 $scope.reasonGraph.xAxis.categories = $scope.reasonCategories;
 
                 var reasonSeries = {data: []};
+
                 angular.forEach($scope.reasonData, function (entry) {
                     reasonSeries.data.push(entry.hours);
                 });
@@ -213,6 +221,7 @@ angular
         //IMPORTING DOWNTIME DATA
         var fileInput = document.getElementById('downtimeImportFile');
 
+        //handle the reading of the excell file that was imported
         $scope.handleFile = function (e) {
             $scope.loadingFile = true;
             var files = e.target.files;
@@ -240,8 +249,9 @@ angular
                 reader.readAsBinaryString(f);
             }
         };
-        fileInput.addEventListener('change', $scope.handleFile, false);
+        fileInput.addEventListener('change', $scope.handleFile, false); //add function to when the user adds a file
 
+        //importing a excell file into the system
         $scope.import = function () {
             $scope.downtime.data = [];
             if ($scope.loadingFile == false) {
@@ -318,6 +328,7 @@ angular
             }
         };
 
+        //validate the downtime data array
         $scope.validate = function () {
             if ($scope.downtime.machine == null || isNaN($scope.downtime.machine)) {
                 return false;
@@ -334,19 +345,26 @@ angular
             return true;
         };
 
+        //find heads in a excell file
+        //searches the first 20 rows and columns for headers
+        //minimum of 3 consecutive cells must be occupied to count as headers found
         $scope.findHeaders = function (worksheet) {
             $scope.headers = [];
             $scope.headersCell = [];
 
             var rowValueCount = 0;
 
-            var row = 0;
-            var colStart = 0;
-            var colEnd = 0;
-            var found = false;
+            var row = 0; //row the heads are at
+            var colStart = 0; //column the headers start at
+            var colEnd = 0; //column the headers end at
+            var found = false; //whether we found headers or not
+
+            //search through 20 rows
             for (var r = 0; r <= 20; r++) {
                 var first = true;
                 rowValueCount = 0;
+
+                //search through 20 columns
                 for (var c = 0; c <= 20; c++) {
                     var cellNumber = XLSX.utils.encode_cell({c: c, r: r});
                     var cell = worksheet[cellNumber];
@@ -374,6 +392,7 @@ angular
                 }
             }
 
+            //if the headers are found, add the headers to the page
             if (found == true) {
                 for (var c = colStart; c <= colEnd; c++) {
                     var cell = XLSX.utils.encode_cell({c: c, r: row});

@@ -1,118 +1,124 @@
 // Controller to add a sub assembly to a models major assembly
 angular
-	.module('joy-global')
-	.controller('DomainExpertModelsViewSubAssemblyControllerCreate', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'SubAssemblies', '$stateParams', 'toastr', 'Models', function ($scope, LayoutService, $state, DataTablesService, SubAssemblies, $stateParams, toastr, Models) {
-		$scope.modelId = $stateParams.id;
-		$scope.majorAssemblyId = $stateParams.majorAssemblyId;
+    .module('joy-global')
+    .controller('DomainExpertModelsViewSubAssemblyControllerCreate', ['$scope', 'LayoutService', '$state', 'DataTablesService', 'SubAssemblies', '$stateParams', 'toastr', 'Models', function ($scope, LayoutService, $state, DataTablesService, SubAssemblies, $stateParams, toastr, Models) {
+        $scope.modelId = $stateParams.id;
+        $scope.majorAssemblyId = $stateParams.majorAssemblyId;
 
-		$scope.subAssembly = {
-			name: null,
-			machineGeneral: false,
-			oil: false,
-			wear: false,
-			uniqueDetails: []
-		};
+        $scope.subAssembly = {
+            name: null,
+            machineGeneral: false,
+            oil: false,
+            wear: false,
+            uniqueDetails: []
+        };
 
-		$scope.uniqueDetails = [];
+        $scope.uniqueDetails = [];
 
-		$scope.loading = true;
+        $scope.loading = true;
 
-		LayoutService.reset();
-		LayoutService.setTitle(['Add Sub Assembly', 'View Model', 'Models']);
-		LayoutService.getPageHeader().setBreadcrumbs([
-			{
-				route: 'domainExpert-index',
-				displayName: 'Home'
-			},
-			{
-				route: 'domainExpert-models-index',
-				displayName: 'Models'
-			},
-			{
-				route: 'domainExpert-models-view({ id: ' + $scope.modelId + ' })',
-				displayName: 'Edit Model'
-			},
-			{
-				route: 'domainExpert-models-view-subAssembly-create({ id: ' + $scope.modelId + ', majorAssembly: ' + $scope.majorAssemblyId + ' })',
-				displayName: 'Add Sub Assembly'
-			}
-		]);
+        LayoutService.reset();
+        LayoutService.setTitle(['Add Sub Assembly', 'View Model', 'Models']);
+        LayoutService.getPageHeader().setBreadcrumbs([
+            {
+                route: 'domainExpert-index',
+                displayName: 'Home'
+            },
+            {
+                route: 'domainExpert-models-index',
+                displayName: 'Models'
+            },
+            {
+                route: 'domainExpert-models-view({ id: ' + $scope.modelId + ' })',
+                displayName: 'Edit Model'
+            },
+            {
+                route: 'domainExpert-models-view-subAssembly-create({ id: ' + $scope.modelId + ', majorAssembly: ' + $scope.majorAssemblyId + ' })',
+                displayName: 'Add Sub Assembly'
+            }
+        ]);
 
-		Models
-			.one($scope.modelId)
-			.get()
-			.then(function (data) {
-				$scope.loading = false;
-				$scope.model = data;
+        //get the information about the particular model
+        Models.one($scope.modelId).get().then(function (data) {
+            $scope.loading = false;
+            $scope.model = data;
 
-				LayoutService.reset();
-				LayoutService.setTitle(['Add Sub Assembly', $scope.model.name, 'Models']);
-				LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Add</button>');
-				LayoutService.getPageHeader().setBreadcrumbs([
-					{
-						route: 'domainExpert-index',
-						displayName: 'Home'
-					},
-					{
-						route: 'domainExpert-models-index',
-						displayName: 'Models'
-					},
-					{
-						route: 'domainExpert-models-view({ id: ' + $scope.modelId + ' })',
-						displayName: $scope.model.name
-					},
-					{
-						route: 'domainExpert-models-view-subAssembly-create({ id: ' + $scope.modelId + ', majorAssembly: ' + $scope.majorAssemblyId + ' })',
-						displayName: 'Add Sub Assembly'
-					}
-				]);
+            //update the bread crumbs
+            LayoutService.reset();
+            LayoutService.setTitle(['Add Sub Assembly', $scope.model.name, 'Models']);
+            LayoutService.getPageHeader().setActionButton('<button type="button" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Add</button>');
+            LayoutService.getPageHeader().setBreadcrumbs([
+                {
+                    route: 'domainExpert-index',
+                    displayName: 'Home'
+                },
+                {
+                    route: 'domainExpert-models-index',
+                    displayName: 'Models'
+                },
+                {
+                    route: 'domainExpert-models-view({ id: ' + $scope.modelId + ' })',
+                    displayName: $scope.model.name
+                },
+                {
+                    route: 'domainExpert-models-view-subAssembly-create({ id: ' + $scope.modelId + ', majorAssembly: ' + $scope.majorAssemblyId + ' })',
+                    displayName: 'Add Sub Assembly'
+                }
+            ]);
 
-				LayoutService.getPageHeader().onClicked($scope.save);
-			});
+            LayoutService.getPageHeader().onClicked($scope.save);
+        });
 
-		$scope.save = function () {
-			if ($scope.validate() == true) {
-				$scope.subAssembly.majorAssembly = $scope.majorAssemblyId;
+        //save the sub assembly to the server
+        $scope.save = function () {
 
-				$scope.subAssembly.uniqueDetails = _.filter(
-					_.pluck(
-						$scope.uniqueDetails,
-						'uniqueDetail'
-					),
-					function (uniqueDetail) {
-						return uniqueDetail != null && uniqueDetail != '';
-					}
-				);
+            //validate the data before sending it tothe server
+            if ($scope.validate() == true) {
+                $scope.subAssembly.majorAssembly = $scope.majorAssemblyId;
 
-				SubAssemblies.post($scope.subAssembly)
-					.then(function () {
-						toastr.clear();
-						toastr.success('Sub assembly was created successfully.');
-						$state.go('domainExpert-models-view', {id: $scope.modelId});
-					}, function () {
-						toastr.clear();
-						toastr.error('There was an error creating the sub assembly.');
-					});
-			}
-		};
+                $scope.subAssembly.uniqueDetails = _.filter(
+                    _.pluck(
+                        $scope.uniqueDetails,
+                        'uniqueDetail'
+                    ),
+                    function (uniqueDetail) {
+                        return uniqueDetail != null && uniqueDetail != '';
+                    }
+                );
 
-		$scope.validate = function () {
-			if ($scope.subAssembly.name == '' || $scope.subAssembly.name == null) {
-				toastr.clear();
-				toastr.error('Enter sub assembly name.');
-				return false;
-			}
+                //API call to the server to save the sub assembly
+                SubAssemblies.post($scope.subAssembly)
+                    .then(function () {
+                        toastr.clear();
+                        toastr.success('Sub assembly was created successfully.');
+                        $state.go('domainExpert-models-view', {id: $scope.modelId});
+                    }, function () {
+                        toastr.clear();
+                        toastr.error('There was an error creating the sub assembly.');
+                    });
+            }
+        };
 
-			return true;
-		};
+        //validate the sub assembly
+        $scope.validate = function () {
+            if ($scope.subAssembly.name == '' || $scope.subAssembly.name == null) {
+                toastr.clear();
+                toastr.error('Enter sub assembly name.');
+                return false;
+            }
 
-		$scope.addUniqueDetail = function () {
-			$scope.uniqueDetails.push({
-				uniqueDetail: ''
-			});
-		};
+            return true;
+        };
 
-		$scope.removeUniqueDetail = function (index) {
-			$scope.uniqueDetails.splice(index, 1);
-		};
-	}]);
+        //allow additions of unique details to the wear test to be performed in inspections
+        $scope.addUniqueDetail = function () {
+            $scope.uniqueDetails.push({
+                uniqueDetail: ''
+            });
+        };
+
+        //remove a unique detail field from the wear test
+        $scope.removeUniqueDetail = function (index) {
+            $scope.uniqueDetails.splice(index, 1);
+        };
+    }]);

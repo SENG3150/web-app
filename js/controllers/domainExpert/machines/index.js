@@ -18,6 +18,7 @@ angular
 			}
 		]);
 
+		//get the information about all machines in the system
 		Machines.getList({include: 'model.majorAssemblies.subAssemblies'}).then(function (data) {
 			$scope.loading = false;
 			$scope.machines = data;

@@ -1,4 +1,5 @@
 var Promise = require('es6-promise').Promise;
+var Server = require('karma').Server;
 var gulp = require('gulp');
 var templateCache = require('gulp-angular-templatecache');
 var concat = require('gulp-concat');
@@ -34,6 +35,7 @@ var concatCoreConfig = {
 		'bower_components/jquery/dist/jquery.min.js',
 		'bower_components/jquery-ui/jquery-ui.min.js',
 		'bower_components/angular/angular.js',
+		'bower_components/angular-mocks/angular-mocks.js',
 		'bower_components/angular-ui-router/release/angular-ui-router.js',
 		'bower_components/bootstrap/dist/js/bootstrap.js',
 		'bower_components/jquery-slimscroll/jquery.slimscroll.js',
@@ -213,7 +215,41 @@ gulp.task('env-production', function () {
 		.pipe(gulp.dest(config.destination));
 });
 
-gulp.task('watcher', function() {
+var testsConfig = {
+	source: [
+		'dist/core.js',
+		'dist/app.js',
+		'dist/templates.js',
+		'dist/plugins.js',
+		'tests/unit/services/*.js',
+		'tests/unit/directives/*.js',
+		'tests/unit/factories/*.js',
+		'tests/unit/filters/*.js',
+		'tests/unit/routes/**/*.js',
+		'tests/unit/routes/*.js',
+		'tests/unit/controllers/**/*.js',
+		'tests/unit/controllers/*.js'
+	],
+	browsers: ['Chrome', 'Firefox']
+};
+
+gulp.task('test', ['concat-core', 'concat-app', 'concat-plugins', 'template-cache'], function (done) {
+	var browsers = testsConfig.browsers;
+
+	if (/^win/.test(process.platform)) {
+		browsers.push('IE');
+	} else if (/^darwin/.test(process.platform)) {
+		browsers.push('Safari');
+	}
+
+	new Server({
+		configFile: __dirname + '/karma.conf.js',
+		files: testsConfig.source,
+		browsers: browsers
+	}, done).start();
+});
+
+gulp.task('watcher', function () {
 	gulp.watch(templateCacheConfig.source, ['template-cache']);
 	gulp.watch(concatCoreConfig.source, ['concat-core']);
 	gulp.watch(concatAppConfig.source, ['concat-app']);
@@ -226,6 +262,6 @@ function onError(err) {
 	this.emit('end');
 }
 
-gulp.task('default', ['template-cache', 'concat-core', 'env-production', 'concat-app', 'concat-plugins', 'concat-css', 'copy-fonts', 'build-theme', 'watcher']);
-gulp.task('development', ['template-cache', 'concat-core', 'env-development', 'concat-app', 'concat-plugins', 'concat-css', 'copy-fonts', 'build-theme', 'watcher']);
+gulp.task('default', ['template-cache', 'concat-core', 'env-production', 'concat-app', 'concat-plugins', 'concat-css', 'copy-fonts', 'build-theme', 'test', 'watcher']);
+gulp.task('development', ['template-cache', 'concat-core', 'env-development', 'concat-app', 'concat-plugins', 'concat-css', 'copy-fonts', 'build-theme', 'test', 'watcher']);
 gulp.task('deployment', ['template-cache', 'concat-core', 'env-production', 'concat-app', 'concat-plugins', 'concat-css', 'copy-fonts', 'build-theme']);

@@ -14,6 +14,7 @@ angular
 
 		$scope.selectedInspection = null;
 
+		// API call to the server to get all of the machine models in the system
 		Inspections.getList({include: 'machine.model'}).then(
 			function (data) {
 				$scope.loading = false;
@@ -28,12 +29,13 @@ angular
 			}
 		);
 
+		// The parameters required to make a recurring inspection schedule
 		$scope.inspectionSchedule = {
 			inspection: {
-				id: $scope.inspectionId
+				id: $scope.inspectionId		// Associates the schedule with an existing inspection
 			},
-			value: 0,
-			period: 'days'
+			value: 0,						// Specifies how often the inspection will be repeated, if 6 and period is weeks, then the schedule repeats every 6 weeks
+			period: 'days'					// Selected from timeIntervals (days, weeks, months, years)
 		};
 
 		LayoutService.reset();
@@ -54,10 +56,12 @@ angular
 			}
 		]);
 
+		// POST the inspection schedule data to the server
 		$scope.save = function () {
 			toastr.clear();
 
-			if ($scope.inspectionSchedule.value > 0) {
+			if ($scope.inspectionSchedule.value > 0) {				// Ensures the user has entered a value for the schedule
+				// API call to the server to create a new inspectionSchedule
 				InspectionSchedules.post($scope.inspectionSchedule)
 					.then(function () {
 							toastr.success('The inspection was scheduled successfully.');
@@ -72,6 +76,7 @@ angular
 			}
 		};
 
+		// Retrieves the inspection ID from the associated inspection
 		$scope.setInspection = function (inspection) {
 			$scope.selectedInspection = inspection;
 			$scope.inspectionSchedule.inspection = inspection.id;

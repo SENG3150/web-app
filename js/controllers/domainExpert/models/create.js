@@ -24,8 +24,11 @@ angular
             }
         ]);
 
-        $scope.submitModel = function() {
-            if ($scope.validate() == true) {
+        //POST the model data to the server
+        $scope.submitModel = function () {
+            if ($scope.validate() == true) { //validate the data before sending it
+
+                //API call to the server to create a new model
                 Models.post($scope.model)
                     .then(function () {
                         toastr.clear();
@@ -38,8 +41,9 @@ angular
             }
         };
 
-        $scope.validate = function() {
-            if($scope.model.name == '' || $scope.model.name == null) {
+        //validate the model data
+        $scope.validate = function () {
+            if ($scope.model.name == '' || $scope.model.name == null) {
                 toastr.clear();
                 toastr.error('Enter Model name.');
                 return false;

@@ -48,6 +48,7 @@ angular
 			}
 		]);
 
+		//Validate all entered data before submitting to the server
 		$scope.validate = function () {
 			if ($scope.technician.username == '' || $scope.technician.username == null) {
 				toastr.clear();
@@ -96,6 +97,7 @@ angular
 			return true;
 		};
 
+		//If user data is edited the new data is validated and then saved to the server
 		$scope.save = function () {
 			if ($scope.validate() == true) {
 				if ($scope.password != '') {

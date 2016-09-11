@@ -18,6 +18,7 @@ angular
 			}
 		]);
 
+		//Return a list of all administrators
 		Administrators.getList().then(function (data) {
 			$scope.loading = false;
 			$scope.administrators = data;

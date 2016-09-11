@@ -18,6 +18,7 @@ angular
 			}
 		]);
 
+		//Return a list of all technicians
 		Technicians.getList().then(function (data) {
 			$scope.loading = false;
 			$scope.technicians = data;

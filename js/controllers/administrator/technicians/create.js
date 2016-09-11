@@ -31,7 +31,8 @@ angular
                 displayName: 'New Technician'
             }
         ]);
-
+        
+        //If the entered data passes validation, submit the data to the server
         $scope.submitUser = function () {
             if ($scope.validate() == true) {
                 Technicians.post($scope.technician)
@@ -47,6 +48,7 @@ angular
             }
         };
 
+        //Validate all entered data before submitting to the server
         $scope.validate = function () {
             if ($scope.technician.username == '' || $scope.technician.username == null) {
                 toastr.clear();

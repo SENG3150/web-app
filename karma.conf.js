@@ -62,6 +62,6 @@ module.exports = function (config) {
 		// how many browser should be started simultaneous
 		concurrency: Infinity,
 
-		captureTimeout: 10000
+		captureTimeout: 60000
 	})
 };

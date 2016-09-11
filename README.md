@@ -11,6 +11,7 @@ You will be prompted for credentials for Bitbucket, which we have used to keep t
 
 		npm install -g bower
 		npm install -g gulp-cli
+		npm install -g karma-cli
 
 * Install a web server and setup a virtual host for the website to run in. An example httpd-vhosts.conf entry is below for Apache, which assumes you have mod_rewrite and mod_deflate running:
 

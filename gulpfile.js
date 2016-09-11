@@ -215,7 +215,7 @@ gulp.task('env-production', function () {
 		.pipe(gulp.dest(config.destination));
 });
 
-var testsConfig = {
+var testConfig = {
 	source: [
 		'dist/core.js',
 		'dist/app.js',
@@ -234,7 +234,7 @@ var testsConfig = {
 };
 
 gulp.task('test', ['concat-core', 'concat-app', 'concat-plugins', 'template-cache'], function (done) {
-	var browsers = testsConfig.browsers;
+	var browsers = testConfig.browsers;
 
 	if (/^win/.test(process.platform)) {
 		browsers.push('IE');
@@ -244,7 +244,7 @@ gulp.task('test', ['concat-core', 'concat-app', 'concat-plugins', 'template-cach
 
 	new Server({
 		configFile: __dirname + '/karma.conf.js',
-		files: testsConfig.source,
+		files: testConfig.source,
 		browsers: browsers
 	}, done).start();
 });

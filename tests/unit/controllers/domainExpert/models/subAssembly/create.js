@@ -1,14 +1,15 @@
 describe('DomainExpertModelsViewSubAssemblyControllerCreate', function () {
-    var DomainExpertModelsViewSubAssemblyControllerCreate, rootScope, httpBackend, Models, SubAssemblies;
+    var DomainExpertModelsViewSubAssemblyControllerCreate, rootScope, httpBackend, Models, SubAssemblies, ENV;
 
     beforeEach(angular.mock.module('joy-global'));
 
-    beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_, _Models_, _SubAssemblies_) {
+    beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_, _Models_, _SubAssemblies_, _ENV_) {
         DomainExpertModelsViewSubAssemblyControllerCreate = $controller;
         rootScope = _$rootScope_;
         httpBackend = _$httpBackend_;
         Models = _Models_;
         SubAssemblies = _SubAssemblies_;
+        ENV = _ENV_;
     }));
 
     it('should exist', function(){
@@ -84,7 +85,7 @@ describe('DomainExpertModelsViewSubAssemblyControllerCreate', function () {
         });
 
         it('should save', function() {
-            httpBackend.when('POST', '/subAssemblies').respond(200, '');
+            httpBackend.when('POST', ENV.apiEndpoint + '/subAssemblies').respond(200, '');
             spyOn(SubAssemblies, 'post').and.callThrough();
 
             scope.subAssembly = {
@@ -100,7 +101,7 @@ describe('DomainExpertModelsViewSubAssemblyControllerCreate', function () {
         });
 
         it('should fail due to no name', function() {
-            httpBackend.when('POST', '/subAssemblies').respond(200, '');
+            httpBackend.when('POST', ENV.apiEndpoint + '/subAssemblies').respond(200, '');
             spyOn(SubAssemblies, 'post').and.callThrough();
 
             scope.subAssembly = {
@@ -116,7 +117,7 @@ describe('DomainExpertModelsViewSubAssemblyControllerCreate', function () {
         });
 
         it('should fail due to name being null', function() {
-            httpBackend.when('POST', '/subAssemblies').respond(200, '');
+            httpBackend.when('POST', ENV.apiEndpoint + '/subAssemblies').respond(200, '');
             spyOn(SubAssemblies, 'post').and.callThrough();
 
             scope.subAssembly = {

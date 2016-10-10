@@ -1,14 +1,15 @@
 describe('DomainExpertModelsViewMajorAssemblyControllerCreate', function () {
-    var createController, rootScope, httpBackend, Models, MajorAssemblies;
+    var createController, rootScope, httpBackend, Models, MajorAssemblies, ENV;
 
     beforeEach(angular.mock.module('joy-global'));
 
-    beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_, _Models_, _MajorAssemblies_) {
+    beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_, _Models_, _MajorAssemblies_, _ENV_) {
         createController = $controller;
         rootScope = _$rootScope_;
         httpBackend = _$httpBackend_;
         Models = _Models_;
         MajorAssemblies = _MajorAssemblies_;
+        ENV = _ENV_;
     }));
 
     it('should exist', function(){
@@ -50,7 +51,7 @@ describe('DomainExpertModelsViewMajorAssemblyControllerCreate', function () {
         });
 
         it('should save', function() {
-            httpBackend.when('POST', '/MajorAssemblies').respond(200, '');
+            httpBackend.when('POST', ENV.apiEndpoint + '/majorAssemblies').respond(200, '');
             spyOn(MajorAssemblies, 'post').and.callThrough();
 
             scope.majorAssembly = {
@@ -62,7 +63,7 @@ describe('DomainExpertModelsViewMajorAssemblyControllerCreate', function () {
         });
 
         it('should fail due to no name', function() {
-            httpBackend.when('POST', '/MajorAssemblies').respond(200, '');
+            httpBackend.when('POST', ENV.apiEndpoint + '/majorAssemblies').respond(200, '');
             spyOn(MajorAssemblies, 'post').and.callThrough();
 
             scope.majorAssembly = {

@@ -1,14 +1,16 @@
 describe('DomainExpertRecurringControllerCreate', function () {
-    var DomainExpertRecurringControllerCreate, rootScope, httpBackend, $state, toastr;
+    var DomainExpertRecurringControllerCreate, rootScope, httpBackend, $state, toastr, ENV;
 
     beforeEach(angular.mock.module('joy-global'));
+    beforeEach(angular.mock.module('config'));
 
-    beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_,  _$state_, _toastr_) {
+    beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_,  _$state_, _toastr_, _ENV_) {
         DomainExpertRecurringControllerCreate = $controller;
         rootScope = _$rootScope_;
         httpBackend = _$httpBackend_;
         $state = _$state_;
         toastr = _toastr_;
+        ENV = _ENV_;
     }));
 
     it('should exist', function(){
@@ -41,14 +43,14 @@ describe('DomainExpertRecurringControllerCreate', function () {
         });
 
         it('it should succeed', function() {
-            httpBackend.when('GET', 'http://seng3150.api.local/inspections?include=machine.model').respond([{
+            httpBackend.when('GET', ENV.apiEndpoint + 'inspections?include=machine.model').respond([{
                 id: 18581,
                 model: {
                     name: 'test',
                     id: '12'
                 }
             }]);
-            httpBackend.when('POST', 'http://seng3150.api.local/inspectionSchedules').respond(200, '');
+            httpBackend.when('POST', ENV.apiEndpoint + 'inspectionSchedules').respond(200, '');
             scope.inspectionSchedule.value = 5;
             spyOn($state, 'go');
             scope.save();
@@ -57,14 +59,14 @@ describe('DomainExpertRecurringControllerCreate', function () {
         });
 
         it('should be a server error', function() {
-            httpBackend.when('GET', 'http://seng3150.api.local/inspections?include=machine.model').respond([{
+            httpBackend.when('GET', ENV.apiEndpoint + 'inspections?include=machine.model').respond([{
                 id: 18581,
                 model: {
                     name: 'test',
                     id: '12'
                 }
             }]);
-            httpBackend.when('POST', 'http://seng3150.api.local/inspectionSchedules').respond(422, '');
+            httpBackend.when('POST', ENV.apiEndpoint + 'inspectionSchedules').respond(422, '');
             scope.inspectionSchedule.value = 5;
             spyOn(toastr, 'error');
             scope.save();

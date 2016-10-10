@@ -1,15 +1,16 @@
 describe('DomainExpertMachinesControllerCreate', function () {
-    var DomainExpertMachinesControllerCreate, rootScope, httpBackend, $state, Machines, toastr;
+    var DomainExpertMachinesControllerCreate, rootScope, httpBackend, $state, Machines, toastr, ENV;
 
     beforeEach(angular.mock.module('joy-global'));
 
-    beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_, _$state_, _Machines_, _toastr_) {
+    beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_, _$state_, _Machines_, _toastr_, _ENV_) {
         DomainExpertMachinesControllerCreate = $controller;
         rootScope = _$rootScope_;
         httpBackend = _$httpBackend_;
         $state = _$state_;
         Machines = _Machines_;
         toastr = _toastr_;
+        ENV = _ENV_;
     }));
 
     it('should exist', function(){
@@ -89,8 +90,8 @@ describe('DomainExpertMachinesControllerCreate', function () {
         });
 
         it('should be successfully be submitted', function() {
-            httpBackend.when('GET', 'http://seng3150.api.local/models').respond([{id: 1, name: 'abc'}]);
-            httpBackend.when('POST', 'http://seng3150.api.local/machines').respond(200, '');
+            httpBackend.when('GET', ENV.apiEndpoint + 'models').respond([{id: 1, name: 'abc'}]);
+            httpBackend.when('POST', ENV.apiEndpoint + 'machines').respond(200, '');
             spyOn($state, 'go');
         
             scope.machine.name = 'abc';
@@ -103,8 +104,8 @@ describe('DomainExpertMachinesControllerCreate', function () {
         });
 
         it('there should be a server error', function() {
-            httpBackend.when('GET', 'http://seng3150.api.local/models').respond([{id: 1, name: 'abc'}]);
-            httpBackend.when('POST', 'http://seng3150.api.local/machines').respond(422, '');
+            httpBackend.when('GET', ENV.apiEndpoint + 'models').respond([{id: 1, name: 'abc'}]);
+            httpBackend.when('POST', ENV.apiEndpoint + 'machines').respond(422, '');
 
             spyOn(toastr, 'error');
 

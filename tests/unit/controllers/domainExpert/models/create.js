@@ -1,14 +1,15 @@
 describe('DomainExpertModelsControllerCreate', function () {
-    var DomainExpertModelsControllerCreate, rootScope, httpBackend, $state, toastr;
+    var DomainExpertModelsControllerCreate, rootScope, httpBackend, $state, toastr, ENV;
 
     beforeEach(angular.mock.module('joy-global'));
 
-    beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_, _$state_, _toastr_) {
+    beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_, _$state_, _toastr_, _ENV_) {
         DomainExpertModelsControllerCreate = $controller;
         rootScope = _$rootScope_;
         httpBackend = _$httpBackend_;
         $state = _$state_;
         toastr = _toastr_;
+        ENV = _ENV_;
     }));
 
     it('should exist', function(){
@@ -49,7 +50,7 @@ describe('DomainExpertModelsControllerCreate', function () {
         });
 
         it('should be successfully be submitted', function() {
-            httpBackend.when('POST', 'http://seng3150.api.local/models').respond(200, '');
+            httpBackend.when('POST', ENV.apiEndpoint + 'models').respond(200, '');
             spyOn($state, 'go');
 
             scope.model.name = 'abc';
@@ -61,7 +62,7 @@ describe('DomainExpertModelsControllerCreate', function () {
         });
 
         it('there should be a server error', function() {
-            httpBackend.when('POST', 'http://seng3150.api.local/models').respond(422, '');
+            httpBackend.when('POST', ENV.apiEndpoint + 'models').respond(422, '');
 
             spyOn(toastr, 'error');
 

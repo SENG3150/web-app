@@ -1,14 +1,15 @@
 describe('DomainExpertRecurringControllerIndex', function () {
-    var DomainExpertRecurringControllerIndex, rootScope, httpBackend, $state, toastr;
+    var DomainExpertRecurringControllerIndex, rootScope, httpBackend, $state, toastr, ENV;
 
     beforeEach(angular.mock.module('joy-global'));
 
-    beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_,  _$state_, _toastr_) {
+    beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_,  _$state_, _toastr_, _ENV_) {
         DomainExpertRecurringControllerIndex = $controller;
         rootScope = _$rootScope_;
         httpBackend = _$httpBackend_;
         $state = _$state_;
         toastr = _toastr_;
+        ENV = _ENV_;
     }));
 
     it('should exist', function(){
@@ -26,7 +27,7 @@ describe('DomainExpertRecurringControllerIndex', function () {
 
         it('should successfully delete a inspection schedule', inject(function($q) {
             var deferred = $q.defer();
-            httpBackend.when('DELETE', 'http://seng3150.api.local/inspectionSchedules').respond(200, '');
+            httpBackend.when('DELETE', ENV.apiEndpoint + 'inspectionSchedules').respond(200, '');
             //spyOn($confirm).and.returnValue(deferred.promise);
             spyOn($state, 'reload');
 
@@ -37,7 +38,7 @@ describe('DomainExpertRecurringControllerIndex', function () {
 
         it('should fail to delete a inspection schedule', inject(function($q) {
             var deferred = $q.defer();
-            httpBackend.when('DELETE', 'http://seng3150.api.local/inspectionSchedules').respond(200, '');
+            httpBackend.when('DELETE', ENV.apiEndpoint + 'inspectionSchedules').respond(200, '');
             //spyOn($confirm).and.returnValue(deferred.promise);
             spyOn(toastr, 'error');
 

@@ -228,7 +228,9 @@ var testConfig = {
 		'tests/unit/routes/**/*.js',
 		'tests/unit/routes/*.js',
 		'tests/unit/controllers/**/*.js',
-		'tests/unit/controllers/*.js'
+		'tests/unit/controllers/*.js',
+		'bower_components/highcharts/highcharts.js',
+		'bower_components/highcharts-ng/dist/highcharts-ng.min.js'
 	],
 	browsers: ['Chrome', 'Firefox']
 };

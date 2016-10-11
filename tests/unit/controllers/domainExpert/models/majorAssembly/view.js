@@ -1,14 +1,15 @@
 describe('DomainExpertModelsViewMajorAssemblyControllerView', function () {
-    var DomainExpertModelsViewMajorAssemblyControllerView, rootScope, httpBackend,$state, toastr;
+    var DomainExpertModelsViewMajorAssemblyControllerView, rootScope, httpBackend,$state, toastr, ENV;
 
     beforeEach(angular.mock.module('joy-global'));
 
-    beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_, _$state_, _toastr_) {
+    beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_, _$state_, _toastr_, _ENV_) {
         DomainExpertModelsViewMajorAssemblyControllerView = $controller;
         rootScope = _$rootScope_;
         httpBackend = _$httpBackend_;
         $state = _$state_;
         toastr = _toastr_;
+        ENV = _ENV_;
         httpBackend.when('GET', 'http://seng3150.api.local/majorAssemblies').respond({
             "id": 1,
             "name": "Hoist System (HST)",

@@ -1,31 +1,16 @@
 describe('DomainExpertModelsViewMajorAssemblyControllerView', function () {
-    var DomainExpertModelsViewMajorAssemblyControllerView, rootScope, httpBackend,$state, toastr, ENV;
+    var DomainExpertModelsViewMajorAssemblyControllerView, rootScope, httpBackend,$state, toastr, ENV, AuthService;
 
     beforeEach(angular.mock.module('joy-global'));
 
-    beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_, _$state_, _toastr_, _ENV_) {
+    beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_, _$state_, _toastr_, _ENV_, _AuthService_) {
         DomainExpertModelsViewMajorAssemblyControllerView = $controller;
         rootScope = _$rootScope_;
         httpBackend = _$httpBackend_;
         $state = _$state_;
         toastr = _toastr_;
         ENV = _ENV_;
-        httpBackend.when('GET', 'http://seng3150.api.local/majorAssemblies').respond({
-            "id": 1,
-            "name": "Hoist System (HST)",
-            "model": {
-                "id": 1,
-                "name": "4100 XPC-AC Shovel"
-            },
-            "route": "majorAssemblies",
-            "reqParams": {
-                "include": "model"
-            },
-            "restangularized": true,
-            "fromServer": true,
-            "parentResource": null,
-            "restangularCollection": false
-        });
+        AuthService = _AuthService_;
     }));
 
     it('should exist', function(){
@@ -58,33 +43,63 @@ describe('DomainExpertModelsViewMajorAssemblyControllerView', function () {
     });
 
     describe('.save()', function() {
-        var scope, controller, stateParams;
+        var scope, controller;
 
         beforeEach(inject(function ($q) {
             scope = rootScope.$new();
-            stateParams = {modelId: 1};
-            controller = DomainExpertModelsViewMajorAssemblyControllerView('DomainExpertModelsViewMajorAssemblyControllerView', {$scope: scope, $stateParams: stateParams});
-
+            controller = DomainExpertModelsViewMajorAssemblyControllerView('DomainExpertModelsViewMajorAssemblyControllerView', {$scope: scope});
+            
+            httpBackend.when('GET', ENV.apiEndpoint + 'majorAssemblies?include=model').respond({
+                "id": 1,
+                "name": "Hoist System (HST)",
+                "model": {
+                    "id": 1,
+                    "name": "4100 XPC-AC Shovel"
+                }
+            });
+            httpBackend.flush();
+            
+            //fake that the user is logged in
+            spyOn(AuthService, 'checkPermissions').and.returnValue(true);
         }));
 
         it('should save', function() {
-            // httpBackend.when('POST', 'http://seng3150.api.local/majorAssemblies').respond(200, '');
-            // spyOn($state, 'go');
-            //
-            // scope.save();
-            // httpBackend.flush();
-            // expect($state.go).toHaveBeenCalledWith('domainExpert-models-view', {id: $scope.modelId});
+            httpBackend.when('POST', ENV.apiEndpoint + 'majorAssemblies/' + scope.majorAssembly.id).respond(200, '');
+            spyOn($state, 'go');
 
+            scope.modelId = 10;
+            scope.save();
+            httpBackend.flush();
+
+            expect($state.go).toHaveBeenCalledWith('domainExpert-models-view', {id: scope.modelId});
+        });
+
+        it('should fail due to a server error', function() {
+            httpBackend.when('POST', ENV.apiEndpoint + 'majorAssemblies/' + scope.majorAssembly.id).respond(422, '');
+            spyOn(toastr, 'error');
+
+            scope.save();
+            httpBackend.flush();
+
+            expect(toastr.error).toHaveBeenCalledWith('There was an error updating the major assembly name.');
         });
 
         it('should fail due to no name', function() {
-            // httpBackend.when('GET', 'http://seng3150.api.local/majorAssemblies').respond({name: 'default', id: 2});
-            // spyOn(toastr, 'error');
-            //
-            // scope.majorAssembly.name = '';
-            // scope.save();
-            //
-            // expect(toastr.error).toHaveBeenCalledWith('There was an error updating the major assembly name.');
+            spyOn(toastr, 'error');
+
+            scope.majorAssembly.name = '';
+            scope.save();
+
+            expect(toastr.error).toHaveBeenCalledWith('Enter a major assembly name.');
+        });
+
+        it('should fail due to a null name', function() {
+            spyOn(toastr, 'error');
+
+            scope.majorAssembly.name = null;
+            scope.save();
+
+            expect(toastr.error).toHaveBeenCalledWith('Enter a major assembly name.');
         });
     });
 });

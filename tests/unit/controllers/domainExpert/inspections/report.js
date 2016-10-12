@@ -113,7 +113,7 @@ describe('DomainExpertInspectionsControllerReport', function () {
                     }
                 ]
             };
-            expect(JSON.stringify(graphResult)).toBe(JSON.stringify(actualResult));
+            expect(graphResult).toEqual(actualResult);
         });
 
         it('wear graphs generate correctly ( .createWearGraph() )', function () {
@@ -205,7 +205,7 @@ describe('DomainExpertInspectionsControllerReport', function () {
                 }]
             };
 
-            expect(JSON.stringify(graphResult)).toBe(JSON.stringify(actualResult));
+            expect(graphResult).toEqual(actualResult);
         });
 
         it('should correctly create 4 oil test graphs and 1 wear test graph for a single sub assembly', function () {

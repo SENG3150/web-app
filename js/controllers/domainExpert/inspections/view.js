@@ -101,7 +101,7 @@ angular
 				toastr.clear();
 				toastr.info('Saving your comment...');
 
-				Comments.save(comment).then(
+				Comments.post(comment).then(
 					function () {
 						toastr.clear();
 						toastr.success('Your comment was saved successfully.');

@@ -23,7 +23,7 @@ angular
 						$scope.commentData[$scope.location] = $scope.locationId;
 					}
 
-					Comments.save($scope.commentData).then(function () {
+					Comments.post($scope.commentData).then(function () {
 						toastr.clear();
 						toastr.success('Your comment was saved successfully!');
 					}, function () {

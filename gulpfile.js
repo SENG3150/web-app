@@ -221,6 +221,10 @@ var testConfig = {
 		'dist/app.js',
 		'dist/templates.js',
 		'dist/plugins.js',
+		'bower_components/highcharts/highcharts.js',
+		'bower_components/highcharts-ng/dist/highcharts-ng.min.js',
+		'tests/efficiency/*.js',
+		'tests/presentation/*.js',
 		'tests/unit/services/*.js',
 		'tests/unit/directives/*.js',
 		'tests/unit/factories/*.js',
@@ -229,8 +233,8 @@ var testConfig = {
 		'tests/unit/routes/*.js',
 		'tests/unit/controllers/**/*.js',
 		'tests/unit/controllers/*.js',
-		'bower_components/highcharts/highcharts.js',
-		'bower_components/highcharts-ng/dist/highcharts-ng.min.js'
+		'tests/security/*.js',
+		'tests/usability/*.js'
 	],
 	browsers: ['Chrome', 'Firefox']
 };

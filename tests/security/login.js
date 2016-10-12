@@ -1,0 +1,1 @@
+// TODO: Test if the user can access authenticated pages without being logged in

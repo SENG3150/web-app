@@ -8,6 +8,11 @@ var cssnano = require('gulp-cssnano');
 var ngConstant = require('gulp-ng-constant');
 var less = require('gulp-less');
 var rename = require('gulp-rename');
+var exec = require('gulp-exec');
+var foreach = require('gulp-foreach');
+var path = require('path');
+var runSequence = require('run-sequence');
+var fs = require('fs');
 
 var templateCacheConfig = {
 	source: [
@@ -179,6 +184,47 @@ gulp.task('build-theme', function () {
 		.pipe(gulp.dest(config.destination));
 });
 
+
+var testConfig = {
+	karma: {
+		source: [
+			'dist/core.js',
+			'dist/app.js',
+			'dist/templates.js',
+			'dist/plugins.js',
+			'bower_components/highcharts/highcharts.js',
+			'bower_components/highcharts-ng/dist/highcharts-ng.min.js',
+			'tests/presentation/**/*.js',
+			'tests/unit/services/*.js',
+			'tests/unit/directives/*.js',
+			'tests/unit/factories/*.js',
+			'tests/unit/filters/*.js',
+			'tests/unit/routes/**/*.js',
+			'tests/unit/routes/*.js',
+			'tests/unit/controllers/**/*.js',
+			'tests/security/*.js',
+			'tests/usability/*.js'
+		],
+		browsers: ['Chrome', 'Firefox']
+	},
+	artillery: {
+		source: [
+			'tests/efficiency/*.json'
+		],
+		prefix: 'tests/efficiency/output/',
+		config: './env.json',
+		options: {
+			continueOnError: false,
+			pipeStdout: false
+		},
+		reporting: {
+			err: true,
+			stderr: true,
+			stdout: true
+		}
+	}
+};
+
 gulp.task('env-development', function () {
 	var config = {
 		space: '  ',
@@ -192,6 +238,8 @@ gulp.task('env-development', function () {
 		},
 		destination: 'js/'
 	};
+
+	fs.writeFile(testConfig.artillery.config, JSON.stringify(config.constants));
 
 	return ngConstant(config)
 		.pipe(gulp.dest(config.destination));
@@ -211,35 +259,14 @@ gulp.task('env-production', function () {
 		destination: 'js/'
 	};
 
+	fs.writeFile(testConfig.artillery.config, JSON.stringify(config.constants));
+
 	return ngConstant(config)
 		.pipe(gulp.dest(config.destination));
 });
 
-var testConfig = {
-	source: [
-		'dist/core.js',
-		'dist/app.js',
-		'dist/templates.js',
-		'dist/plugins.js',
-		'bower_components/highcharts/highcharts.js',
-		'bower_components/highcharts-ng/dist/highcharts-ng.min.js',
-		'tests/efficiency/*.js',
-		'tests/presentation/**/*.js',
-		'tests/unit/services/*.js',
-		'tests/unit/directives/*.js',
-		'tests/unit/factories/*.js',
-		'tests/unit/filters/*.js',
-		'tests/unit/routes/**/*.js',
-		'tests/unit/routes/*.js',
-		'tests/unit/controllers/**/*.js',
-		'tests/security/*.js',
-		'tests/usability/*.js'
-	],
-	browsers: ['Chrome', 'Firefox']
-};
-
 gulp.task('test', ['concat-core', 'concat-app', 'concat-plugins', 'template-cache'], function (done) {
-	var browsers = testConfig.browsers;
+	var browsers = testConfig.karma.browsers;
 
 	if (/^win/.test(process.platform)) {
 		browsers.push('IE');
@@ -247,11 +274,32 @@ gulp.task('test', ['concat-core', 'concat-app', 'concat-plugins', 'template-cach
 		browsers.push('Safari');
 	}
 
+	var config = require(testConfig.artillery.config);
+
+	if (config.ENV == null) {
+		runSequence('env-development', 'artillery');
+	} else {
+		gulp.start('artillery');
+	}
+
 	new Server({
 		configFile: __dirname + '/karma.conf.js',
-		files: testConfig.source,
+		files: testConfig.karma.source,
 		browsers: browsers
 	}, done).start();
+});
+
+gulp.task('artillery', function () {
+	var config = require(testConfig.artillery.config);
+
+	return gulp.src(testConfig.artillery.source)
+		.pipe(foreach(function (stream, file) {
+			var filename = path.basename(file.path);
+
+			return stream
+				.pipe(exec('node_modules\\.bin\\artillery run "' + file.path + '" -t "' + config.ENV.apiEndpoint + '" -o "' + testConfig.artillery.prefix + filename + '"', testConfig.artillery.options))
+				.pipe(exec.reporter(testConfig.artillery.reporting));
+		}));
 });
 
 gulp.task('watcher', function () {

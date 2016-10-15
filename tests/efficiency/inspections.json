@@ -1,6 +1,5 @@
 {
   "config": {
-    "target": "http://seng3150.api.local",
     "phases": [{"duration": 60, "arrivalCount": 60}]
   },
   "scenarios": [

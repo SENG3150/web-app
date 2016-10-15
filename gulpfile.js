@@ -184,7 +184,6 @@ gulp.task('build-theme', function () {
 		.pipe(gulp.dest(config.destination));
 });
 
-
 var testConfig = {
 	karma: {
 		source: [

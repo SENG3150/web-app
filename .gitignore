@@ -4,5 +4,6 @@
 /js/ngConstants.js
 /dist/*
 /fonts/*
+/tests/efficiency/artillery_report_*.json
 Thumbs.db
 npm-debug.log

@@ -1,0 +1,33 @@
+{
+  "config": {
+    "target": "http://seng3150.api.local",
+    "phases": [{"duration": 60, "arrivalCount": 60}]
+  },
+  "scenarios": [
+    {
+      "name": "load inspections",
+      "flow":[
+        {"post": {
+            "url": "/auth/authenticate",
+            "capture": {
+              "json": "$.token",
+              "as": "token"
+            },
+            "json": {
+              "type": "administrator",
+              "username": "administrator",
+              "password": "administrator"
+            }
+          }
+        },
+        {"get": {
+            "url": "/inspections/1",
+            "headers": {
+              "Authorization": "bearer {{token}}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

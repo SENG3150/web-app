@@ -1,12 +1,18 @@
 {
   "config": {
-    "phases": [{"duration": 60, "arrivalCount": 60}]
+    "phases": [
+      {
+        "duration": 60,
+        "arrivalCount": 60
+      }
+    ]
   },
   "scenarios": [
     {
       "name": "load inspections",
-      "flow":[
-        {"post": {
+      "flow": [
+        {
+          "post": {
             "url": "/auth/authenticate",
             "capture": {
               "json": "$.token",
@@ -19,7 +25,8 @@
             }
           }
         },
-        {"get": {
+        {
+          "get": {
             "url": "/inspections/1",
             "headers": {
               "Authorization": "bearer {{token}}"

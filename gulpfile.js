@@ -252,7 +252,7 @@ gulp.task('env-production', function () {
 		constants: {
 			ENV: {
 				name: 'production',
-				apiEndpoint: 'https://seng3150-api.wingmanwebdesign.com.au/'
+				apiEndpoint: 'http://seng3150.api.local/'
 			}
 		},
 		destination: 'js/'

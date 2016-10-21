@@ -97,7 +97,7 @@ describe('AdministratorTechniciansControllerCreate', function() {
             expect(scope.validate()).toBe(false);
         });
 
-        it('fails due to the loginExpiresTime being empty', function() {
+        it('fails due to the loginExpiresTime being empty, while temporary is true', function() {
             scope.technician.username = 'user';
             scope.technician.email = 'email';
             scope.technician.firstName = 'first';

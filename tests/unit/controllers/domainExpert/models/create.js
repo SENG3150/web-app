@@ -58,7 +58,7 @@ describe('DomainExpertModelsControllerCreate', function () {
 
             httpBackend.flush();
 
-            expect($state.go).toHaveBeenCalled();
+            expect($state.go).toHaveBeenCalledWith('domainExpert-models-index');
         });
 
         it('there should be a server error', function() {
@@ -70,7 +70,7 @@ describe('DomainExpertModelsControllerCreate', function () {
             scope.submitModel();
 
             httpBackend.flush();
-            expect(toastr.error).toHaveBeenCalled();
+            expect(toastr.error).toHaveBeenCalledWith('There was an error creating the model.');
         });
     });
 });

@@ -115,7 +115,7 @@ describe('DomainExpertMachinesControllerCreate', function () {
 
             httpBackend.flush();
 
-            expect(toastr.error).toHaveBeenCalled();
+            expect(toastr.error).toHaveBeenCalledWith('There was an error creating the machine.');
         });
     });
 });

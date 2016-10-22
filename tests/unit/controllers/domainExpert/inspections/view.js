@@ -59,6 +59,90 @@ describe('DomainExpertInspectionsControllerView', function () {
 
             expect(toastr.error).toHaveBeenCalledWith('There was an error while saving your comment.', 'Error');
         });
+
+        it('should be successfully saved', function() {
+            var inspectionData = {
+                id: 0,
+                comments: [],
+                photos: [],
+                majorAssemblies: [
+                    {
+                        id: 1,
+                        photos: [],
+                        majorAssembly: {
+                            name: 'major 1'
+                        },
+                        comments: [
+                            {
+                                text: 'message',
+                                id: '1'
+                            }
+                        ],
+                        subAssemblies: [
+                            {
+                                id: 1,
+                                photos: [],
+                                subAssembly: {
+                                    name: 'sub 1'
+                                },
+                                comments: [
+                                    {
+                                        text: 'message',
+                                        id: '2'
+                                    }
+                                ],
+                                machineGeneralTest: {
+                                    comments: [
+                                        {
+                                            text: 'message',
+                                            id: '3'
+                                        }
+                                    ]
+                                },
+                                oilTest: {
+                                    comments: [
+                                        {
+                                            text: 'message',
+                                            id: '3'
+                                        }
+                                    ]
+                                },
+                                wearTest: {
+                                    comments: [
+                                        {
+                                            text: 'message',
+                                            id: '3'
+                                        }
+                                    ]
+                                },
+                            }
+                        ]
+                    }
+                ]
+            };
+
+            httpBackend.when('GET', ENV.apiEndpoint + inspectionGetRequest).respond(inspectionData);
+            httpBackend.flush();
+
+            httpBackend.when('POST', ENV.apiEndpoint + 'comments').respond(200, '');
+            spyOn(toastr, 'success');
+
+            //fake a function that that should exist
+            //when a modal is added to the html.
+            scope.dismiss = function() {
+                return true;
+            };
+
+            var previousCommentCount = scope.node.comments.length;
+            scope.comment = 'testing';
+
+            scope.addComment();
+            httpBackend.flush();
+
+            expect(toastr.success).toHaveBeenCalledWith('Your comment was saved successfully.');
+
+            expect(scope.node.comments.length).toBe(previousCommentCount + 1);
+        });
     });
 
     describe('.selectNode()', function() {

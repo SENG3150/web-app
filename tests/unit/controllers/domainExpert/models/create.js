@@ -31,13 +31,17 @@ describe('DomainExpertModelsControllerCreate', function () {
         });
 
         it('name cannot be null', function() {
+            spyOn(toastr, 'error');
             scope.model.name = null;
             expect(scope.validate()).toBe(false);
+            expect(toastr.error).toHaveBeenCalledWith('Enter Model name.');
         });
 
         it('name cannot be empty', function() {
+            spyOn(toastr, 'error');
             scope.model.name = '';
             expect(scope.validate()).toBe(false);
+            expect(toastr.error).toHaveBeenCalledWith('Enter Model name.');
         });
     });
 

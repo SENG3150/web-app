@@ -33,13 +33,17 @@ describe('DomainExpertModelsViewMajorAssemblyControllerCreate', function () {
         });
 
         it('name cannot be null', function() {
+            spyOn(toastr, 'error');
             scope.majorAssembly.name = null;
             expect(scope.validate()).toBe(false);
+            expect(toastr.error).toHaveBeenCalledWith('Enter major assembly name.');
         });
 
         it('name cannot be empty', function() {
+            spyOn(toastr, 'error');
             scope.majorAssembly.name = '';
             expect(scope.validate()).toBe(false);
+            expect(toastr.error).toHaveBeenCalledWith('Enter major assembly name.');
         });
     });
 

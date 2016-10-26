@@ -52,18 +52,31 @@ describe('AuthControllerLogin', function () {
             scope.username = 'a';
             scope.password = 'a';
             expect(scope.validate()).toBe(true);
+
         });
 
         it('should return false when no username is provided, but a password is provided', function () {
+            spyOn(toastr, 'error');
             scope.username = '';
             scope.password = 'a';
             expect(scope.validate()).toBe(false);
+            expect(toastr.error).toHaveBeenCalledWith('You must provide your Username.', 'Error')
+        });
+
+        it('should return false when a null username is provided, but a password is provided', function () {
+            spyOn(toastr, 'error');
+            scope.username = null;
+            scope.password = 'a';
+            expect(scope.validate()).toBe(false);
+            expect(toastr.error).toHaveBeenCalledWith('You must provide your Username.', 'Error')
         });
 
         it('should return false when no password is provided, but a username is provided', function () {
+            spyOn(toastr, 'warning');
             scope.username = 'a';
             scope.password = '';
             expect(scope.validate()).toBe(false);
+            expect(toastr.warning).toHaveBeenCalledWith('You must provide your Password.', 'Error');
         });
     });
 
@@ -106,6 +119,22 @@ describe('AuthControllerLogin', function () {
             scope.$digest();
 
             expect($state.go).toHaveBeenCalledWith('index');
+        }));
+
+        it('should fail to login due to incorrect username and password', inject(function($q) {
+            var deferred = $q.defer();
+            spyOn(AuthService, 'authenticate').and.returnValue(deferred.promise);
+            spyOn(toastr, 'error');
+
+            scope.username = 'administrator';
+            scope.password = 'a';
+            scope.type = 'administrator';
+            scope.login();
+
+            deferred.reject();
+            scope.$digest();
+
+            expect(toastr.error).toHaveBeenCalledWith('Your credentials were incorrect.', 'Error');
         }));
     });
 });

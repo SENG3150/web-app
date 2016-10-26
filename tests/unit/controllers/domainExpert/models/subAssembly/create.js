@@ -33,13 +33,17 @@ describe('DomainExpertModelsViewSubAssemblyControllerCreate', function () {
         });
 
         it('name cannot be null', function() {
+            spyOn(toastr, 'error');
             scope.subAssembly.name = null;
             expect(scope.validate()).toBe(false);
+            expect(toastr.error).toHaveBeenCalledWith('Enter sub assembly name.');
         });
 
         it('name cannot be empty', function() {
+            spyOn(toastr, 'error');
             scope.subAssembly.name = '';
             expect(scope.validate()).toBe(false);
+            expect(toastr.error).toHaveBeenCalledWith('Enter sub assembly name.');
         });
     });
 

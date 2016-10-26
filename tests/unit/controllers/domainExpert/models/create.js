@@ -31,13 +31,17 @@ describe('DomainExpertModelsControllerCreate', function () {
         });
 
         it('name cannot be null', function() {
+            spyOn(toastr, 'error');
             scope.model.name = null;
             expect(scope.validate()).toBe(false);
+            expect(toastr.error).toHaveBeenCalledWith('Enter Model name.');
         });
 
         it('name cannot be empty', function() {
+            spyOn(toastr, 'error');
             scope.model.name = '';
             expect(scope.validate()).toBe(false);
+            expect(toastr.error).toHaveBeenCalledWith('Enter Model name.');
         });
     });
 
@@ -58,7 +62,7 @@ describe('DomainExpertModelsControllerCreate', function () {
 
             httpBackend.flush();
 
-            expect($state.go).toHaveBeenCalled();
+            expect($state.go).toHaveBeenCalledWith('domainExpert-models-index');
         });
 
         it('there should be a server error', function() {
@@ -70,7 +74,7 @@ describe('DomainExpertModelsControllerCreate', function () {
             scope.submitModel();
 
             httpBackend.flush();
-            expect(toastr.error).toHaveBeenCalled();
+            expect(toastr.error).toHaveBeenCalledWith('There was an error creating the model.');
         });
     });
 });

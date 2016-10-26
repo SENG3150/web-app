@@ -1,15 +1,17 @@
 describe('DomainExpertModelsViewMajorAssemblyControllerCreate', function () {
-    var createController, rootScope, httpBackend, Models, MajorAssemblies, ENV;
+    var createController, rootScope, httpBackend, Models, MajorAssemblies, ENV, $state, toastr;
 
     beforeEach(angular.mock.module('joy-global'));
 
-    beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_, _Models_, _MajorAssemblies_, _ENV_) {
+    beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_, _Models_, _MajorAssemblies_, _ENV_, _$state_, _toastr_) {
         createController = $controller;
         rootScope = _$rootScope_;
         httpBackend = _$httpBackend_;
         Models = _Models_;
         MajorAssemblies = _MajorAssemblies_;
         ENV = _ENV_;
+        $state = _$state_;
+        toastr = _toastr_;
     }));
 
     it('should exist', function(){
@@ -31,13 +33,17 @@ describe('DomainExpertModelsViewMajorAssemblyControllerCreate', function () {
         });
 
         it('name cannot be null', function() {
+            spyOn(toastr, 'error');
             scope.majorAssembly.name = null;
             expect(scope.validate()).toBe(false);
+            expect(toastr.error).toHaveBeenCalledWith('Enter major assembly name.');
         });
 
         it('name cannot be empty', function() {
+            spyOn(toastr, 'error');
             scope.majorAssembly.name = '';
             expect(scope.validate()).toBe(false);
+            expect(toastr.error).toHaveBeenCalledWith('Enter major assembly name.');
         });
     });
 
@@ -51,20 +57,39 @@ describe('DomainExpertModelsViewMajorAssemblyControllerCreate', function () {
         });
 
         it('should save', function() {
-            httpBackend.when('POST', ENV.apiEndpoint + '/majorAssemblies').respond(200, '');
-            spyOn(MajorAssemblies, 'post').and.callThrough();
+            httpBackend.when('GET', ENV.apiEndpoint + 'models').respond(422, '');
 
+            httpBackend.when('POST', ENV.apiEndpoint + 'majorAssemblies').respond(200, '');
+            spyOn($state, 'go');
+
+            scope.modelId = 10;
             scope.majorAssembly = {
                 name: 'major 1'
             };
             scope.save();
+            httpBackend.flush();
 
-            expect(MajorAssemblies.post).toHaveBeenCalled();
+            expect($state.go).toHaveBeenCalledWith('domainExpert-models-view', {id: scope.modelId});
+        });
+
+        it('should fail to save due to a server error', function() {
+            httpBackend.when('GET', ENV.apiEndpoint + 'models').respond(422, '');
+
+            httpBackend.when('POST', ENV.apiEndpoint + 'majorAssemblies').respond(422, '');
+            spyOn(toastr, 'error');
+
+            scope.modelId = 10;
+            scope.majorAssembly = {
+                name: 'major 1'
+            };
+            scope.save();
+            httpBackend.flush();
+
+            expect(toastr.error).toHaveBeenCalledWith('There was an error creating the Major Assembly.');
         });
 
         it('should fail due to no name', function() {
-            httpBackend.when('POST', ENV.apiEndpoint + '/majorAssemblies').respond(200, '');
-            spyOn(MajorAssemblies, 'post').and.callThrough();
+            spyOn(toastr, 'error');
 
             scope.majorAssembly = {
                 name: '',
@@ -75,7 +100,7 @@ describe('DomainExpertModelsViewMajorAssemblyControllerCreate', function () {
             };
             scope.save();
 
-            expect(MajorAssemblies.post).not.toHaveBeenCalled();
+            expect(toastr.error).toHaveBeenCalledWith('Enter major assembly name.');
         });
     });
 });

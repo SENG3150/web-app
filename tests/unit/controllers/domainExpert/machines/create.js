@@ -33,27 +33,35 @@ describe('DomainExpertMachinesControllerCreate', function () {
         });
 
         it('name cannot be null', function() {
+            spyOn(toastr, 'error');
             scope.machine.name = null;
             scope.machine.model.id = 1;
             expect(scope.validate()).toBe(false);
+            expect(toastr.error).toHaveBeenCalledWith('Enter machine name.');
         });
 
         it('name cannot be empty', function() {
+            spyOn(toastr, 'error');
             scope.machine.name = '';
             scope.machine.model.id = 1;
             expect(scope.validate()).toBe(false);
+            expect(toastr.error).toHaveBeenCalledWith('Enter machine name.');
         });
 
         it('model id cannot be empty', function() {
+            spyOn(toastr, 'error');
             scope.machine.name = 'abc';
             scope.machine.model.id = '';
             expect(scope.validate()).toBe(false);
+            expect(toastr.error).toHaveBeenCalledWith('Please choose a model.');
         });
 
         it('model id cannot be null', function() {
+            spyOn(toastr, 'error');
             scope.machine.name = 'abc';
             scope.machine.model.id = null;
             expect(scope.validate()).toBe(false);
+            expect(toastr.error).toHaveBeenCalledWith('Please choose a model.');
         });
     });
 
@@ -115,7 +123,7 @@ describe('DomainExpertMachinesControllerCreate', function () {
 
             httpBackend.flush();
 
-            expect(toastr.error).toHaveBeenCalled();
+            expect(toastr.error).toHaveBeenCalledWith('There was an error creating the machine.');
         });
     });
 });

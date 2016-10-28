@@ -1,5 +1,5 @@
 describe('DomainExpertModelsViewMajorAssemblyControllerView', function () {
-    var DomainExpertModelsViewMajorAssemblyControllerView, rootScope, httpBackend,$state, toastr, ENV, AuthService;
+    var DomainExpertModelsViewMajorAssemblyControllerView, rootScope, httpBackend, $state, toastr, ENV, AuthService;
 
     beforeEach(angular.mock.module('joy-global'));
 
